@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using Facebook.MiniJSON;
 using Facebook.Unity;
+using NUlid;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -12,19 +14,17 @@ namespace ElephantSDK
 {
     public delegate void OnInitialized();
 
-    public delegate void OnOpenResult(bool gdprRequired);
+    public delegate void OnOpenResult(bool gdprRequired, ComplianceTosResponse tos);
 
     public delegate void OnRemoteConfigLoaded();
 
     public class ElephantCore : MonoBehaviour
     {
-        private string GameID = "";
-        private string GameSecret = "";
-
+        public string GameID = "";
+        public string GameSecret = "";
 
         private string defaultGameID = "";
         private string defaultGameSecret = "";
-
 
         public static ElephantCore Instance = null;
 
@@ -33,30 +33,41 @@ namespace ElephantSDK
         private const string ELEPHANT_BASE_URL = "http://localhost:3100/v2";
 #elif UNITY_EDITOR
         private static bool debug = true;
-        private const string ELEPHANT_BASE_URL = "https://newapi.rollic.gs/v2";
+        private const string ELEPHANT_BASE_URL = "https://newapi.rollic.gs/v3";
 #else
         private static bool debug = true;
-        private const string ELEPHANT_BASE_URL = "https://newapi.rollic.gs/v2";
+        private const string ELEPHANT_BASE_URL = "https://newapi.rollic.gs/v3";
 #endif
 
         public const string OPEN_EP = ELEPHANT_BASE_URL + "/open";
-        public const string GDPR_EP = ELEPHANT_BASE_URL + "/gdpr";
+        public const string USER_EP = ELEPHANT_BASE_URL + "/user";
         public const string EVENT_EP = ELEPHANT_BASE_URL + "/event";
         public const string SESSION_EP = ELEPHANT_BASE_URL + "/session";
         public const string MONITORING_EP = ELEPHANT_BASE_URL + "/monitoring";
         public const string TRANSACTION_EP = ELEPHANT_BASE_URL + "/transaction";
         public const string AD_REVENUE_EP = ELEPHANT_BASE_URL + "/adrevenue";
         public const string IAP_STATUS_EP = ELEPHANT_BASE_URL + "/user/iap/status";
+        public const string ZIS_EP = ELEPHANT_BASE_URL + "/user/player_data";
+        public const string PIN_EP = ELEPHANT_BASE_URL + "/gdpr/pin";
+        public const string TOS_ACCEPT_EP = ELEPHANT_BASE_URL + "/tos/accept";
+        public const string CCPA_STATUS = ELEPHANT_BASE_URL + "/ccpa/status";
+        public const string GDPR_AD_CONSENT = ELEPHANT_BASE_URL + "/gdpr/status";
+        public const string SETTINGS_EP = ELEPHANT_BASE_URL + "/settings";
+        public const string HEALTH_CHECK_EP = "https://newapi.rollic.gs/health_check";
 
 
         private Queue<ElephantRequest> _queue = new Queue<ElephantRequest>();
         private List<ElephantRequest> _failedQueue = new List<ElephantRequest>();
         private bool processQueues = false;
+        private bool processFailedBatch = true;
 
         private static string QUEUE_DATA_FILE = "ELEPHANT_DATA_QUEUE_";
 
 
         private bool sdkIsReady = false;
+        private bool circuitBreakerEnabled = false;
+        private int health_check_retry_period = 300;
+        private int fail_retry_count = 4;
 
         private bool openRequestWaiting;
         private bool openRequestSucceded;
@@ -68,6 +79,8 @@ namespace ElephantSDK
         internal string buildNumber = "";
         internal string consentStatus = "NotDetermined";
         internal string userId = "";
+        internal string clientId = "";
+        internal ZisPlayerIdResponse zisPlayer;
         internal List<MirrorData> mirrorData;
         internal int eventOrder = 0;
         internal float focusLostTime = 0;
@@ -76,17 +89,20 @@ namespace ElephantSDK
         
         private OpenResponse openResponse;
         private string cachedOpenResponse;
+        private ElephantComplianceManager _elephantComplianceManager;
 
-        private static int MAX_FAILED_COUNT = 100;
+        private static int MAX_FAILED_COUNT = 250;
 
         private static string OLD_ELEPHANT_FILE = "elephant.json";
 #if ELEPHANT_DEBUG
         private static string REMOTE_CONFIG_FILE = "ELEPHANT_REMOTE_CONFIG_DATA_6";
         private static string USER_DB_ID = "USER_DB_ID_6";
+        private static string CLIENT_DB_ID = "CLIENT_DB_ID_6";
         private static string CACHED_OPEN_RESPONSE = "CACHED_OPEN_RESPONSE_DEBUG";
 #else
         private static string REMOTE_CONFIG_FILE = "ELEPHANT_REMOTE_CONFIG_DATA";
         private static string USER_DB_ID = "USER_DB_ID";
+        private static string CLIENT_DB_ID = "CLIENT_DB_ID";
         private static string CACHED_OPEN_RESPONSE = "CACHED_OPEN_RESPONSE";
 #endif
 
@@ -119,6 +135,8 @@ namespace ElephantSDK
 #if !UNITY_EDITOR && UNITY_ANDROID
             ElephantAndroid.Init();
 #endif
+
+            ElephantLog.GetInstance(ElephantLogLevel.Prod);
         }
 
         void Start()
@@ -156,8 +174,8 @@ namespace ElephantSDK
 
             if (settings == null)
             {
-                Debug.LogError(
-                    "[Elephant SDK]  Elephant SDK settings isn't setup, use Window -> Elephant -> Edit Settings to enter your Game ID and Game Secret");
+                ElephantLog.LogError("ELEPHANT INIT",
+                    "Elephant SDK settings isn't setup, use Window -> Elephant -> Edit Settings to enter your Game ID and Game Secret");
             }
             else
             {
@@ -169,10 +187,11 @@ namespace ElephantSDK
             if (GameID.Equals(defaultGameID) || GameSecret.Equals(defaultGameSecret) || GameID.Trim().Length == 0 ||
                 GameSecret.Trim().Length == 0)
             {
-                Debug.LogError(
-                    "[Elephant SDK]  Game ID and Game Secret are not present, make sure you replace them with yours using Window -> Elephant -> Edit Settings");
+                ElephantLog.LogError("ELEPHANT INIT",
+                    "Game ID and Game Secret are not present, make sure you replace them with yours using Window -> Elephant -> Edit Settings");
             }
 
+            InvokeRepeating(nameof(CheckApiHealth), 1, health_check_retry_period);
             VersionCheckUtils.GetInstance();
             
 #if UNITY_EDITOR
@@ -192,6 +211,8 @@ namespace ElephantSDK
             else
             {
                 FB.ActivateApp();
+                FB.Mobile.SetAdvertiserIDCollectionEnabled(false);
+                FB.Mobile.SetAdvertiserTrackingEnabled(false);
             }
 
             this.gdprSupported = gdprSupported;
@@ -207,8 +228,15 @@ namespace ElephantSDK
 
             string savedConfig = Utils.ReadFromFile(REMOTE_CONFIG_FILE);
             userId = Utils.ReadFromFile(USER_DB_ID) ?? "";
+            zisPlayer = ZisPlayerIdResponse.Get();
+            clientId = Utils.ReadFromFile(CLIENT_DB_ID) ?? "";
+            if (string.IsNullOrEmpty(clientId))
+            {
+                clientId = Ulid.NewUlid().ToString();
+                Utils.SaveToFile(CLIENT_DB_ID, clientId);
+            }
 
-            Log("Remote Config From File --> " + savedConfig);
+            ElephantLog.Log("Init","Remote Config From File --> " + savedConfig);
             
             var isUsingRemoteConfig = 0;
 
@@ -244,7 +272,7 @@ namespace ElephantSDK
 
             isUsingRemoteConfig = openRequestSucceded ? 1 : -1;
 
-            Log(JsonUtility.ToJson(openResponse));
+            ElephantLog.Log("OPEN REQUEST", JsonUtility.ToJson(openResponse));
 
             var parameters = Params.New()
                 .Set("real_duration", (DateTime.Now - realTimeBeforeRequest).TotalMilliseconds)
@@ -261,51 +289,49 @@ namespace ElephantSDK
             Utils.SaveToFile(USER_DB_ID, openResponse.user_id);
             Utils.SaveToFile(CACHED_OPEN_RESPONSE, JsonUtility.ToJson(openResponse));
             userId = openResponse.user_id;
+            zisPlayer = openResponse.zisPlayer;
             mirrorData = openResponse.mirror_data ?? new List<MirrorData>();
             currentSession.user_tag = RemoteConfig.GetInstance().GetTag();
             
-            if (IsForceUpdateNeeded())
-            {
-                var forceUpdateEventParams = Params.New()
-                    .Set("version_seen", Application.version);
-                
-                Elephant.Event("force_update_seen", -1, forceUpdateEventParams);
-                
-#if UNITY_EDITOR
-                // no-op
-#elif UNITY_ANDROID
-                ElephantAndroid.showForceUpdate("Update needed", "Please update your application");
-#elif UNITY_IOS
-                ElephantIOS.showForceUpdate("Update needed", "Please update your application");
-#else 
-                // no-op
-#endif
+            // T0 - Check Network Reachability
 
-                yield break;
+            if (InternalConfig.GetInstance().reachability_check_enabled)
+            {
+                Elephant.ShowNetworkOfflineDialog();
+
+                while (!Utils.IsConnected())
+                {
+                    yield return null;
+                }                
             }
+
+            _elephantComplianceManager = ElephantComplianceManager.GetInstance(openResponse);
+
+            // T1 - First check: Force Update
+            if (_elephantComplianceManager.CheckForceUpdate()) yield break;
+
+            // T2 - check if the user is blocked from data deletion
+            _elephantComplianceManager.ShowBlockedPopUp();
+            if (openResponse.compliance.blocked.is_blocked) yield break;
 
             if (onOpen != null)
             {
-                if (openResponse.consent_required)
-                {
-                    onOpen(true);
-                }
-                else
-                {
-                    OpenIdfaConsent();
-                    onOpen(false);
-                }
+                // T3 - show tos and pp (replacement for old gdpr)
+                _elephantComplianceManager.ShowTosAndPp(onOpen);
             }
             else
             {
-                Debug.LogWarning("ElephantSDK onOpen event is not handled");
+                ElephantLog.Log("ELEPHANT INIT","ElephantSDK onOpen event is not handled");
             }
+            
+            // T4 - start zynga player id request async..
+            StartCoroutine(ZisRequest());
 
             sdkIsReady = true;
             if (onRemoteConfigLoaded != null)
                 onRemoteConfigLoaded();
         }
-        
+
         public void OpenIdfaConsent()
         {
 #if UNITY_IOS && !UNITY_EDITOR
@@ -336,25 +362,15 @@ namespace ElephantSDK
             
             Elephant.Event("elephant_sdk_versions_info", -1, parameters);
         }
-        
-        private bool IsForceUpdateNeeded()
-        {
-            var internalConfig = openResponse?.internal_config;
-            if (internalConfig == null) return false;
-
-            if (string.IsNullOrEmpty(internalConfig.min_app_version)) return false;
-
-            return VersionCheckUtils.GetInstance()
-                .CompareVersions(Application.version, internalConfig.min_app_version) < 0;
-            
-        }
 
         private void OnFbInitComplete()
         {
             if (FB.IsInitialized) {
                 FB.ActivateApp();
+                FB.Mobile.SetAdvertiserIDCollectionEnabled(false);
+                FB.Mobile.SetAdvertiserTrackingEnabled(false);
             } else {
-                Debug.Log("Failed to Initialize the Facebook SDK");
+                ElephantLog.Log("ELEPHANT INIT","Failed to Initialize the Facebook SDK");
             }
         }
         
@@ -415,61 +431,179 @@ namespace ElephantSDK
 
             var json = JsonUtility.ToJson(openData);
             var bodyJson = JsonUtility.ToJson(new ElephantData(json, GetCurrentSession().GetSessionID()));
-            yield return PostWithResponse(OPEN_EP, bodyJson);
+            var networkManager = new GenericNetworkManager<OpenResponse>();
+            var postWithResponse = networkManager.PostWithResponse(OPEN_EP, bodyJson, response =>
+            {
+                if (response.responseCode == 200)
+                {
+                    if (response.data != null)
+                    {
+                        openRequestSucceded = true;
+                        openResponse = response.data;
+                    }
+                }
+                else if (response.responseCode == 204)
+                {
+                    var data = JsonUtility.FromJson<OpenResponse>(cachedOpenResponse);
+                    if (data != null)
+                    {
+                        Elephant.Event("hashed_open_response", -1);
+                        openRequestSucceded = true;
+                        openResponse = data;
+                    }
+                }
+                
+                openRequestWaiting = false;
+            }, s =>
+            {
+                openRequestWaiting = false;
+            });
+            
+            yield return postWithResponse;
+        }
+        
+        public void CheckApiHealth()
+        {
+            var bodyJson = JsonUtility.ToJson(new ElephantData("", ElephantCore.Instance.GetCurrentSession().GetSessionID()));
+            var networkManager = new GenericNetworkManager<HealthCheckResponse>();
+            var postWithResponse = networkManager.PostWithResponse(HEALTH_CHECK_EP, bodyJson, response =>
+            {
+                if (response.responseCode != 200)
+                {
+                    circuitBreakerEnabled = true;
+                }
+                else
+                {
+                    circuitBreakerEnabled = false;
+                    if (response.data == null) return;
+                    
+                    health_check_retry_period = response.data.retry_period;
+                    fail_retry_count = response.data.retry_count;
+
+                }
+            }, s =>
+            {
+                
+            });
+            StartCoroutine(postWithResponse);
+        }
+        
+        public void PinRequest()
+        {
+#if UNITY_EDITOR
+            // No-op
+            ElephantLog.Log("COMPLIANCE TEST","showPopUpView Loading");
+#elif UNITY_IOS
+            ElephantIOS.showPopUpView("LOADING", "", "", "", "", "", "", "", "");
+#elif UNITY_ANDROID
+            ElephantAndroid.ShowConsentDialog("LOADING", "", "", "", "", "", "", "", "");
+#endif
+            
+            var data = new ComplianceRequestData();
+            var json = JsonUtility.ToJson(data);
+            var bodyJson = JsonUtility.ToJson(new ElephantData(json, ElephantCore.Instance.GetCurrentSession().GetSessionID()));
+            var networkManager = new GenericNetworkManager<Pin>();
+            var postWithResponse = networkManager.PostWithResponse(PIN_EP, bodyJson, response =>
+            {
+                var pinData = response.data;
+                
+                if (pinData != null)
+                {
+#if UNITY_EDITOR
+                    // No-op
+                    ElephantLog.Log("COMPLIANCE TEST","showPopUpView Content");
+#elif UNITY_IOS
+                    ElephantIOS.showPopUpView("CONTENT", pinData.content, "Go Back", pinData.privacy_policy_text, pinData.privacy_policy_url,
+                            pinData.terms_of_service_text, pinData.terms_of_service_url, pinData.data_request_text,
+                            pinData.data_request_url);
+#elif UNITY_ANDROID
+                    ElephantAndroid.ShowConsentDialog("CONTENT", pinData.content, "Go Back",
+                            pinData.privacy_policy_text, pinData.privacy_policy_url, pinData.terms_of_service_text,
+                            pinData.terms_of_service_url, pinData.data_request_text, pinData.data_request_url);
+#endif                    
+                }
+                else
+                {
+#if UNITY_EDITOR
+                    // No-op
+                    ElephantLog.Log("COMPLIANCE TEST","showPopUpView Error");
+#elif UNITY_IOS
+            ElephantIOS.showPopUpView("ERROR", "", "", "", "", "", "", "", "");
+#elif UNITY_ANDROID
+                    ElephantAndroid.ShowConsentDialog("ERROR", "", "", "", "", "", "", "", "");
+#endif  
+                }
+            }, s =>
+            {
+#if UNITY_EDITOR
+                    // No-op
+                    ElephantLog.Log("COMPLIANCE TEST","showPopUpView Error");
+#elif UNITY_IOS
+                    ElephantIOS.showPopUpView("ERROR", "", "", "", "", "", "", "", "");
+#elif UNITY_ANDROID
+                    ElephantAndroid.ShowConsentDialog("ERROR", "", "", "", "", "", "", "", "");
+#endif 
+            });
+            StartCoroutine(postWithResponse);
         }
 
-        IEnumerator PostWithResponse(string url, string bodyJsonString)
+        private IEnumerator ZisRequest()
         {
-            var request = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST);
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+            if (zisPlayer == null)
+            {
+                yield break;
+            }
+
+            var zisPlayerIdRequest = ZisPlayerIdRequest.CreateZisPlayerIdRequest();
+            
+            
+#if UNITY_EDITOR
+            zisPlayerIdRequest.locale = CultureInfo.CurrentCulture.Name;
+#elif UNITY_IOS
+            zisPlayerIdRequest.locale = ElephantIOS.getLocale();
+#elif UNITY_ANDROID
+            zisPlayerIdRequest.locale = ElephantAndroid.GetLocale();
+#else
+            zisPlayerIdRequest.locale = CultureInfo.CurrentCulture.Name;
+#endif   
+            
+            
+            var json = JsonUtility.ToJson(zisPlayerIdRequest);
+            var bodyJson = JsonUtility.ToJson(new ElephantData(json, GetCurrentSession().GetSessionID()));
+            
+            var request = new UnityWebRequest(ZIS_EP, UnityWebRequest.kHttpVerbPOST);
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJson);
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
-
-            request.SetRequestHeader("Authorization", Utils.SignString(bodyJsonString, GameSecret));
+            request.SetRequestHeader("Content-Encoding", "gzip");
+            request.SetRequestHeader("Authorization", Utils.SignString(bodyJson, GameSecret));
             request.SetRequestHeader("GameID", GameID);
 
             yield return request.SendWebRequest();
-
-            Log("Status Code: " + request.responseCode);
-            Log("Body: " + request.downloadHandler.text);
-
+            
             if (request.isNetworkError)
             {
-                Log("Request Error");
+                ElephantLog.LogError("ZIS REQUEST", "Request failed with network error");
             }
             else
             {
                 try
                 {
-                    if (request.responseCode == 200)
+                    if (request.responseCode != 200) yield break;
+                    
+                    var a = JsonUtility.FromJson<ZisPlayerIdResponse>(request.downloadHandler.text);
+                    if (a != null)
                     {
-                        var a = JsonUtility.FromJson<OpenResponse>(request.downloadHandler.text);
-                        if (a != null)
-                        {
-                            openRequestSucceded = true;
-                            openResponse = a;
-                        }
-                    }
-                    else if (request.responseCode == 204)
-                    {
-                        var a = JsonUtility.FromJson<OpenResponse>(cachedOpenResponse);
-                        if (a != null)
-                        {
-                            Elephant.Event("hashed_open_response", -1);
-                            openRequestSucceded = true;
-                            openResponse = a;
-                        }
+                        ZisPlayerIdResponse.Save(a);
+                        zisPlayer = a;
                     }
                 }
                 catch (Exception e)
                 {
-                    Debug.Log(e);
+                    ElephantLog.LogError("ZIS REQUEST", "Request failed with error: " + e.Message);
                 }
             }
-
-
-            openRequestWaiting = false;
         }
 
         public void IsIapBanned(Action<bool, string> callback)
@@ -489,7 +623,7 @@ namespace ElephantSDK
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
-
+            request.SetRequestHeader("Content-Encoding", "gzip");
             request.SetRequestHeader("Authorization", Utils.SignString(bodyJson, GameSecret));
             request.SetRequestHeader("GameID", GameID);
 
@@ -497,7 +631,7 @@ namespace ElephantSDK
 
             if (request.isNetworkError)
             {
-                Log("Iap Status Check failed");
+                ElephantLog.LogError("IAP CHECK", "Request failed with network error");
                 callback(true, "Something went wrong. Please try again.");
                 Elephant.ShowAlertDialog("Error", "Something went wrong. Please try again.");
             }
@@ -527,7 +661,7 @@ namespace ElephantSDK
                 {
                     callback(true, "Something went wrong. Please try again.");
                     Elephant.ShowAlertDialog("Error", "Something went wrong. Please try again.");
-                    Log("Iap Status Check failed with exception: " + e.Message);
+                    ElephantLog.LogError("IAP CHECK", "Request failed with error: " + e.Message);
                 }
             }
         }
@@ -546,8 +680,7 @@ namespace ElephantSDK
         {
             this._queue.Enqueue(data);
         }
-
-
+        
         void OnApplicationFocus(bool focus)
         {
             if (focus)
@@ -562,7 +695,7 @@ namespace ElephantSDK
                     Instance.eventOrder = 0;
                 }
 
-                Log("Focus Gained");
+                ElephantLog.Log("APP STATE","Focus Gained");
                 // rebuild queues from disk..
                 RebuildQueue();
 
@@ -574,7 +707,7 @@ namespace ElephantSDK
                 // Time saved for next focus
                 Instance.focusLostTime = Time.unscaledDeltaTime;
                 
-                Log("Focus Lost");
+                ElephantLog.Log("APP STATE","Focus Lost");
                 // pause late update
                 processQueues = false;
 
@@ -602,7 +735,7 @@ namespace ElephantSDK
             string json = Utils.ReadFromFile(QUEUE_DATA_FILE);
             if (json != null)
             {
-                Log("QUEUE <- " + json);
+                ElephantLog.Log("APP STATE","QUEUE <- " + json);
                 var d = JsonUtility.FromJson<QueueData>(json);
                 if (d?.queue != null)
                 {
@@ -624,7 +757,7 @@ namespace ElephantSDK
             }
 
             var queueJson = JsonUtility.ToJson(new QueueData(_failedQueue));
-            Log("QUEUE -> " + queueJson);
+            ElephantLog.Log("APP STATE","QUEUE -> " + queueJson);
 
             Utils.SaveToFile(QUEUE_DATA_FILE, queueJson);
 
@@ -641,19 +774,31 @@ namespace ElephantSDK
         {
             if (forceToSend || (processQueues && sdkIsReady))
             {
-                int failedCount = _failedQueue.Count;
-                for (int i = failedCount - 1; i >= 0; --i)
-                {
-                    ElephantRequest data = _failedQueue[i];
-                    int tc = data.tryCount % 6;
-                    int backoff = (int) (Math.Pow(2, tc) * 1000);
 
-                    if (Utils.Timestamp() - data.lastTryTS > backoff)
+                if (InternalConfig.GetInstance().request_logic_enabled)
+                {
+                    if (processFailedBatch)
                     {
-                        _failedQueue.RemoveAt(i);
-                        StartCoroutine(Post(data));
+                        StartCoroutine(BatchPost());
                     }
                 }
+                else
+                {
+                    int failedCount = _failedQueue.Count;
+                    for (int i = failedCount - 1; i >= 0; --i)
+                    {
+                        ElephantRequest data = _failedQueue[i];
+                        int tc = data.tryCount % 6;
+                        int backoff = (int) (Math.Pow(2, tc) * 1000);
+
+                        if (Utils.Timestamp() - data.lastTryTS > backoff)
+                        {
+                            _failedQueue.RemoveAt(i);
+                            StartCoroutine(Post(data));
+                        }
+                    }
+                }
+                
 
                 while (_queue.Count > 0)
                 {
@@ -663,15 +808,67 @@ namespace ElephantSDK
             }
         }
 
+        IEnumerator BatchPost()
+        {
+            if (_failedQueue.Count == 0) yield break;
+            processFailedBatch = false;
+
+            var listCounter = _failedQueue.Count - 1;
+            
+            while (_failedQueue.Count > 0)
+            {
+                var counter = 0;
+                ElephantLog.Log("BatchPost", "start new batch ");
+                
+                while (counter < 10)
+                {
+                    var request = _failedQueue[listCounter];
+                    int tc = request.tryCount % 6;
+                    int backoff = (int) (Math.Pow(2, tc) * 1000);
+                    
+
+                    if (Utils.Timestamp() - request.lastTryTS > backoff)
+                    {
+                        _failedQueue.RemoveAt(listCounter);
+                        if (!circuitBreakerEnabled)
+                        {
+                            ElephantLog.Log("BatchPost", "request: " + request.url);
+                            ElephantLog.Log("BatchPost", "batch count: " + _failedQueue.Count);
+                            StartCoroutine(Post(request));
+                        }
+                    }
+                    
+                    counter++;
+                    listCounter--;
+
+                }
+
+                ElephantLog.Log("BatchPost", "wait 10: ");
+                yield return new WaitForSeconds(3);
+            }
+
+            processFailedBatch = true;
+        }
+
         IEnumerator Post(ElephantRequest elephantRequest)
         {
-            Log(elephantRequest.tryCount + " - " + (Utils.Timestamp() - elephantRequest.lastTryTS) + " -> " +
-                elephantRequest.url + " : " + elephantRequest.data);
+            ElephantLog.Log("POST WITH F&F",elephantRequest.tryCount + " - " + (Utils.Timestamp() - elephantRequest.lastTryTS) + " -> " +
+                                        elephantRequest.url + " : " + elephantRequest.data);
+
+            if (InternalConfig.GetInstance().reachability_check_enabled)
+            {
+                Elephant.ShowNetworkOfflineDialog();
+                
+                while (!Utils.IsConnected())
+                {
+                    yield return null;
+                }
+            }
 
             elephantRequest.tryCount++;
             elephantRequest.lastTryTS = Utils.Timestamp();
 
-            var elephantData = new ElephantData(elephantRequest.data, GetCurrentSession().GetSessionID());
+            var elephantData = new ElephantData(elephantRequest.data, GetCurrentSession().GetSessionID(), elephantRequest.isOffline, elephantRequest.statusCode > 0);
 
             string bodyJsonString = JsonUtility.ToJson(elephantData);
 
@@ -685,13 +882,13 @@ namespace ElephantSDK
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
-
+            request.SetRequestHeader("Content-Encoding", "gzip");
             request.SetRequestHeader("Authorization", authToken);
             request.SetRequestHeader("GameID", ElephantCore.Instance.GameID);
 
             yield return request.SendWebRequest();
-
-            Log("Status Code: " + request.responseCode);
+            
+            ElephantLog.Log("POST WITH F&F","Status Code: " + request.responseCode);
 
             if (request.responseCode != 200)
             {
@@ -702,7 +899,7 @@ namespace ElephantSDK
                 }
                 else
                 {
-                    Log("Failed Queue size -> " + _failedQueue.Count);
+                    ElephantLog.LogError("POST WITH F&F","Failed Queue size -> " + _failedQueue.Count);
                 }
             }
 
@@ -726,22 +923,19 @@ namespace ElephantSDK
                 // trick..
                 var body = JsonUtility.FromJson<ElephantData>(req.data);
                 req.data = body.data;
-
-//                Log("Request Failed -> " + reqJson);
-//                Log("Request Failed Parsed -> " + req.tryCount + " => " + req.url + " - " + req.data);
-
+                
                 if (_failedQueue.Count < MAX_FAILED_COUNT)
                 {
                     _failedQueue.Add(req);
                 }
                 else
                 {
-                    Log("Failed Queue size -> " + _failedQueue.Count);
+                    ElephantLog.Log("POST WITH F&F","Failed Queue size -> " + _failedQueue.Count);
                 }
             }
             catch (Exception e)
             {
-                Log(e.Message);
+                ElephantLog.Log("POST WITH F&F",e.Message);
             }
         }
 
@@ -812,6 +1006,100 @@ namespace ElephantSDK
             Elephant.Event("set_idfa_consent_result", -1, parameters);
             IdfaConsentResult.GetInstance().SetIdfaResultValue(message);
             IdfaConsentResult.GetInstance().SetStatus(IdfaConsentResult.Status.Resolved);
+            
+#if UNITY_IOS
+            _elephantComplianceManager.ShowCcpa();
+            _elephantComplianceManager.ShowGdprAdConsent();
+#endif 
+        }
+        
+        public void UserConsentAction(string userAction)
+        {
+            switch (userAction)
+            {
+                case "TOS_ACCEPT":
+                    _elephantComplianceManager.SendTosAccept();
+                    break;
+                case "GDPR_AD_CONSENT_AGREE":
+                    _elephantComplianceManager.SendGdprAdConsentStatus(true);
+                    break;
+                case "GDPR_AD_CONSENT_DECLINE":
+                    _elephantComplianceManager.SendGdprAdConsentStatus(false);
+                    break;
+                case "PERSONALIZED_ADS_AGREE":
+                    _elephantComplianceManager.SendCcpaStatus(true);
+                    break;
+                case "PERSONALIZED_ADS_DECLINE":
+                    _elephantComplianceManager.SendCcpaStatus(false);
+                    break;
+                case "CALL_DATA_REQUEST":
+                    PinRequest();
+                    break;
+                case "DELETE_REQUEST_CANCEL":
+                    CreateNewUser(response =>
+                    {
+                        if (response.responseCode != 200) return;
+
+                        var openResponseForNewUser = response.data;
+                        this.userId = openResponseForNewUser.user_id;
+                        _elephantComplianceManager.UpdateOpenResponse(openResponseForNewUser);
+                        _elephantComplianceManager.ShowTosAndPp(onOpen);
+                        ZisPlayerIdResponse.Save(openResponseForNewUser.zisPlayer);
+                        zisPlayer = openResponseForNewUser.zisPlayer;
+
+                    }, s =>
+                    {
+                        ElephantLog.Log("COMPLIANCE", "Error on new user creation: " + s);
+                    });
+                    break;
+                case "RETRY_CONNECTION":
+                    if (Utils.IsConnected())
+                    {
+                        Utils.ResumeGame();
+                    }
+                    else
+                    {
+                        Elephant.ShowNetworkOfflineDialog();
+                    }
+                    break;
+            }
+        }
+
+        public void GetSettingsContent(Action<GenericResponse<SettingsResponse>> onResponse, Action<string> onError)
+        {
+            var data = new BaseData();
+            data.FillBaseData(Instance.GetCurrentSession().GetSessionID());
+            var json = JsonUtility.ToJson(data);
+            var bodyJson = JsonUtility.ToJson(new ElephantData(json, Instance.GetCurrentSession().GetSessionID()));
+            var networkManager = new GenericNetworkManager<SettingsResponse>();
+            var postWithResponse = networkManager.PostWithResponse(SETTINGS_EP, bodyJson, onResponse, onError);
+
+            StartCoroutine(postWithResponse);
+        }
+        
+        public void CreateNewUser(Action<GenericResponse<OpenResponse>> onResponse, Action<string> onError)
+        {
+            var data = new NewUserRequest();
+            data.FillBaseData(Instance.GetCurrentSession().GetSessionID());
+#if UNITY_EDITOR
+            data.locale = CultureInfo.CurrentCulture.Name;
+#elif UNITY_IOS
+            data.locale = ElephantIOS.getLocale();
+#elif UNITY_ANDROID
+            data.locale = ElephantAndroid.GetLocale();
+#else
+            data.locale = CultureInfo.CurrentCulture.Name;
+#endif
+            var json = JsonUtility.ToJson(data);
+            var bodyJson = JsonUtility.ToJson(new ElephantData(json, Instance.GetCurrentSession().GetSessionID()));
+            var networkManager = new GenericNetworkManager<OpenResponse>();
+            var postWithResponse = networkManager.PostWithResponse(USER_EP, bodyJson, onResponse, onError);
+            
+            this.userId = "";
+            this.zisPlayer = null;
+            Utils.SaveToFile(USER_DB_ID, "");
+            ZisPlayerIdResponse.Flush();
+            StartCoroutine(postWithResponse);
         }
     }
 }

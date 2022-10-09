@@ -4,55 +4,49 @@ using UnityEngine;
 
 namespace ElephantSDK
 {
-    
     [Serializable]
-    public class GDPROptionDetailModel
+    public class Compliance
     {
-        public string action;
-        public string data;
+        public ComplianceTosResponse tos;
+        public ComplianceCcpaResponse ccpa;
+        public ComplianceCcpaResponse gdpr_ad_consent;
+        public ComplianceBlockedResponse blocked;
 
-        public GDPROptionDetailModel()
+        public Compliance()
         {
-            this.action = GDPRNavigationButton.GDPRButtonAction.OPEN_PAGE.ToString();
-            this.data = "";
+            tos = new ComplianceTosResponse();
+            ccpa = new ComplianceCcpaResponse();
+            gdpr_ad_consent = new ComplianceCcpaResponse();
+            blocked = new ComplianceBlockedResponse();
         }
     }
-    
     
     [Serializable]
     public class OpenResponse
     {
         public string user_id;
+        public string player_id;
+        public ZisPlayerIdResponse zisPlayer;
         public bool consent_required;
-        public string gdpr_body_text;
         public bool consent_status;
-        public string gdpr_option_1;
-        public string gdpr_option_2;
-        public string gdpr_option_3;
-        public GDPROptionDetailModel gdpr_option_1_data;
-        public GDPROptionDetailModel gdpr_option_2_data;
-        public GDPROptionDetailModel gdpr_option_3_data;
         public string remote_config_json; // json
         public AdConfig ad_config;
         public InternalConfig internal_config;
         public List<MirrorData> mirror_data;
+        public Compliance compliance;
         public string hash;
 
         public OpenResponse()
         {
             this.user_id = "";
+            this.player_id = "";
+            this.zisPlayer = new ZisPlayerIdResponse();
             this.consent_required = false;
-            this.gdpr_body_text = "";
-            this.gdpr_option_1 = "";
-            this.gdpr_option_2 = "";
-            this.gdpr_option_3 = "";
-            this.gdpr_option_1_data = new GDPROptionDetailModel();
-            this.gdpr_option_2_data = new GDPROptionDetailModel();
-            this.gdpr_option_3_data = new GDPROptionDetailModel();
             this.remote_config_json = JsonUtility.ToJson(new ConfigResponse());
             this.ad_config = AdConfig.GetInstance();
             this.internal_config = InternalConfig.GetInstance();
             this.mirror_data = new List<MirrorData>();
+            this.compliance = new Compliance();
             this.hash = "";
         }
     }

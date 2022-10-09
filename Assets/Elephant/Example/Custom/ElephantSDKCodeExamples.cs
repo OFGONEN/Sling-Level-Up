@@ -25,7 +25,7 @@ namespace ElephantSDK
             Debug.Log("Elephant SDK Initialized");
         }
 
-        void OnOpen(bool gdprRequired)
+        void OnOpen(bool gdprRequired, ComplianceTosResponse tos)
         {
             Debug.Log("Elephant Open Result, we can start the game or show gdpr -> " + gdprRequired);
             if (gdprRequired)

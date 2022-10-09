@@ -10,6 +10,8 @@ namespace ElephantSDK
         public string data;
         public int tryCount;
         public long lastTryTS;
+        public bool isOffline;
+        public int statusCode;
        
         
         public ElephantRequest(string url, BaseData data)

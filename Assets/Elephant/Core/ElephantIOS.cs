@@ -27,10 +27,33 @@ public class ElephantIOS
     public static extern string getBuildNumber();
     
     [DllImport ("__Internal")]
+    public static extern string getLocale();
+    
+    [DllImport ("__Internal")]
     public static extern void showAlertDialog(string title, string message);
     
     [DllImport ("__Internal")]
     public static extern void showForceUpdate(string title, string message);
     
-    #endif
+    [DllImport("__Internal")]
+    public static extern void showPopUpView(string subviewType, string text, string buttonTitle, string privacyPolicyText, 
+                                            string privacyPolicyUrl, string termsOfServiceText, 
+                                            string termsOfServiceUrl, 
+                                            string dataRequestText = "", string dataRequestUrl = "");
+    
+    [DllImport("__Internal")]
+    public static extern void showCcpaPopUpView(string action, string title, string content, 
+                       string privacyPolicyText, string privacyPolicyUrl, 
+                       string declineActionButtonText, string agreeActionButtonText,
+                       string backToGameActionButtonText);
+
+    [DllImport("__Internal")]
+    public static extern void showSettingsView(string subviewType, string actions);
+    
+    [DllImport("__Internal")]
+    public static extern void showBlockedPopUpView(string title, string content, string warningContent, string buttonTitle);
+
+    [DllImport("__Internal")]
+    public static extern void showNetworkOfflinePopUpView(string content, string buttonTitle);
+#endif
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Xml;
 using UnityEngine;
 
 namespace ElephantSDK
@@ -11,13 +10,12 @@ namespace ElephantSDK
     // TODO implement external package version checks here
     public class VersionCheckUtils
     {
-        private const string MediationAppLovinMax = "AppLovin MAX";
         private const string MediationIronSource = "IronSource";
         
         private static VersionCheckUtils _instance;
         public string AdSdkVersion = "";
         public string MediationVersion = "";
-        public string UnityVersion = "";
+        public readonly string UnityVersion;
         public string Mediation = "";
 
         public static VersionCheckUtils GetInstance()
@@ -25,111 +23,55 @@ namespace ElephantSDK
             if (_instance != null) return _instance;
             
             _instance = new VersionCheckUtils();
-            
-            if (!string.IsNullOrEmpty(GetMaxVersion()))
-            {
-                _instance.Mediation = "AppLovin MAX";
-                _instance.MediationVersion = GetMaxVersion();
-            }
-            else
-            {
-                _instance.Mediation = "IronSource";
-                _instance.MediationVersion = GetIsVersion();
-            }
-                
-            _instance.UnityVersion = GetUnityVersion();
-            _instance.AdSdkVersion = GetAdSdkVersion();
 
             return _instance;
         }
 
-        private static string GetAdSdkVersion()
+        private VersionCheckUtils()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            var adsSdkVersion = "";
+            PrepareVersions();
+            UnityVersion = GetUnityVersion();
+        }
+        
+        private void PrepareVersions()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
 
             try
             {
-                var type = Array.Find(assembly.GetTypes(),
-                    typeToFind =>
-                        typeToFind.FullName != null
-                        && typeToFind.FullName.Equals("RollicGames.Advertisements.Version"));
+                foreach (var type in assembly.GetTypes())
+                {
+                    var typeFullName = type.FullName;
+                    if (!string.IsNullOrEmpty(typeFullName) &&
+                        typeFullName.Equals("RollicGames.Advertisements.Version"))
+                    {
+                        var fieldInfo = type.GetField("SDK_VERSION",
+                            BindingFlags.NonPublic | BindingFlags.Static);
 
-                if (type == null) return adsSdkVersion;
-                var fieldInfo = type.GetField("SDK_VERSION",
-                    BindingFlags.NonPublic | BindingFlags.Static);
+                        if (fieldInfo != null)
+                        {
+                            AdSdkVersion = fieldInfo.GetValue(null).ToString();    
+                        }
+                        
+                    }
 
-                if (fieldInfo == null) return adsSdkVersion;
-                adsSdkVersion = fieldInfo.GetValue(null).ToString();
+                    if (string.IsNullOrEmpty(typeFullName) || !typeFullName.Equals("IronSource")) continue;
+                    var method = type.GetMethod("pluginVersion");
 
-                return adsSdkVersion;
+                    if (method == null) continue;
+                    var result = method.Invoke(type, new object[] { });
+                    MediationVersion = result.ToString();
+                    MediationVersion = MediationVersion.Split('-')[0];
+                    Mediation = MediationIronSource;
+                }
+                
+
+             
             }
             catch (Exception e)
             {
-                return adsSdkVersion;
+                // ignored
             }
-        }
-
-        private static string GetMaxVersion()
-        {
-            var currentDomain = System.AppDomain.CurrentDomain;
-            var maxVersion = "";
-            
-            foreach (var assembly in currentDomain.GetAssemblies())
-            {
-                try
-                {
-                    var type = Array.Find(assembly.GetTypes(),
-                        typeToFind =>
-                            typeToFind.FullName != null
-                            && typeToFind.FullName.Equals("MaxSdk"));
-
-                    if (type == null) continue;
-                    
-                    var fieldInfo = type.GetProperty("Version");
-
-                    if (fieldInfo == null) return maxVersion;
-                    maxVersion = fieldInfo.GetValue(null).ToString();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(e);
-                }
-            }
-            
-            return maxVersion;
-        }
-        
-        private static string GetIsVersion()
-        {
-            var currentDomain = System.AppDomain.CurrentDomain;
-            var isVersion = "";
-            
-            foreach (var assembly in currentDomain.GetAssemblies())
-            {
-                try
-                {
-                    var type = Array.Find(assembly.GetTypes(),
-                        typeToFind =>
-                            typeToFind.FullName != null
-                            && typeToFind.FullName.Equals("IronSource"));
-
-                    if (type == null) continue;
-                    
-                    var method = type.GetMethod("pluginVersion");
-
-                    if (method == null) return isVersion;
-                    var result = method.Invoke(type, new object[] { });
-                    isVersion = result.ToString();
-                    isVersion = isVersion.Split('-')[0];
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(e);
-                }
-            }
-            
-            return isVersion;
         }
 
         private static string GetUnityVersion() => Application.unityVersion;

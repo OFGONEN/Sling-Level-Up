@@ -58,6 +58,17 @@ public class ElephantAndroid
 
         return buildNumber;
     }
+
+    public static string GetLocale()
+    {
+        var locale = "";
+        if (elephantController != null)
+        {
+            locale = elephantController.Call<string>("getLocale");    
+        }
+
+        return locale;
+    }
     
      public static string FetchAdId()
     {
@@ -70,6 +81,46 @@ public class ElephantAndroid
         return adId;
     }
     
-    #endif
+    public static void ShowConsentDialog(string dialogSubviewType, string text, string buttonTitle, string privacyPolicyText, 
+            string privacyPolicyUrl, string termsOfServiceText, string termsOfServiceUrl, string dataRequestText = "", string dataRequestUrl = "")
+        {
+            
+            if (elephantController != null)
+            {
+                elephantController.Call("showConsent", dialogSubviewType, text, buttonTitle, privacyPolicyText, privacyPolicyUrl, termsOfServiceText, termsOfServiceUrl, dataRequestText, dataRequestUrl);
+            }
+        }
+
+    public static void ShowCcpaDialog(string action, string title, string content, string privacyPolicyText, 
+        string privacyPolicyUrl, string declineActionButtonText, string agreeActionButtonText, string backToGameActionButtonText)
+    {
+        if (elephantController != null)
+        {
+            elephantController.Call("showCcpaDialog", action, title, content, privacyPolicyText, 
+                privacyPolicyUrl, declineActionButtonText, agreeActionButtonText, backToGameActionButtonText);
+        }
+    }
     
+    public static void ShowSettingsView(string dialogSubviewType, string actions)
+    {
+        elephantController.Call("showSettingsView", dialogSubviewType, actions);
+    }
+
+    public static void showBlockedDialog(string title, string content, string warningContent, string buttonTitle)
+    {
+        if (elephantController != null)
+        {
+            elephantController.Call("showBlockedDialog", title, content, warningContent, buttonTitle);
+        }
+    }
+
+    public static void ShowNetworkOfflineDialog(string content, string buttonTitle)
+    {
+        if (elephantController != null)
+        {
+            elephantController.Call("showNetworkOfflineDialog", content, buttonTitle);
+        }
+    }
+    
+    #endif
 }

@@ -21,6 +21,7 @@ namespace ElephantSDK
         public string lang;
         public string app_version;
         public string build_number;
+        public string device_cpu_arch;
         public string os_version;
         public string sdk_version;
         public string ad_sdk_version;
@@ -32,6 +33,7 @@ namespace ElephantSDK
         public float real_time_since_start_up;
         public string timezone_offset = "";
         public string user_id;
+        public string client_id;
         public string consent_status = "";
         public int order = 0;
         public List<MirrorData> mirror_data;
@@ -44,6 +46,7 @@ namespace ElephantSDK
                 this.idfv = ElephantCore.Instance.idfv;
                 this.app_version = Application.version;
                 this.build_number = ElephantCore.Instance.buildNumber;
+                this.device_cpu_arch = Utils.GetDeviceCpuArch();
                 this.lang = Utils.GetISOCODE(Application.systemLanguage);
                 this.user_tag = RemoteConfig.GetInstance().GetTag();
                 this.os_version = SystemInfo.operatingSystem;
@@ -55,6 +58,7 @@ namespace ElephantSDK
                 this.real_session_id = ElephantCore.Instance.realSessionId;
                 this.real_time_since_start_up = Time.realtimeSinceStartup;
                 this.user_id = ElephantCore.Instance.userId;
+                this.client_id = ElephantCore.Instance.clientId;
                 this.consent_status = ElephantCore.Instance.consentStatus;
                 this.mirror_data = ElephantCore.Instance.mirrorData;
                 this.adjustId = ElephantCore.Instance.adjustId;

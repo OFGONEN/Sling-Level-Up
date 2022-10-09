@@ -6,6 +6,7 @@ namespace ElephantSDK
     public class AdRevenueRequest : BaseData
     {
         public string mopubRevenueData;
+        public string mediationRevenueData;
         public string ironsourceRevenueData;
         
         private AdRevenueRequest()
@@ -17,6 +18,17 @@ namespace ElephantSDK
             var a = new AdRevenueRequest();
             a.FillBaseData(ElephantCore.Instance.GetCurrentSession().GetSessionID());
             a.mopubRevenueData = mopubRevenueData;
+            a.mediationRevenueData = "";
+            a.ironsourceRevenueData = "";
+            return a;
+        }
+        
+        public static AdRevenueRequest CreateMediationRevenueRequest(string mediationRevenueData)
+        {
+            var a = new AdRevenueRequest();
+            a.FillBaseData(ElephantCore.Instance.GetCurrentSession().GetSessionID());
+            a.mediationRevenueData = mediationRevenueData;
+            a.mopubRevenueData = "";
             a.ironsourceRevenueData = "";
             return a;
         }
@@ -26,6 +38,7 @@ namespace ElephantSDK
             var a = new AdRevenueRequest();
             a.FillBaseData(ElephantCore.Instance.GetCurrentSession().GetSessionID());
             a.mopubRevenueData = "";
+            a.mediationRevenueData = "";
             a.ironsourceRevenueData = ironsourceRevenueData;
             return a;
         }

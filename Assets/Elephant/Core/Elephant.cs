@@ -15,6 +15,11 @@ namespace ElephantSDK
         {
             ElephantCore.Instance.Init(isOldUser, gdprSupported);
         }
+        
+        public static void ShowComplianceDialog()
+        {
+            ElephantCore.Instance.PinRequest();
+        }
 
         public static bool UserGDPRConsent()
         {
@@ -95,6 +100,16 @@ namespace ElephantSDK
                 
             CustomEvent("ads_sdk_" + type, -1, param);
         }
+        
+        public static void AdEventV2(string type, string json)
+        {
+            if (!AdConfig.GetInstance().ad_event_enabled) return;
+            
+            var param = Params.New();
+            param.CustomString(json);
+                
+            CustomEvent("AdEvent_" + type, -1, param);
+        }
 
         public static void Transaction(string type, int level, long amount, long finalAmount, string source)
         {
@@ -115,6 +130,7 @@ namespace ElephantSDK
             ElephantCore.Instance.AddToQueue(req);
         }
 
+        [Obsolete("This Method is Deprecated, use MediationAdRevenueEvent")]
         public static void AdRevenueEvent(string mopubRevenueData)
         {
             if (ElephantCore.Instance == null)
@@ -124,6 +140,20 @@ namespace ElephantSDK
             }
 
             var adRevenueRequest = AdRevenueRequest.CreateAdRevenueRequest(mopubRevenueData);
+
+            var req = new ElephantRequest(ElephantCore.AD_REVENUE_EP, adRevenueRequest);
+            ElephantCore.Instance.AddToQueue(req);
+        }
+        
+        public static void MediationAdRevenueEvent(string mediationRevenueData)
+        {
+            if (ElephantCore.Instance == null)
+            {
+                Debug.LogWarning("Elephant SDK isn't working correctly, make sure you put Elephant prefab into your first scene..");
+                return;
+            }
+
+            var adRevenueRequest = AdRevenueRequest.CreateMediationRevenueRequest(mediationRevenueData);
 
             var req = new ElephantRequest(ElephantCore.AD_REVENUE_EP, adRevenueRequest);
             ElephantCore.Instance.AddToQueue(req);
@@ -164,11 +194,72 @@ namespace ElephantSDK
             var req = new ElephantRequest(ElephantCore.EVENT_EP, ev);
             ElephantCore.Instance.AddToQueue(req);
         }
-        
-        
-        
-    
 
+        public static void ShowSettingsView()
+        {
+#if UNITY_EDITOR
+// No-op
+#elif UNITY_IOS
+                    ElephantIOS.showSettingsView("LOADING", "");
+#elif UNITY_ANDROID
+                    ElephantAndroid.ShowSettingsView("LOADING", "");
+#endif
+
+            ElephantCore.Instance.GetSettingsContent(response =>
+            {
+                if (response.responseCode == 200)
+                {
+                    string responseString = JsonUtility.ToJson(response.data);
+
+#if UNITY_EDITOR
+// No-op
+#elif UNITY_IOS
+                    ElephantIOS.showSettingsView("CONTENT", responseString);
+#elif UNITY_ANDROID
+                    ElephantAndroid.ShowSettingsView("CONTENT", responseString);
+#endif
+                }
+                else
+                {
+#if UNITY_EDITOR
+// No-op
+#elif UNITY_IOS
+                    ElephantIOS.showSettingsView("ERROR", "");
+#elif UNITY_ANDROID
+                    ElephantAndroid.ShowSettingsView("ERROR", "");
+#endif
+                    
+                    Debug.Log("Settings Error: " + response.responseCode + " " + response.errorMessage);
+                }
+            }, s =>
+            {
+#if UNITY_EDITOR
+// No-op
+#elif UNITY_IOS
+                    ElephantIOS.showSettingsView("ERROR", "");
+#elif UNITY_ANDROID
+                    ElephantAndroid.ShowSettingsView("ERROR", "");
+#endif
+                
+                Debug.Log("Settings Error: " + s);
+            });
+        }
+
+        public static void ShowNetworkOfflineDialog()
+        {
+            if (!Utils.IsConnected())
+            {
+#if UNITY_EDITOR
+                ElephantLog.Log("Connection", "No internet connection.\nPlease check your internet settings.");
+#elif UNITY_IOS
+                ElephantIOS.showNetworkOfflinePopUpView("No internet connection.\nPlease check your internet settings.", "Try Again");
+#elif UNITY_ANDROID
+                ElephantAndroid.ShowNetworkOfflineDialog("No internet connection.\nPlease check your internet settings.", "Try Again");
+#endif
+                
+                Utils.PauseGame();
+            }
+        }
 
         private static void MapParams(Params param, EventData ev)
         {

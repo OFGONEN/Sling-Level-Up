@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -203,6 +205,33 @@ namespace ElephantSDK
         public static string ReplaceEscapeCharsForUrl(string url)
         {
             return UnityWebRequest.EscapeURL(url).Replace("+","%20");
+        }
+
+        public static string GetDeviceCpuArch()
+        {
+            if (SystemInfo.processorType == SystemInfo.unsupportedIdentifier)  return "unsupported_identifier";
+                    
+            if (CultureInfo.InvariantCulture.CompareInfo.IndexOf(SystemInfo.processorType, "ARM", CompareOptions.IgnoreCase) >= 0)
+            {
+                return Environment.Is64BitProcess ? "ARM64" : "ARM";
+            }
+            
+            return Environment.Is64BitProcess ? "x86_64" : "x86";
+        }
+
+        public static bool IsConnected()
+        {
+            return Application.internetReachability != NetworkReachability.NotReachable;
+        }
+
+        public static void PauseGame()
+        {
+            Time.timeScale = 0;
+        }
+
+        public static void ResumeGame()
+        {
+            Time.timeScale = 1;
         }
     }
 }
