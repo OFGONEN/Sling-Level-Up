@@ -16,8 +16,10 @@ namespace FFStudio
 
 	[ Title( "Shared Variables" ) ]
 		public SharedReferenceNotifier notifier_reference_camera_main;
+		public SharedVector2 shared_finger_delta;
 
 		int swipeThreshold;
+		Vector2 finger_down_position;
 
 		Transform transform_camera_main;
 		Camera camera_main;
@@ -55,6 +57,17 @@ namespace FFStudio
 			event_input_tap.eventValue = count;
 
 			event_input_tap.Raise();
+		}
+
+		public void OnFingerDown( LeanFinger finger )
+		{
+			finger_down_position = finger.ScreenPosition;
+		}
+
+		public void OnFingerUpdate( LeanFinger finger )
+		{
+			var fingerPosition                  = finger.ScreenPosition;
+			    shared_finger_delta.sharedValue = fingerPosition - finger_down_position;
 		}
 #endregion
 
