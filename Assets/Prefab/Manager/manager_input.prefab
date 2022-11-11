@@ -53,7 +53,8 @@ MonoBehaviour:
   event_input_screenPress: {fileID: 11400000, guid: b7d2ab9da272b334fb2a66ca5bcc6fc8, type: 2}
   event_input_tap: {fileID: 11400000, guid: 182cfa2632cfdba49bfaf3471d114d23, type: 2}
   notifier_reference_camera_main: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
-  shared_finger_delta: {fileID: 0}
+  shared_finger_delta_direction: {fileID: 11400000, guid: d0b46190cc2a77a4ca371d7a179c92ec, type: 2}
+  shared_finger_delta_magnitude: {fileID: 11400000, guid: bbc2e82daf24c7c4ab231c2f9bbf35ee, type: 2}
 --- !u!114 &961601380926824722
 MonoBehaviour:
   m_ObjectHideFlags: 0
