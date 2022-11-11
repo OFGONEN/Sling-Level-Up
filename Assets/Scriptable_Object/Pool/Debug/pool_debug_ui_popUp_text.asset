@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: pool_debug_ui_popUp_text
   m_EditorClassIdentifier: 
   stackSize: 32
-  pool_entity: {fileID: 6316872551600914418, guid: 233f78e1646d442b384b55821e3b3fb6, type: 3}
+  pool_entity: {fileID: 6316872551600914418, guid: a9b352acc25f89441bbac06cdd7cb21b, type: 3}

@@ -325,6 +325,13 @@ namespace FFStudio
 			transform.localScale  = data.scale;
 		}
 
+		public static void SetTransformDataLocal( this Transform transform, TransformData data )
+		{
+			transform.localPosition    = data.position;
+			transform.localEulerAngles = data.rotation;
+			transform.localScale       = data.scale;
+		}
+
 		// Takes root bones as parameters that are children of a humanoid model.
 		public static void ReplaceHumanoidModel( this Transform baseBone, Transform targetBone )
 		{

@@ -14,18 +14,81 @@ namespace FFStudio
 		public Vector3 position;
 		public Vector3 rotation; // Euler angles.
 		public Vector3 scale; // Local scale.
+
+		public TransformData( Transform transform, bool isLocal )
+		{
+			if( isLocal )
+			{
+				position = transform.localPosition;
+				rotation = transform.localEulerAngles;
+				scale    = transform.localScale;
+			}
+			else
+			{
+				position = transform.position;
+				rotation = transform.eulerAngles;
+				scale    = transform.localScale;
+			}
+		}
 	}
 
 	[ Serializable ]
-	public struct EventAndResponse
+	public abstract class EventAndResponseDataBase
 	{
 		public MultipleEventListenerDelegateResponse eventListener;
-		public UnityEvent unityEvent;
 
 		public void Pair()
 		{
-			eventListener.response = unityEvent.Invoke;
+			eventListener.response = OnResponse;
 		}
+
+		protected abstract void OnResponse();
+	}
+
+	[ Serializable ]
+	public abstract class EventAndResponseGenericArgumentData< T > : EventAndResponseDataBase
+	{
+		public UnityEvent< T > unityEvent;
+		public T argument;
+	}
+
+	[ Serializable ]
+	public abstract class EventAndResponseGenericData< T > : EventAndResponseDataBase
+	{
+		public UnityEvent< T > unityEvent;
+	}
+
+	[ Serializable ]
+	public abstract class EventAndGenericResponseData< T > : EventAndResponseGenericArgumentData< T >
+	{
+		protected override void OnResponse()
+		{
+			unityEvent.Invoke( argument );
+		}
+	}
+
+	[ Serializable ]
+	public class EventAndBasicResponseData : EventAndResponseDataBase
+	{
+		public UnityEvent unityEvent;
+
+		protected override void OnResponse()
+		{
+			unityEvent.Invoke();
+		}
+	}
+
+	[ Serializable ]
+	public class EventAndIntResponseData : EventAndGenericResponseData< int > { }
+
+	[ Serializable ]
+	public class EventAndIntGameEventResponseData : EventAndResponseGenericData< int > 
+	{
+		public IntGameEvent argument;
+		protected override void OnResponse()
+		{
+			unityEvent.Invoke( argument.eventValue );
+		}	
 	}
 
 	[ Serializable ]
@@ -142,9 +205,16 @@ namespace FFStudio
 	}
 
 	[ Serializable ]
+	public struct TriggerRespondData
+	{
+		[ Layer() ] public int collision_layer;
+		public UnityEvent< Collider > trigger_event;
+	}
+
+	[ Serializable ]
 	public struct CollisionRespondData
 	{
 		[ Layer() ] public int collision_layer;
-		public UnityEvent<Collider> collision_event;
+		public UnityEvent< Collision > collision_event;
 	}
 }
