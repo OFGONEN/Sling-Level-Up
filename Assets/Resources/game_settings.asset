@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera_follow_speed_depth: 2.8
   maxLevelCount: 1
+  game_input_maxDelta_percentage: 0.4
   useRemoteConfig_GameSettings: 0
   useRemoteConfig_Components: 0
   ui_Entity_Move_TweenDuration: 0.5
