@@ -17,15 +17,62 @@ namespace FFStudio
 	}
 
 	[ Serializable ]
-	public struct EventAndResponse
+	public abstract class EventAndResponseDataBase
 	{
 		public MultipleEventListenerDelegateResponse eventListener;
-		public UnityEvent unityEvent;
 
 		public void Pair()
 		{
-			eventListener.response = unityEvent.Invoke;
+			eventListener.response = OnResponse;
 		}
+
+		protected abstract void OnResponse();
+	}
+
+	[ Serializable ]
+	public abstract class EventAndResponseGenericArgumentData< T > : EventAndResponseDataBase
+	{
+		public UnityEvent< T > unityEvent;
+		public T argument;
+	}
+
+	[ Serializable ]
+	public abstract class EventAndResponseGenericData< T > : EventAndResponseDataBase
+	{
+		public UnityEvent< T > unityEvent;
+	}
+
+	[ Serializable ]
+	public abstract class EventAndGenericResponseData< T > : EventAndResponseGenericArgumentData< T >
+	{
+		protected override void OnResponse()
+		{
+			unityEvent.Invoke( argument );
+		}
+	}
+
+	[ Serializable ]
+	public class EventAndBasicResponseData : EventAndResponseDataBase
+	{
+		public UnityEvent unityEvent;
+
+		protected override void OnResponse()
+		{
+			unityEvent.Invoke();
+		}
+	}
+
+	[ Serializable ]
+	public class EventAndIntResponseData : EventAndGenericResponseData< int > { }
+
+	[ Serializable ]
+	public class EventAndIntGameEventResponseData : EventAndResponseGenericData< int > 
+	{
+		public IntGameEvent argument;
+		protected override void OnResponse()
+		{
+			unityEvent.Invoke( argument.eventValue );
+		}	
 	}
 
 	[ Serializable ]
