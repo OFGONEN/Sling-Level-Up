@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.adjust.sdk.Util;
 import com.rollic.elephantsdk.Interaction.InteractionType;
 import com.rollic.elephantsdk.Models.ActionType;
 import com.rollic.elephantsdk.Models.ComplianceAction;

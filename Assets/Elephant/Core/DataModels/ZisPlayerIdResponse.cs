@@ -6,7 +6,7 @@ namespace ElephantSDK
     [Serializable]
     public class ZisPlayerIdResponse
     {
-        private const string ZisPlayerId = "ZIS_PLAYER_ID";
+        private const string ZisPlayerId = "ZIS_PLAYER_ID_OBJ";
         public string player_id;
         public string app_id;
         public string zis_json;

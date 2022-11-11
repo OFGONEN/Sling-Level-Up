@@ -464,6 +464,8 @@ namespace ElephantSDK
         
         public void CheckApiHealth()
         {
+            if (ElephantCore.Instance == null) return;
+            
             var bodyJson = JsonUtility.ToJson(new ElephantData("", ElephantCore.Instance.GetCurrentSession().GetSessionID()));
             var networkManager = new GenericNetworkManager<HealthCheckResponse>();
             var postWithResponse = networkManager.PostWithResponse(HEALTH_CHECK_EP, bodyJson, response =>
@@ -820,7 +822,7 @@ namespace ElephantSDK
                 var counter = 0;
                 ElephantLog.Log("BatchPost", "start new batch ");
                 
-                while (counter < 10)
+                while (counter < 10 && listCounter >= 0)
                 {
                     var request = _failedQueue[listCounter];
                     int tc = request.tryCount % 6;
