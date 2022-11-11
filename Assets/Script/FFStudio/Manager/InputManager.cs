@@ -16,9 +16,11 @@ namespace FFStudio
 
 	[ Title( "Shared Variables" ) ]
 		public SharedReferenceNotifier notifier_reference_camera_main;
-		public SharedVector2 shared_finger_delta;
+		public SharedVector2 shared_finger_delta_direction;
+		public SharedFloat shared_finger_delta_magnitude;
 
-		int swipeThreshold;
+		float swipeThreshold;
+		float screen_width;
 		Vector2 finger_down_position;
 
 		Transform transform_camera_main;
@@ -39,7 +41,8 @@ namespace FFStudio
 
 		void Awake()
 		{
-			swipeThreshold = Screen.width * GameSettings.Instance.swipeThreshold / 100;
+			screen_width   = Screen.width;
+			swipeThreshold = screen_width * GameSettings.Instance.swipeThreshold / 100;
 
 			leanTouch         = GetComponent< LeanTouch >();
 			leanTouch.enabled = false;
@@ -66,13 +69,18 @@ namespace FFStudio
 
 		public void OnFingerUp( LeanFinger finger )
 		{
-			shared_finger_delta.sharedValue = Vector2.zero;
+			shared_finger_delta_direction.sharedValue = Vector2.zero;
+			shared_finger_delta_magnitude.sharedValue = 0;
 		}
 
 		public void OnFingerUpdate( LeanFinger finger )
 		{
 			var fingerPosition                  = finger.ScreenPosition;
-			    shared_finger_delta.sharedValue = fingerPosition - finger_down_position;
+			var delta = fingerPosition - finger_down_position;
+			    shared_finger_delta_direction.sharedValue = delta.normalized;
+
+			shared_finger_delta_magnitude.sharedValue = Mathf.Min( GameSettings.Instance.game_input_maxDelta_percentage,
+				delta.x / screen_width );
 		}
 #endregion
 
