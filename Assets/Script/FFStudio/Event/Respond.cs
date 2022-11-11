@@ -7,7 +7,7 @@ namespace FFStudio
 	public class Respond : MonoBehaviour
 	{
 #region Fields
-        [ SerializeReference ] public EventAndResponseDataBase[] eventPairs;
+        [ SerializeReference ] public EventAndResponseDataBase[] eventPairs = new EventAndResponseDataBase[ 0 ];
 #endregion
 
 #region Properties
