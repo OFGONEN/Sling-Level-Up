@@ -14,6 +14,22 @@ namespace FFStudio
 		public Vector3 position;
 		public Vector3 rotation; // Euler angles.
 		public Vector3 scale; // Local scale.
+
+		public TransformData( Transform transform, bool isLocal )
+		{
+			if( isLocal )
+			{
+				position = transform.localPosition;
+				rotation = transform.localEulerAngles;
+				scale    = transform.localScale;
+			}
+			else
+			{
+				position = transform.position;
+				rotation = transform.eulerAngles;
+				scale    = transform.localScale;
+			}
+		}
 	}
 
 	[ Serializable ]
