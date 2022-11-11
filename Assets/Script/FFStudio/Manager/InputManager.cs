@@ -64,6 +64,11 @@ namespace FFStudio
 			finger_down_position = finger.ScreenPosition;
 		}
 
+		public void OnFingerUp( LeanFinger finger )
+		{
+			shared_finger_delta.sharedValue = Vector2.zero;
+		}
+
 		public void OnFingerUpdate( LeanFinger finger )
 		{
 			var fingerPosition                  = finger.ScreenPosition;
