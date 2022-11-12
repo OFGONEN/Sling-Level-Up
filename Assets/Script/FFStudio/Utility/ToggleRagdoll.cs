@@ -72,6 +72,15 @@ namespace FFStudio
 		}
 
 		[ Button() ]
+		public void ToggleTriggerOnCollider( bool enable )
+		{
+			for( var i = 0; i < ragdoll_rigidbody_collider_array.Length; i++ )
+			{
+				ragdoll_rigidbody_collider_array[ i ].isTrigger = enable;
+			}
+		}
+
+		[ Button() ]
 		public void SetTransformDatas()
 		{
 			for( var i = 0; i < ragdoll_rigidbody_array.Length; i++ )
