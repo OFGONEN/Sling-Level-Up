@@ -3,7 +3,13 @@ guid: 6c212f5ff7a33eb49bb975435e5e3670
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - notif_stickman_power: {fileID: 11400000, guid: 38834edc7362cbb4baf066af15b32131, type: 2}
+  - event_stickman_lost: {fileID: 11400000, guid: 2b1973661dfe04204b14dbdaa9ca3890, type: 2}
+  - event_stickman_won: {fileID: 11400000, guid: 905a5b8ffdbd84527a965fc9b8e04e7d, type: 2}
+  - enemy_ragdoll: {instanceID: 0}
+  - enemy_animator: {instanceID: 0}
+  - enemy_power_ui: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
