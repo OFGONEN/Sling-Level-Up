@@ -10,6 +10,9 @@ namespace FFStudio
     {
 #region Fields (Settings)
     // Info: You can use Title() attribute ONCE for every game-specific group of settings.
+    [ Title( "Enemy" ) ]
+		[ LabelText( "Force to give Enemy when its defated" ), SerializeField ] public Vector2 enemy_defeat_force;
+		[ LabelText( "Enemy defeated ragdoll duration" ), SerializeField ] public Vector2 enemy_defeat_duration;
     
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;
