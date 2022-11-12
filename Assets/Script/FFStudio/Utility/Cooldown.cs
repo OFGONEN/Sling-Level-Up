@@ -11,8 +11,6 @@ namespace FFStudio
 #region Fields
 		RecycledTween recycledTween_cooldown = new RecycledTween();
 
-		bool isOngoing = false;
-
 		TweenCallback onComplete;
 
 		bool popupTextOnComplete = false;
@@ -20,14 +18,13 @@ namespace FFStudio
 #endregion
 
 #region Properties
-		public bool IsOver => !isOngoing;
+		public bool IsPlaying          => recycledTween_cooldown.IsPlaying();
 		public float ElapsedPercentage => recycledTween_cooldown.Tween.ElapsedPercentage();
 #endregion
 
 #region API
 		public void Start( float duration, bool loop = false, TweenCallback onCompleteDelegate = null )
 		{
-			isOngoing = true;
 			onComplete = onCompleteDelegate;
 			recycledTween_cooldown.Recycle( DOVirtual.DelayedCall( duration, OnComplete ).SetLoops( loop ? -1 : 1 ) );
 		}
@@ -46,14 +43,12 @@ namespace FFStudio
 		public void Kill()
 		{
 			recycledTween_cooldown.Kill();
-			isOngoing = false;
 		}
 #endregion
 
 #region Implementation
 		void OnComplete()
 		{
-			isOngoing = false;
 			onComplete?.Invoke();
 
 			if( popupTextOnComplete )
