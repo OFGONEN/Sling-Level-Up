@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5558458272648734322}
   m_Layer: 0
   m_Name: camera_reference_sequence_start
-  m_TagString: Untagged
+  m_TagString: Camera_Sequence_Start
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
