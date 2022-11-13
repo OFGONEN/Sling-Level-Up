@@ -7,6 +7,7 @@ namespace FFStudio
 	public class Respond : MonoBehaviour
 	{
 #region Fields
+		[ SerializeField ] public bool disableAfterStart;
         [ SerializeReference ] public EventAndResponseDataBase[] eventPairs = new EventAndResponseDataBase[ 0 ];
 #endregion
 
@@ -30,6 +31,12 @@ namespace FFStudio
 		{
 			for( var i = 0; i < eventPairs.Length; i++ )
 				eventPairs[ i ].Pair();
+		}
+
+		void Start()
+		{
+			if( disableAfterStart )
+				enabled = false;
 		}
 #endregion
 
