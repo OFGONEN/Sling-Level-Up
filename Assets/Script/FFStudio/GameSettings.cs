@@ -18,7 +18,7 @@ namespace FFStudio
         [ LabelText( "Follow Speed" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed;
         [ LabelText( "Follow Offset" ) ] public Vector3 camera_follow_offset;
         [ LabelText( "Max Zoom Out Value" ), Min( 0 ) ] public float camera_zoomOut_value_max;
-        [ LabelText( "Max Zoom Out Range" ), Range( 0, 1 ) ] public float camera_zoomOut_value_range;
+        [ LabelText( "Max Zoom Out Range" ), MinMaxSlider( 0, 1 ) ] public Vector2 camera_zoomOut_value_range;
     
     [ Title( "Project Setup", "These settings should not be edited by Level Designer(s).", TitleAlignments.Centered ) ]
         public int maxLevelCount;
