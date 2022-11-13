@@ -34,7 +34,7 @@ namespace FFStudio
 #endregion
 
 #region API
-        void OnLevelRevealedResponse()
+        public void OnLevelRevealedResponse()
         {
             target_transform = notif_stickman_reference.sharedValue as Transform;
 
@@ -44,7 +44,7 @@ namespace FFStudio
 				updateMethod = FollowTargetFixedDeltaTime;
 		}
 
-        void OnLevelFinishedResponse()
+        public void OnLevelFinishedResponse()
         {
             updateMethod = ExtensionMethods.EmptyMethod;
         }
