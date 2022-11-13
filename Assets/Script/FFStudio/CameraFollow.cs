@@ -1,6 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 
 namespace FFStudio
@@ -13,10 +14,17 @@ namespace FFStudio
         [ LabelText( "Follow Method should use Delta Time" ), SerializeField ] bool followWithDeltaTime;
         [ LabelText( "Launch Power" ), SerializeField ] SharedFloat shared_finger_delta_magnitude;
 
+    [ Title( "Sequence References" ) ]
+        [ SerializeField ] SharedReferenceNotifier notif_camera_reference_sequence_start;
+        [ SerializeField ] SharedReferenceNotifier notif_camera_reference_sequence_end;
+
         Transform target_transform;
         UnityMessage updateMethod;
 
         float target_offset_Z;
+
+        Vector3 camera_sequence_position_start;
+        Vector3 camera_sequence_position_end;
 #endregion
 
 #region Properties
@@ -31,6 +39,14 @@ namespace FFStudio
         void Awake()
         {
             updateMethod = ExtensionMethods.EmptyMethod;
+
+            if( CurrentLevelData.Instance.levelData.scene_sequence )
+            {
+				camera_sequence_position_start = ( notif_camera_reference_sequence_start.sharedValue as Transform ).position;
+				camera_sequence_position_end   = ( notif_camera_reference_sequence_end.sharedValue as Transform ).position;
+
+				transform.position = camera_sequence_position_start;
+			}
         }
 
         void Update()
@@ -68,7 +84,11 @@ namespace FFStudio
 #region Implementation
         void DoSequence()
         {
-        }
+			transform.DOMove( camera_sequence_position_end,
+				CurrentLevelData.Instance.levelData.scene_sequence_duration )
+				.SetEase( CurrentLevelData.Instance.levelData.scene_sequence_ease )
+				.OnComplete( StartFollowingTarget );
+		}
 
 		void StartFollowingTarget()
 		{
@@ -111,7 +131,15 @@ namespace FFStudio
 
             if( stickman )
 				transform.position = stickman.transform.position + GameSettings.Instance.camera_follow_offset;
+		}
 
+        [ Button() ]
+		void ResetToSequenceStartPosition()
+		{
+			var cameraSequenceStart = GameObject.FindWithTag( "Camera_Sequence_Start" );
+
+			if( cameraSequenceStart )
+				transform.position = cameraSequenceStart.transform.position;
 		}
 #endif
 #endregion
