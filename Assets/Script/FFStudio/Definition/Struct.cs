@@ -15,7 +15,7 @@ namespace FFStudio
 		public Vector3 rotation; // Euler angles.
 		public Vector3 scale; // Local scale.
 
-		public TransformData( Transform transform, bool isLocal )
+		public TransformData( Transform transform, bool isLocal = true )
 		{
 			if( isLocal )
 			{
