@@ -42,12 +42,10 @@ namespace FFStudio
 #region API
         public void OnLevelRevealedResponse()
         {
-            target_transform = notif_stickman_reference.sharedValue as Transform;
-
-            if( followWithDeltaTime )
-				updateMethod = FollowTargetDeltaTime;
-            else
-				updateMethod = FollowTargetFixedDeltaTime;
+            if( CurrentLevelData.Instance.levelData.scene_sequence )
+				DoSequence();
+			else
+				StartFollowingTarget();
 		}
 
         public void OnLevelFinishedResponse()
@@ -68,7 +66,21 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-        void OnStickmanLaunchUpdate()
+        void DoSequence()
+        {
+        }
+
+		void StartFollowingTarget()
+		{
+			target_transform = notif_stickman_reference.sharedValue as Transform;
+
+            if( followWithDeltaTime )
+				updateMethod = FollowTargetDeltaTime;
+            else
+				updateMethod = FollowTargetFixedDeltaTime;
+        }
+
+		void OnStickmanLaunchUpdate()
         {
 			target_offset_Z = Mathf.InverseLerp( shared_finger_delta_magnitude.sharedValue, GameSettings.Instance.camera_zoomOut_value_range.x, GameSettings.Instance.camera_zoomOut_value_range.y ) * GameSettings.Instance.camera_zoomOut_value_max;
 		}
