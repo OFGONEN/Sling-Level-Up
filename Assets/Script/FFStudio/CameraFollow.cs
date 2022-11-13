@@ -8,40 +8,22 @@ namespace FFStudio
     public class CameraFollow : MonoBehaviour
     {
 #region Fields
-    [ Title( "Event Listeners" ) ]
-        [ SerializeField ] EventListenerDelegateResponse levelRevealEventListener;
-        [ SerializeField ] MultipleEventListenerDelegateResponse levelEndEventListener;
-        
     [ Title( "Setup" ) ]
-        [ SerializeField ] SharedReferenceNotifier notifier_reference_transform_target;
+        [ SerializeField ] SharedReferenceNotifier notif_stickman_reference;
+        [ LabelText( "Follow Method should use Delta Time" ), SerializeField ] bool followWithDeltaTime;
 
-        Transform transform_target;
-        Vector3 followOffset;
-
+        Transform target_transform;
         UnityMessage updateMethod;
+
+        float target_offset_Z;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
-        void OnEnable()
-        {
-            levelRevealEventListener.OnEnable();
-            levelEndEventListener.OnEnable();
-        }
-
-        void OnDisable()
-        {
-            levelRevealEventListener.OnDisable();
-            levelEndEventListener.OnDisable();
-        }
-
         void Awake()
         {
-            levelRevealEventListener.response = LevelRevealedResponse;
-            levelEndEventListener.response    = LevelCompleteResponse;
-
             updateMethod = ExtensionMethods.EmptyMethod;
         }
 
@@ -52,37 +34,51 @@ namespace FFStudio
 #endregion
 
 #region API
-#endregion
-
-#region Implementation
-        void LevelRevealedResponse()
+        void OnLevelRevealedResponse()
         {
-            transform_target = notifier_reference_transform_target.SharedValue as Transform;
+            target_transform = notif_stickman_reference.sharedValue as Transform;
 
-            followOffset = transform_target.position - transform.position;
+            if( followWithDeltaTime )
+				updateMethod = FollowTargetDeltaTime;
+            else
+				updateMethod = FollowTargetFixedDeltaTime;
+		}
 
-            updateMethod = FollowTarget;
-        }
-
-        void LevelCompleteResponse()
+        void OnLevelFinishedResponse()
         {
             updateMethod = ExtensionMethods.EmptyMethod;
         }
+#endregion
 
-        void FollowTarget()
+#region Implementation
+        void FollowTargetDeltaTime()
         {
-            // Info: Simple follow logic.
-            var player_position = transform_target.position;
-            var target_position = transform_target.position - followOffset;
-
-            target_position.x = 0;
-            target_position.z = Mathf.Lerp( transform.position.z, target_position.z, Time.deltaTime * GameSettings.Instance.camera_follow_speed_depth );
-            transform.position = target_position;
+			// Info: Simple follow logic.
+			var offset             = GameSettings.Instance.camera_follow_offset + Vector3.forward * target_offset_Z;
+			var targetPosition     = target_transform.position + offset;
+			    transform.position = Vector3.Lerp( transform.position, targetPosition, GameSettings.Instance.camera_follow_speed * Time.deltaTime );
         }
+
+		void FollowTargetFixedDeltaTime()
+		{
+			// Info: Simple follow logic.
+			var offset             = GameSettings.Instance.camera_follow_offset + Vector3.forward * target_offset_Z;
+			var targetPosition     = target_transform.position + offset;
+			    transform.position = Vector3.Lerp( transform.position, targetPosition, GameSettings.Instance.camera_follow_speed * Time.fixedDeltaTime );
+		}
 #endregion
 
 #region Editor Only
 #if UNITY_EDITOR
+        [ Button() ]
+        void RefreshOffset()
+        {
+			var stickman = GameObject.FindWithTag( "Player" );
+
+            if( stickman )
+				transform.position = stickman.transform.position + GameSettings.Instance.camera_follow_offset;
+
+		}
 #endif
 #endregion
     }
