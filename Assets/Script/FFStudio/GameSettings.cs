@@ -15,11 +15,15 @@ namespace FFStudio
 		[ LabelText( "Enemy defeated ragdoll duration" ), SerializeField ] public Vector2 enemy_defeat_duration;
     
     [ Title( "Camera" ) ]
-        [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;
+        [ LabelText( "Follow Speed" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed;
+        [ LabelText( "Follow Offset" ) ] public Vector3 camera_follow_offset;
+        [ LabelText( "Max Zoom Out Value" ), Min( 0 ) ] public float camera_zoomOut_value_max;
+        [ LabelText( "Max Zoom Out Range" ), Range( 0, 1 ) ] public float camera_zoomOut_value_range;
     
     [ Title( "Project Setup", "These settings should not be edited by Level Designer(s).", TitleAlignments.Centered ) ]
         public int maxLevelCount;
         [ LabelText( "Lateral Screen Percentage for Max Input Delta" ), SuffixLabel( "%" ), Range( 0, 1 ) ] public float game_input_maxDelta_percentage;
+        [ LabelText( "Game's Forward" ) ] public Vector3 game_forward = Vector3.right;
         
         // Info: 3 groups below (coming from template project) are foldout by design: They should remain hidden.
 		[ FoldoutGroup( "Remote Config" ) ] public bool useRemoteConfig_GameSettings;
