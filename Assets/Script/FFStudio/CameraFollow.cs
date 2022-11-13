@@ -1,6 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 
 namespace FFStudio
@@ -8,41 +9,44 @@ namespace FFStudio
     public class CameraFollow : MonoBehaviour
     {
 #region Fields
-    [ Title( "Event Listeners" ) ]
-        [ SerializeField ] EventListenerDelegateResponse levelRevealEventListener;
-        [ SerializeField ] MultipleEventListenerDelegateResponse levelEndEventListener;
-        
     [ Title( "Setup" ) ]
-        [ SerializeField ] SharedReferenceNotifier notifier_reference_transform_target;
+        [ SerializeField ] SharedReferenceNotifier notif_stickman_reference;
+        [ LabelText( "Follow Method should use Delta Time" ), SerializeField ] bool followWithDeltaTime;
+        [ LabelText( "Launch Power" ), SerializeField ] SharedFloat shared_finger_delta_magnitude;
 
-        Transform transform_target;
-        Vector3 followOffset;
+    [ Title( "Sequence References" ) ]
+        [ SerializeField ] SharedReferenceNotifier notif_camera_reference_sequence_start;
+        [ SerializeField ] SharedReferenceNotifier notif_camera_reference_sequence_end;
 
+        Transform target_transform;
         UnityMessage updateMethod;
+
+        float target_offset_Z;
+
+        Vector3 camera_sequence_position_start;
+        Vector3 camera_sequence_position_end;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
-        void OnEnable()
-        {
-            levelRevealEventListener.OnEnable();
-            levelEndEventListener.OnEnable();
-        }
-
         void OnDisable()
         {
-            levelRevealEventListener.OnDisable();
-            levelEndEventListener.OnDisable();
-        }
+			updateMethod = ExtensionMethods.EmptyMethod;
+		}
 
         void Awake()
         {
-            levelRevealEventListener.response = LevelRevealedResponse;
-            levelEndEventListener.response    = LevelCompleteResponse;
-
             updateMethod = ExtensionMethods.EmptyMethod;
+
+            if( CurrentLevelData.Instance.levelData.scene_sequence )
+            {
+				camera_sequence_position_start = ( notif_camera_reference_sequence_start.sharedValue as Transform ).position;
+				camera_sequence_position_end   = ( notif_camera_reference_sequence_end.sharedValue as Transform ).position;
+
+				transform.position = camera_sequence_position_start;
+			}
         }
 
         void Update()
@@ -52,37 +56,91 @@ namespace FFStudio
 #endregion
 
 #region API
-#endregion
-
-#region Implementation
-        void LevelRevealedResponse()
+        public void OnLevelRevealedResponse()
         {
-            transform_target = notifier_reference_transform_target.SharedValue as Transform;
+            if( CurrentLevelData.Instance.levelData.scene_sequence )
+				DoSequence();
+			else
+				StartFollowingTarget();
+		}
 
-            followOffset = transform_target.position - transform.position;
-
-            updateMethod = FollowTarget;
-        }
-
-        void LevelCompleteResponse()
+        public void OnLevelFinishedResponse()
         {
             updateMethod = ExtensionMethods.EmptyMethod;
         }
 
-        void FollowTarget()
+        public void OnStickmanLaunchStart()
         {
-            // Info: Simple follow logic.
-            var player_position = transform_target.position;
-            var target_position = transform_target.position - followOffset;
+			updateMethod += OnStickmanLaunchUpdate;
+			target_offset_Z = 0;
+		}
 
-            target_position.x = 0;
-            target_position.z = Mathf.Lerp( transform.position.z, target_position.z, Time.deltaTime * GameSettings.Instance.camera_follow_speed_depth );
-            transform.position = target_position;
+		public void OnStickmanLaunchEnd()
+		{
+			updateMethod -= OnStickmanLaunchUpdate;
+		}
+#endregion
+
+#region Implementation
+        void DoSequence()
+        {
+			transform.DOMove( camera_sequence_position_end,
+				CurrentLevelData.Instance.levelData.scene_sequence_duration )
+				.SetEase( CurrentLevelData.Instance.levelData.scene_sequence_ease )
+				.OnComplete( StartFollowingTarget );
+		}
+
+		void StartFollowingTarget()
+		{
+			target_transform = notif_stickman_reference.sharedValue as Transform;
+
+            if( followWithDeltaTime )
+				updateMethod = FollowTargetDeltaTime;
+            else
+				updateMethod = FollowTargetFixedDeltaTime;
         }
+
+		void OnStickmanLaunchUpdate()
+        {
+			target_offset_Z = Mathf.InverseLerp( shared_finger_delta_magnitude.sharedValue, GameSettings.Instance.camera_zoomOut_value_range.x, GameSettings.Instance.camera_zoomOut_value_range.y ) * GameSettings.Instance.camera_zoomOut_value_max;
+		}
+
+        void FollowTargetDeltaTime()
+        {
+			// Info: Simple follow logic.
+			var offset             = GameSettings.Instance.camera_follow_offset + Vector3.forward * target_offset_Z;
+			var targetPosition     = target_transform.position + offset;
+			    transform.position = Vector3.Lerp( transform.position, targetPosition, GameSettings.Instance.camera_follow_speed * Time.deltaTime );
+        }
+
+		void FollowTargetFixedDeltaTime()
+		{
+			// Info: Simple follow logic.
+			var offset             = GameSettings.Instance.camera_follow_offset + Vector3.forward * target_offset_Z;
+			var targetPosition     = target_transform.position + offset;
+			    transform.position = Vector3.Lerp( transform.position, targetPosition, GameSettings.Instance.camera_follow_speed * Time.fixedDeltaTime );
+		}
 #endregion
 
 #region Editor Only
 #if UNITY_EDITOR
+        [ Button() ]
+        void RefreshOffset()
+        {
+			var stickman = GameObject.FindWithTag( "Player" );
+
+            if( stickman )
+				transform.position = stickman.transform.position + GameSettings.Instance.camera_follow_offset;
+		}
+
+        [ Button() ]
+		void ResetToSequenceStartPosition()
+		{
+			var cameraSequenceStart = GameObject.FindWithTag( "Camera_Sequence_Start" );
+
+			if( cameraSequenceStart )
+				transform.position = cameraSequenceStart.transform.position;
+		}
 #endif
 #endregion
     }
