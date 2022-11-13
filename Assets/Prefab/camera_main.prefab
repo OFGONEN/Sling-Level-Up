@@ -148,7 +148,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notif_stickman_reference: {fileID: 11400000, guid: 232900546bff94b8fbd1f6c0f5a8a3c5, type: 2}
   followWithDeltaTime: 1
-  shared_finger_delta_magnitude: {fileID: 0}
+  shared_finger_delta_magnitude: {fileID: 11400000, guid: bbc2e82daf24c7c4ab231c2f9bbf35ee, type: 2}
+  notif_camera_reference_sequence_start: {fileID: 11400000, guid: a3a7a2811ac9c4dc69e9d85cdd5c4b60, type: 2}
+  notif_camera_reference_sequence_end: {fileID: 11400000, guid: db5826f36927641ef9b9dd098ccc2efc, type: 2}
 --- !u!1 &2932708605208369588
 GameObject:
   m_ObjectHideFlags: 0
