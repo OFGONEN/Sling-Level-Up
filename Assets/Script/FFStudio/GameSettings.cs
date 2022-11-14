@@ -13,6 +13,8 @@ namespace FFStudio
     [ Title( "Enemy" ) ]
 		[ LabelText( "Force to give Enemy when its defated" ), SerializeField ] public Vector2 enemy_defeat_force;
 		[ LabelText( "Enemy defeated ragdoll duration" ), SerializeField ] public Vector2 enemy_defeat_duration;
+		[ LabelText( "Enemy Flip Duration" ), SerializeField ] public float enemy_flip_duration;
+		[ LabelText( "Enemy Flip Ease" ), SerializeField ] public Ease enemy_flip_ease;
     
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed;
