@@ -93,6 +93,7 @@ Transform:
   m_Children:
   - {fileID: 2738069129687080010}
   - {fileID: 2738069129380487706}
+  - {fileID: 3265280602680681162}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -108,3 +109,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e86fba608dda40e7a05d6584ca77a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notif_stickman_reference: {fileID: 11400000, guid: 232900546bff94b8fbd1f6c0f5a8a3c5, type: 2}
+  shared_finger_delta_direction: {fileID: 11400000, guid: d0b46190cc2a77a4ca371d7a179c92ec, type: 2}
+  shared_finger_delta_magnitude: {fileID: 11400000, guid: bbc2e82daf24c7c4ab231c2f9bbf35ee, type: 2}
+  target: {fileID: 0}
+  gfx: {fileID: 0}
+  gfx_child_array: []
+--- !u!1 &2937013847623027405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3265280602680681162}
+  - component: {fileID: 4738838605626904664}
+  m_Layer: 0
+  m_Name: logic_launch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3265280602680681162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2937013847623027405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2738069130036680714}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4738838605626904664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2937013847623027405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245dc21cc9428744fa28ad2d6ce7d327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableAfterStart: 0
+  eventPairs:
+  - rid: 3469633514364469248
+  - rid: 3469633514364469249
+  references:
+    version: 2
+    RefIds:
+    - rid: 3469633514364469248
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: 2d21c251972894c36850c87658e75fc6, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 2738069130036680717}
+              m_TargetAssemblyTypeName: LaunchDirection, Assembly-CSharp
+              m_MethodName: OnStickmanLaunchStart
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+    - rid: 3469633514364469249
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: 7be1935aed4ea48c2937ea7b4ae20d3e, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 2738069130036680717}
+              m_TargetAssemblyTypeName: LaunchDirection, Assembly-CSharp
+              m_MethodName: OnStickmanLaunchEnd
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
