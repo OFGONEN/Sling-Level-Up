@@ -16,7 +16,7 @@ public class LaunchDirection : MonoBehaviour
 
   [ Title( "Components" ) ]
     [ SerializeField ] Transform gfx;
-    [ SerializeField ] GameObject[] gfx_child_array;
+    [ SerializeField, ReadOnly ] GameObject[] gfx_child_array;
     [ SerializeField ] Transform target;
 
 
@@ -48,6 +48,8 @@ public class LaunchDirection : MonoBehaviour
     {
 		target.localPosition = Vector3.right;
 		DisableLaunchVisual();
+
+		gfx_child_array[ 0 ].SetActive( true );
 	}
 
 	public void OnStickmanLaunchEnd()
@@ -66,8 +68,11 @@ public class LaunchDirection : MonoBehaviour
 
     void OnLaunchUpdate_Visual()
     {
+		var lastIndex = Mathf.Lerp( 1, gfx_child_array.Length, shared_finger_delta_magnitude.sharedValue );
 
-    }
+        for( var i = 1; i < lastIndex; i++ )
+			gfx_child_array[ i ].SetActive( true );
+	}
 
     void DisableLaunchVisual()
     {
