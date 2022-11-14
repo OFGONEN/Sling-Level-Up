@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using FFStudio;
+using DG.Tweening;
 using TMPro;
 using Sirenix.OdinInspector;
 
@@ -27,7 +28,10 @@ public class Enemy : MonoBehaviour
     [ SerializeField ] TextMeshProUGUI enemy_power_ui;
 
 // Private
-	Cooldown cooldown_disable = new Cooldown();
+	Cooldown      cooldown_disable = new Cooldown();
+	RecycledTween recycledTween    = new RecycledTween();
+
+	Vector3 enemy_cell_position;
 #endregion
 
 #region Properties
@@ -38,6 +42,8 @@ public class Enemy : MonoBehaviour
 	{
 		enemy_ragdoll.SwitchRagdoll( false );
 		enemy_ragdoll.ToggleCollider( false );
+
+		enemy_cell_position = transform.localPosition;
 	}
 #endregion
 
@@ -54,6 +60,11 @@ public class Enemy : MonoBehaviour
 	{
 		enemy_ragdoll.ToggleCollider( true );
 		enemy_ragdoll.ToggleTriggerOnCollider( true );
+	}
+
+	public void OnStickmanLaunchFlipped()
+	{
+		recycledTween.Recycle( transform.DOLocalMove( -enemy_cell_position, GameSettings.Instance.enemy_flip_duration ).SetEase( GameSettings.Instance.enemy_flip_ease ) );
 	}
 #endregion
 
