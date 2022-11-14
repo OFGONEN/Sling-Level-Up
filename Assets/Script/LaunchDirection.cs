@@ -15,9 +15,9 @@ public class LaunchDirection : MonoBehaviour
 	[ SerializeField ] SharedFloat shared_finger_delta_magnitude;
 
   [ Title( "Components" ) ]
+    [ SerializeField ] Transform target;
     [ SerializeField ] Transform gfx;
     [ SerializeField, ReadOnly ] GameObject[] gfx_child_array;
-    [ SerializeField ] Transform target;
 
 
     UnityMessage onUpdate;
@@ -35,6 +35,7 @@ public class LaunchDirection : MonoBehaviour
     void Awake()
     {
 		onUpdate = ExtensionMethods.EmptyMethod;
+		DisableLaunchVisual();
 	}
 
     void Update()
