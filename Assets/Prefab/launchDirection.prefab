@@ -112,8 +112,8 @@ MonoBehaviour:
   notif_stickman_reference: {fileID: 11400000, guid: 232900546bff94b8fbd1f6c0f5a8a3c5, type: 2}
   shared_finger_delta_direction: {fileID: 11400000, guid: d0b46190cc2a77a4ca371d7a179c92ec, type: 2}
   shared_finger_delta_magnitude: {fileID: 11400000, guid: bbc2e82daf24c7c4ab231c2f9bbf35ee, type: 2}
-  target: {fileID: 0}
-  gfx: {fileID: 0}
+  target: {fileID: 2738069129380487706}
+  gfx: {fileID: 2738069129687080010}
   gfx_child_array: []
 --- !u!1 &2937013847623027405
 GameObject:
