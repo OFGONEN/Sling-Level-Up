@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 3085482760140907137}
   - component: {fileID: 5999807036516084081}
   m_Layer: 5
-  m_Name: ui_launchDirection_texture
+  m_Name: ui_launchDirection_visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
