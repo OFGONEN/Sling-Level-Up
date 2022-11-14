@@ -483,7 +483,7 @@ namespace FFStudio
 			for( var i = 0; i < childCount; i++ )
 				GameObject.DestroyImmediate( childs[ i ].gameObject );
 		}
-
+		
 		public static void ToggleKinematic( this Rigidbody rigidbody, bool value )
 		{
 			rigidbody.isKinematic = value;
@@ -510,5 +510,9 @@ namespace FFStudio
 			elementOfInterest.particle1 = previousElement.particle2;
 		}
 #endif
+		public static void EmptyDelegate( this UnityMessage callback )
+		{
+			callback = ExtensionMethods.EmptyMethod;
+		}
 	}
 }
