@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
 #endregion
 
 #region API
-	public void OnPlayerTrigger( Collider enemy, Collider player )
+	public void OnPlayerTrigger( Collider enemy, Collider player ) // Info: Called from Enemy's own ragdoll collider 
 	{
 		if( enemy_power >= notif_stickman_power.sharedValue )
 			OnWin();
@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
 			OnLoose( enemy, ( enemy.transform.position - player.transform.position ).normalized );
 	}
 
-	public void EnableTriggerOnRagdoll()
+	public void EnableTriggerOnRagdoll() // Info: Called from Cell prefab
 	{
 		enemy_ragdoll.ToggleCollider( true );
 		enemy_ragdoll.ToggleTriggerOnCollider( true );
