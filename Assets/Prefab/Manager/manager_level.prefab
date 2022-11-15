@@ -60,58 +60,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245dc21cc9428744fa28ad2d6ce7d327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableAfterStart: 0
   eventPairs:
-  - eventListener:
-      gameEvents:
-      - {fileID: 11400000, guid: 08b9079fb856230459ba418b28981185, type: 2}
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3087407567312676473}
-          m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
-          m_MethodName: LevelLoadedResponse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventListener:
-      gameEvents:
-      - {fileID: 11400000, guid: be5502ede7f194b4cad32082aa9196eb, type: 2}
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3087407567312676473}
-          m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
-          m_MethodName: LevelRevealedResponse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventListener:
-      gameEvents:
-      - {fileID: 11400000, guid: efef06bf257ee27438d6c2aab4936226, type: 2}
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3087407567312676473}
-          m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
-          m_MethodName: LevelStartedResponse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  - rid: 2955885637604737029
+  - rid: 2955885637604737030
+  - rid: 2955885637604737031
+  references:
+    version: 2
+    RefIds:
+    - rid: 2955885637604737029
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: 08b9079fb856230459ba418b28981185, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 3087407567312676473}
+              m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
+              m_MethodName: LevelLoadedResponse
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+    - rid: 2955885637604737030
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: be5502ede7f194b4cad32082aa9196eb, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 3087407567312676473}
+              m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
+              m_MethodName: LevelRevealedResponse
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+    - rid: 2955885637604737031
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: efef06bf257ee27438d6c2aab4936226, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 3087407567312676473}
+              m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
+              m_MethodName: LevelStartedResponse
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
