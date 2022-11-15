@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8234187991395952690}
   m_Layer: 0
-  m_Name: gfx_stickman_friend_bag
+  m_Name: gfx_stickman_friend_hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,69 +28,69 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 747004250898342703}
+  - {fileID: 7406910624390827276}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &997368191325684932
+--- !u!1001 &7007627981163899623
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 8234187991395952690}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
+    - target: {fileID: 919132149155446097, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
       propertyPath: m_Name
-      value: prop_bag_v1
+      value: prop_friend_hat_v1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
---- !u!4 &747004250898342703 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
+--- !u!4 &7406910624390827276 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4e9b37e418c6d66408a3ff4d87f611a7, type: 3}
-  m_PrefabInstance: {fileID: 997368191325684932}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 339f22f92f9a73d44b30e05358cd277c, type: 3}
+  m_PrefabInstance: {fileID: 7007627981163899623}
   m_PrefabAsset: {fileID: 0}
