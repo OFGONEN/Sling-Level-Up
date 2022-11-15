@@ -81,6 +81,7 @@ public class Enemy : MonoBehaviour
 
 		cooldown_disable.Start( GameSettings.Instance.enemy_defeat_duration.ReturnRandom(), false, OnDefeatComplete );
 
+		notif_stickman_power.SharedValue += enemy_power;
 		event_stickman_won.Raise( enemy_power );
 	}
 
