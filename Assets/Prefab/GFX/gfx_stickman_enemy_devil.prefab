@@ -87,6 +87,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: char_stickman_enemy_devil_v1
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 55c4f06802368dc48b88d2542636d605, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: c4c5c88cc34498647b49f900b8a05c07, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 55c4f06802368dc48b88d2542636d605, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55c4f06802368dc48b88d2542636d605, type: 3}
 --- !u!4 &6226127306624889644 stripped
