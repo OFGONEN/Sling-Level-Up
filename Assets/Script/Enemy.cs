@@ -73,6 +73,8 @@ public class Enemy : MonoBehaviour
 	{
 		enemy_power_ui.gameObject.SetActive( false );
 
+		enemy_animator.enabled = false;
+
 		enemy_ragdoll.ToggleTriggerOnCollider( false );
 		enemy_ragdoll.SwitchRagdoll( true );
 
