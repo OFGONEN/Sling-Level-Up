@@ -23,6 +23,7 @@ namespace FFStudio
 		[ LabelText( "Stickman Cell Enemy Pushed Power" ) ] public Vector2 stickman_cell_enemy_pushed_force;
 		[ LabelText( "Stickman Spawn Delay Cell" ) ] public float stickman_spawn_delay_cell;
 		[ LabelText( "Stickman Spawn Delay Ground" ) ] public float stickman_spawn_delay_ground;
+		[ LabelText( "Stickman Spawn Delay FinishLine" ) ] public float stickman_spawn_delay_finishLine;
 
     [ Title( "Enemy" ) ]
 		[ LabelText( "Force to give Enemy when its defated" ) ] public Vector2 enemy_defeat_force;
