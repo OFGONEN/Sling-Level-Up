@@ -188,7 +188,19 @@ MonoBehaviour:
   enemy_power: 0
   enemy_lost:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6572879819339603248}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   enemy_won:
     m_PersistentCalls:
       m_Calls: []
@@ -241,23 +253,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableAfterStart: 0
   eventPairs:
-  - rid: 3469633514364469250
+  - rid: 2955885637604737033
   references:
     version: 2
     RefIds:
-    - rid: 3469633514364469250
-      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+    - rid: 2955885637604737033
+      type: {class: EventAndBoolGameEventResponseData, ns: FFStudio, asm: Assembly-CSharp}
       data:
         eventListener:
           gameEvents:
-          - {fileID: 11400000, guid: 9b9dc91e098b74f48b3bec178c8316ec, type: 2}
+          - {fileID: 11400000, guid: f14b7ea4eec4d4e10b966151cbb4ed51, type: 2}
         unityEvent:
           m_PersistentCalls:
             m_Calls:
             - m_Target: {fileID: 25832106155183318}
               m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
               m_MethodName: OnStickmanLaunchFlipped
-              m_Mode: 1
+              m_Mode: 0
               m_Arguments:
                 m_ObjectArgument: {fileID: 0}
                 m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -266,6 +278,7 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
+        argument: {fileID: 11400000, guid: f14b7ea4eec4d4e10b966151cbb4ed51, type: 2}
 --- !u!1 &6836074319818350640
 GameObject:
   m_ObjectHideFlags: 0
