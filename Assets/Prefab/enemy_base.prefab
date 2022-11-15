@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 7524168424236707823}
   - component: {fileID: 488846509681519430}
   - component: {fileID: 5630003386843917820}
+  - component: {fileID: 852123107639947314}
   m_Layer: 5
   m_Name: ui_canvas_enemy
   m_TagString: Untagged
@@ -362,3 +363,17 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &852123107639947314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6836074319818350640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7993f4f2c0a6d1d47b9029194d027825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookAt_Reference: {fileID: 11400000, guid: db5826f36927641ef9b9dd098ccc2efc, type: 2}
+  lookAt_Axis: {x: 0, y: 1, z: 0}
