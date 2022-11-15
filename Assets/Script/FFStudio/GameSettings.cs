@@ -10,11 +10,26 @@ namespace FFStudio
     {
 #region Fields (Settings)
     // Info: You can use Title() attribute ONCE for every game-specific group of settings.
+    [ Title( "Stickman" ) ]
+		[ LabelText( "Stickman Rise Height" ) ] public float stickman_rise_height;
+		[ LabelText( "Stickman Rise Duration" ) ] public float stickman_rise_duration;
+		[ LabelText( "Stickman Rise Ease" ) ] public Ease stickman_rise_ease;
+		[ LabelText( "Stickman Launch Rotation Speed" ) ] public float stickman_launch_rotation_speed;
+		[ LabelText( "Stickman Launch Rotation Speed" ), MinMaxSlider( 0, 1000 ) ] public Vector2 stickman_launch_power;
+		[ LabelText( "Stickman Cell Offset Height" ) ] public float stickman_cell_offset;
+		[ LabelText( "Stickman Cell Enemy Attack Offset" ) ] public float stickman_cell_enemy_attack_offset;
+		[ LabelText( "Stickman Cell Enemy Attack Duration" ) ] public float stickman_cell_enemy_attack_duration;
+		[ LabelText( "Stickman Cell Enemy Attack Ease" ) ] public Ease stickman_cell_enemy_attack_ease;
+		[ LabelText( "Stickman Cell Enemy Pushed Power" ) ] public Vector2 stickman_cell_enemy_pushed_force;
+		[ LabelText( "Stickman Spawn Delay Cell" ) ] public float stickman_spawn_delay_cell;
+		[ LabelText( "Stickman Spawn Delay Ground" ) ] public float stickman_spawn_delay_ground;
+		[ LabelText( "Stickman Spawn Delay FinishLine" ) ] public float stickman_spawn_delay_finishLine;
+
     [ Title( "Enemy" ) ]
-		[ LabelText( "Force to give Enemy when its defated" ), SerializeField ] public Vector2 enemy_defeat_force;
-		[ LabelText( "Enemy defeated ragdoll duration" ), SerializeField ] public Vector2 enemy_defeat_duration;
-		[ LabelText( "Enemy Flip Duration" ), SerializeField ] public float enemy_flip_duration;
-		[ LabelText( "Enemy Flip Ease" ), SerializeField ] public Ease enemy_flip_ease;
+		[ LabelText( "Force to give Enemy when its defated" ) ] public Vector2 enemy_defeat_force;
+		[ LabelText( "Enemy defeated ragdoll duration" ) ] public Vector2 enemy_defeat_duration;
+		[ LabelText( "Enemy Flip Duration" ) ] public float enemy_flip_duration;
+		[ LabelText( "Enemy Flip Ease" ) ] public Ease enemy_flip_ease;
     
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed;

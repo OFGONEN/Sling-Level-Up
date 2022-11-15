@@ -13,6 +13,7 @@ namespace FFStudio
         [ SerializeField ] SharedReferenceNotifier notif_stickman_reference;
         [ LabelText( "Follow Method should use Delta Time" ), SerializeField ] bool followWithDeltaTime;
         [ LabelText( "Launch Power" ), SerializeField ] SharedFloat shared_finger_delta_magnitude;
+        [ SerializeField ] GameEvent event_level_started;
 
     [ Title( "Sequence References" ) ]
         [ SerializeField ] SharedReferenceNotifier notif_camera_reference_sequence_start;
@@ -61,7 +62,7 @@ namespace FFStudio
             if( CurrentLevelData.Instance.levelData.scene_sequence )
 				DoSequence();
 			else
-				StartFollowingTarget();
+				OnCameraSequenceComplete();
 		}
 
         public void OnLevelFinishedResponse()
@@ -87,7 +88,13 @@ namespace FFStudio
 			transform.DOMove( camera_sequence_position_end,
 				CurrentLevelData.Instance.levelData.scene_sequence_duration )
 				.SetEase( CurrentLevelData.Instance.levelData.scene_sequence_ease )
-				.OnComplete( StartFollowingTarget );
+				.OnComplete( OnCameraSequenceComplete );
+		}
+
+        void OnCameraSequenceComplete()
+        {
+			event_level_started.Raise();
+			StartFollowingTarget();
 		}
 
 		void StartFollowingTarget()

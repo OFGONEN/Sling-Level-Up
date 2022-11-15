@@ -92,6 +92,17 @@ namespace FFStudio
 	}
 
 	[ Serializable ]
+	public class EventAndReferenceGameEventResponseData : EventAndResponseGenericData< object >
+	{
+		public ReferenceGameEvent argument;
+
+		protected override void OnResponse()
+		{
+			unityEvent.Invoke( argument.eventValue );
+		}
+	}
+
+	[ Serializable ]
 	public struct ParticleData
 	{
 		public ParticleSpawnEvent particle_event;

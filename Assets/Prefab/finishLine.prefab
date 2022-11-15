@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8343500072328809084}
   - component: {fileID: 2782357520247781507}
   - component: {fileID: 7092976548115244397}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7795829733239706997}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: finishLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,6 +204,10 @@ PrefabInstance:
     - target: {fileID: 4676385747614970435, guid: a71db27c2869a374e9ca1912daacd488, type: 3}
       propertyPath: m_Name
       value: gfx_finishLine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676385747614970435, guid: a71db27c2869a374e9ca1912daacd488, type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a71db27c2869a374e9ca1912daacd488, type: 3}
