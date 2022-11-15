@@ -14,6 +14,7 @@ public class Stickman : MonoBehaviour
     [ SerializeField ] SharedIntNotifier notif_stickman_power;
     [ SerializeField ] SharedFloat shared_finger_delta_magnitude;
     [ SerializeField ] SharedReferenceNotifier notif_stickman_target_reference;
+    [ SerializeField ] StickmanPose[] stickman_pose_array;
 
   [ Title( "Fired Events" ) ]
 	[ SerializeField ] GameEvent event_stickman_launch_start;
@@ -23,8 +24,12 @@ public class Stickman : MonoBehaviour
   [ Title( "Components" ) ]
 	[ SerializeField ] ToggleRagdoll stickman_ragdoll;
 	[ SerializeField ] ParticleSystem particle_launch_update;
+	[ SerializeField ] ParticleSystem particle_cell_entered;
+	[ SerializeField ] Transform[] stickman_transform_array;
 // Private
 	Transform stickman_target_transform;
+	Vector3 current_cell_position;
+	Enemy current_cell_enemy;
 
     UnityMessage onUpdate;
     UnityMessage onFingerDown;
@@ -49,6 +54,8 @@ public class Stickman : MonoBehaviour
 		stickman_ragdoll.SwitchRagdoll( false );
 		stickman_ragdoll.ToggleCollider( false );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
+
+		current_cell_position = transform.position - Vector3.up * GameSettings.Instance.stickman_cell_offset;
 	}
 
 	private void Update()
@@ -75,13 +82,31 @@ public class Stickman : MonoBehaviour
 		onFingerUp();
 	}
 
-	public void OnStickmanEnteredCell()
+	public void OnStickmanEnteredCell( object value )
 	{
-		
+		var enemy              = value as Enemy;  // Info: Enemy's +Y position will give us the Cell's +Y position as well
+		    current_cell_enemy = enemy;
+
+		particle_cell_entered.Play();
+		ChangeIntoAttackPose();
+
+		recycledTween.Recycle( transform.DOMove( enemy.transform.position + GameSettings.Instance.stickman_cell_enemy_attack_offset * Vector3.up,
+			GameSettings.Instance.stickman_cell_enemy_attack_duration )
+			.SetEase( GameSettings.Instance.stickman_cell_enemy_attack_ease ) );
 	}
 #endregion
 
 #region Implementation
+	void ChangeIntoAttackPose()
+	{
+		stickman_ragdoll.SwitchRagdoll( false );
+		stickman_ragdoll.ToggleCollider( true );
+		stickman_ragdoll.ToggleTriggerOnCollider( true );
+
+		transform.position = stickman_ragdoll.MainRigidbody.position;
+		ChangeStickmanPose( stickman_pose_array.ReturnRandom() );
+	}
+
     void Rise()
     {
 		onFingerDown.EmptyDelegate();
@@ -121,6 +146,19 @@ public class Stickman : MonoBehaviour
 		transform.LookAtOverTimeAxis( stickman_target_transform.position, Vector3.right, GameSettings.Instance.stickman_launch_rotation_speed );
 	}
 
+	void ChangeStickmanPose( StickmanPose pose )
+	{
+		for( var i = 0; i < stickman_transform_array.Length; i++ )
+		{
+			var stickmanTransform = stickman_transform_array[ i ];
+			var poseData = pose.GetDataOnIndex( i );
+
+			stickmanTransform.localPosition    = poseData.position;
+			stickmanTransform.localEulerAngles = poseData.rotation;
+			stickmanTransform.localScale       = poseData.scale;
+		}
+	}
+
     void EmptyDelegates()
     {
 		onUpdate.EmptyDelegate();
@@ -131,6 +169,13 @@ public class Stickman : MonoBehaviour
 
 #region Editor Only
 #if UNITY_EDITOR
+	[ Button() ]
+	void CacheStickmanTransforms( Transform transform )
+	{
+		UnityEditor.EditorUtility.SetDirty( gameObject );
+
+		stickman_transform_array = transform.GetComponentsInChildren< Transform >();
+	}
 #endif
 #endregion
 }
