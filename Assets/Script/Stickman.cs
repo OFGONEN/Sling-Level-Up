@@ -59,6 +59,8 @@ public class Stickman : MonoBehaviour
     {
 		EmptyDelegates();
 
+		notif_stickman_power.SetValue_NotifyAlways( CurrentLevelData.Instance.levelData.stickman_power_start );
+
 		stickman_power_ui.gameObject.SetActive( true );
 		UpdateStickmanPowerUI();
 
