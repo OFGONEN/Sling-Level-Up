@@ -87,6 +87,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: char_stickman_friend_v1
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 875ce3d67c1f01f46afdbc0b599defc8, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: dd0ebefaad7dd15478d8cd47a946d318, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 875ce3d67c1f01f46afdbc0b599defc8, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 875ce3d67c1f01f46afdbc0b599defc8, type: 3}
 --- !u!4 &1661503858513598135 stripped
