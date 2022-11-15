@@ -13,6 +13,7 @@ public class Stickman : MonoBehaviour
 #region Fields
   [ Title( "Setup" ) ]
     [ SerializeField ] SharedIntNotifier notif_stickman_power;
+    [ SerializeField ] SharedVector3Notifier notif_stickman_finishLine_spawn_position;
     [ SerializeField ] SharedFloat shared_finger_delta_magnitude;
     [ SerializeField ] SharedReferenceNotifier notif_stickman_target_reference;
     [ SerializeField ] StickmanPose[] stickman_pose_array;
@@ -21,6 +22,7 @@ public class Stickman : MonoBehaviour
 	[ SerializeField ] GameEvent event_stickman_launch_start;
 	[ SerializeField ] GameEvent event_stickman_launch_flipped;
 	[ SerializeField ] GameEvent event_stickman_launch_end;
+	[ SerializeField ] GameEvent event_stickman_victory;
 
   [ Title( "Components" ) ]
 	[ SerializeField ] Animator stickman_animator;
@@ -133,7 +135,8 @@ public class Stickman : MonoBehaviour
 
 	public void OnFinishLine()
 	{
-		//todo handle finish line
+		event_stickman_victory.Raise();
+		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
 	}
 #endregion
 
@@ -172,6 +175,19 @@ public class Stickman : MonoBehaviour
 		stickman_animator.SetTrigger( "idle" );
 
 		onFingerDown = Rise;
+	}
+
+	void SpawnOnTarget()
+	{
+		stickman_ragdoll.SwitchRagdoll( false );
+		stickman_ragdoll.ToggleCollider( false );
+
+		stickman_power_ui.gameObject.SetActive( true );
+
+		transform.position = notif_stickman_finishLine_spawn_position.sharedValue + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+
+		particle_cell_spawned.Play();
+		stickman_animator.SetTrigger( "victory" );
 	}
 
 	void PushStickmanAwayFromEnemy()
