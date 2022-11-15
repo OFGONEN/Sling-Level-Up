@@ -22,21 +22,26 @@ public class Stickman : MonoBehaviour
 	[ SerializeField ] GameEvent event_stickman_launch_end;
 
   [ Title( "Components" ) ]
+	[ SerializeField ] Animator stickman_animator;
 	[ SerializeField ] ToggleRagdoll stickman_ragdoll;
+	[ SerializeField ] TextMeshProUGUI stickman_power_ui;
 	[ SerializeField ] ParticleSystem particle_launch_update;
 	[ SerializeField ] ParticleSystem particle_cell_entered;
+	[ SerializeField ] ParticleSystem particle_cell_spawned;
 	[ SerializeField ] Transform[] stickman_transform_array;
 // Private
 	Transform stickman_target_transform;
-	Vector3 current_cell_position;
-	Enemy current_cell_enemy;
-	bool currenct_cell_enemy_isOnRight;
+	Vector3 cell_position_previous;
+	Vector3 cell_position_current;
+	Enemy enemy_current;
+	bool enemy_current_isOnRight;
 
     UnityMessage onUpdate;
     UnityMessage onFingerDown;
     UnityMessage onFingerUp;
 
-	RecycledTween recycledTween = new RecycledTween();
+	RecycledTween recycledTween  = new RecycledTween();
+	Cooldown      cooldown_spawn = new Cooldown();
 #endregion
 
 #region Properties
@@ -56,7 +61,7 @@ public class Stickman : MonoBehaviour
 		stickman_ragdoll.ToggleCollider( false );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
 
-		current_cell_position = transform.position - Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		cell_position_previous = transform.position - Vector3.up * GameSettings.Instance.stickman_cell_offset;
 	}
 
 	private void Update()
@@ -86,7 +91,7 @@ public class Stickman : MonoBehaviour
 	public void OnStickmanEnteredCell( object value )
 	{
 		var enemy              = value as Enemy;  // Info: Enemy's +Y position will give us the Cell's +Y position as well
-		    current_cell_enemy = enemy;
+		    enemy_current = enemy;
 
 		var enemyPosition = enemy.transform.position;
 
@@ -97,28 +102,71 @@ public class Stickman : MonoBehaviour
 			GameSettings.Instance.stickman_cell_enemy_attack_duration )
 			.SetEase( GameSettings.Instance.stickman_cell_enemy_attack_ease ) );
 
-		currenct_cell_enemy_isOnRight = transform.position.x <= enemyPosition.x;
+		enemy_current_isOnRight = transform.position.x <= enemyPosition.x;
+
+		if( enemy_current_isOnRight )
+			cell_position_current = enemyPosition;
+		else
+			cell_position_current = enemyPosition.MultiplyX( -1f );
 	}
 
 	public void OnStickmanWon()
 	{
 		PushStickmanAwayFromEnemy();
+		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_cell, false, SpawnInCurrentCell );
 	}
 
 	public void OnStickmanLost()
 	{
 		PushStickmanAwayFromEnemy();
+		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_cell, false, SpawnInPreviousCell );
+	}
+
+	public void OnStickmanGround()
+	{
+		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
+	}
 	}
 #endregion
 
 #region Implementation
+	void SpawnInCurrentCell()
+	{
+		stickman_ragdoll.SwitchRagdoll( false );
+		stickman_ragdoll.ToggleCollider( false );
+
+		stickman_power_ui.gameObject.SetActive( true );
+
+		cell_position_previous = cell_position_current;
+		transform.position     = cell_position_current + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+
+		particle_cell_spawned.Play();
+		stickman_animator.SetTrigger( "idle" );
+
+		onFingerDown = Rise;
+	}
+
+	void SpawnInPreviousCell()
+	{
+		stickman_ragdoll.SwitchRagdoll( false );
+		stickman_ragdoll.ToggleCollider( false );
+
+		stickman_power_ui.gameObject.SetActive( true );
+
+		transform.position = cell_position_previous + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+
+		particle_cell_spawned.Play();
+		stickman_animator.SetTrigger( "idle" );
+
+		onFingerDown = Rise;
+	}
 	void PushStickmanAwayFromEnemy()
 	{
 		stickman_ragdoll.SwitchRagdoll( true );
 		stickman_ragdoll.ToggleCollider( true );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
 
-		var forceCofactor = currenct_cell_enemy_isOnRight ? 1 : -1f;
+		var forceCofactor = enemy_current_isOnRight ? 1 : -1f;
 		stickman_ragdoll.ApplyForce( GameSettings.Instance.stickman_cell_enemy_pushed_force.ReturnRandom() * Vector3.right * forceCofactor, ForceMode.Impulse );
 	}
 
