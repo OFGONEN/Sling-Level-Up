@@ -13,13 +13,14 @@ public class LaunchDirection : MonoBehaviour
     [ SerializeField ] SharedReferenceNotifier notif_stickman_reference;
     [ SerializeField ] SharedVector2 shared_finger_delta_direction;
 	[ SerializeField ] SharedFloat shared_finger_delta_magnitude;
+	[ SerializeField ] GameEvent event_stickman_flipped;
 
   [ Title( "Components" ) ]
     [ SerializeField ] Transform target;
     [ SerializeField ] Transform gfx;
     [ SerializeField, ReadOnly ] GameObject[] gfx_child_array;
 
-
+	UnityMessage onDirectionFlipCheck;
     UnityMessage onUpdate;
 #endregion
 
@@ -29,12 +30,12 @@ public class LaunchDirection : MonoBehaviour
 #region Unity API
     void OnDisable()
     {
-		onUpdate = ExtensionMethods.EmptyMethod;
+		onUpdate.EmptyDelegate();
 	}
 
     void Awake()
     {
-		onUpdate = ExtensionMethods.EmptyMethod;
+		onUpdate.EmptyDelegate();
 		DisableLaunchVisual();
 	}
 
@@ -50,6 +51,9 @@ public class LaunchDirection : MonoBehaviour
 		target.localPosition = Vector3.right;
 		DisableLaunchVisual();
 
+		onUpdate = OnLaunchUpdate;
+		onDirectionFlipCheck = CheckIfDirectionFlippedToLeft;
+
 		gfx_child_array[ 0 ].SetActive( true );
 	}
 
@@ -61,9 +65,29 @@ public class LaunchDirection : MonoBehaviour
 #endregion
 
 #region Implementation
+	void CheckIfDirectionFlippedToLeft()
+	{
+		if( shared_finger_delta_direction.sharedValue.x > 0 )
+		{
+			event_stickman_flipped.Raise();
+			onDirectionFlipCheck = CheckIfDirectionFlippedToRight;
+		}
+	}
+
+	void CheckIfDirectionFlippedToRight()
+	{
+		if( shared_finger_delta_direction.sharedValue.x < 0 )
+		{
+			event_stickman_flipped.Raise();
+			onDirectionFlipCheck = CheckIfDirectionFlippedToLeft;
+		}
+	}
+
     void OnLaunchUpdate()
     {
 		target.localPosition = shared_finger_delta_direction.sharedValue;
+
+		onDirectionFlipCheck();
 		OnLaunchUpdate_Visual();
 	}
 
