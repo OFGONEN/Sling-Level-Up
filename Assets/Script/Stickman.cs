@@ -20,7 +20,6 @@ public class Stickman : MonoBehaviour
 
   [ Title( "Fired Events" ) ]
 	[ SerializeField ] GameEvent event_stickman_launch_start;
-	[ SerializeField ] GameEvent event_stickman_launch_flipped;
 	[ SerializeField ] GameEvent event_stickman_launch_end;
 	[ SerializeField ] GameEvent event_stickman_victory;
 

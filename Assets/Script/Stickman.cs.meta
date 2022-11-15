@@ -3,7 +3,20 @@ guid: be91fb0b9c1144dbda4442387e082ecc
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - notif_stickman_power: {fileID: 11400000, guid: 38834edc7362cbb4baf066af15b32131, type: 2}
+  - notif_stickman_finishLine_spawn_position: {fileID: 11400000, guid: d6b61ac8f4d334ed49fa2488cfb3e334, type: 2}
+  - shared_finger_delta_magnitude: {fileID: 11400000, guid: bbc2e82daf24c7c4ab231c2f9bbf35ee, type: 2}
+  - notif_stickman_target_reference: {fileID: 11400000, guid: 8a915337dc94fbb4389d566ff4f2633c, type: 2}
+  - event_stickman_launch_start: {fileID: 11400000, guid: 2d21c251972894c36850c87658e75fc6, type: 2}
+  - event_stickman_launch_end: {fileID: 11400000, guid: 7be1935aed4ea48c2937ea7b4ae20d3e, type: 2}
+  - event_stickman_victory: {fileID: 11400000, guid: 22873f72c6f06f44cac81d13b29f59e2, type: 2}
+  - stickman_animator: {instanceID: 0}
+  - stickman_ragdoll: {instanceID: 0}
+  - stickman_power_ui: {instanceID: 0}
+  - particle_launch_update: {instanceID: 0}
+  - particle_cell_entered: {instanceID: 0}
+  - particle_cell_spawned: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
