@@ -231,6 +231,12 @@ namespace FFStudio
 			return value;
 		}
 
+		public static Vector3 MultiplyX( this Vector3 theVector, float cofactor )
+		{
+			theVector.x *= cofactor;
+			return theVector;
+		}
+
 		public static Vector3 SetX( this Vector3 theVector, float newX )
 		{
 			theVector.x = newX;
@@ -483,7 +489,7 @@ namespace FFStudio
 			for( var i = 0; i < childCount; i++ )
 				GameObject.DestroyImmediate( childs[ i ].gameObject );
 		}
-
+		
 		public static void ToggleKinematic( this Rigidbody rigidbody, bool value )
 		{
 			rigidbody.isKinematic = value;
@@ -510,5 +516,9 @@ namespace FFStudio
 			elementOfInterest.particle1 = previousElement.particle2;
 		}
 #endif
+		public static void EmptyDelegate( this UnityMessage callback )
+		{
+			callback = ExtensionMethods.EmptyMethod;
+		}
 	}
 }
