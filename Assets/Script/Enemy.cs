@@ -110,8 +110,15 @@ public class Enemy : MonoBehaviour
 #if UNITY_EDITOR
 	void OnValidate()
 	{
-		if( enemy_power_ui != null )
-			enemy_power_ui.text = enemy_power.ToString();
+		enemy_power_ui.text = enemy_power.ToString();
+	}
+
+	public void SetPower( int power )
+	{
+		UnityEditor.EditorUtility.SetDirty( gameObject );
+
+		enemy_power = power;
+		enemy_power_ui.text = enemy_power.ToString();
 	}
 #endif
 #endregion
