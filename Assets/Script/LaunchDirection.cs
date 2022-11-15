@@ -13,7 +13,7 @@ public class LaunchDirection : MonoBehaviour
     [ SerializeField ] SharedReferenceNotifier notif_stickman_reference;
     [ SerializeField ] SharedVector2 shared_finger_delta_direction;
 	[ SerializeField ] SharedFloat shared_finger_delta_magnitude;
-	[ SerializeField ] GameEvent event_stickman_flipped;
+	[ SerializeField ] BoolGameEvent event_stickman_flipped;
 
   [ Title( "Components" ) ]
     [ SerializeField ] Transform target;
@@ -69,7 +69,7 @@ public class LaunchDirection : MonoBehaviour
 	{
 		if( shared_finger_delta_direction.sharedValue.x > 0 )
 		{
-			event_stickman_flipped.Raise();
+			event_stickman_flipped.Raise( true );
 			onDirectionFlipCheck = CheckIfDirectionFlippedToRight;
 		}
 	}
@@ -78,7 +78,7 @@ public class LaunchDirection : MonoBehaviour
 	{
 		if( shared_finger_delta_direction.sharedValue.x < 0 )
 		{
-			event_stickman_flipped.Raise();
+			event_stickman_flipped.Raise( false );
 			onDirectionFlipCheck = CheckIfDirectionFlippedToLeft;
 		}
 	}
