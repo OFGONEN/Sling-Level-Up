@@ -65,9 +65,16 @@ public class Enemy : MonoBehaviour
 		enemy_ragdoll.ToggleTriggerOnCollider( true );
 	}
 
-	public void OnStickmanLaunchFlipped()
+	public void OnStickmanLaunchFlipped( bool flipped ) //Info: If true: Stickman aiming towards left
 	{
-		recycledTween.Recycle( transform.DOLocalMove( -enemy_cell_position, GameSettings.Instance.enemy_flip_duration ).SetEase( GameSettings.Instance.enemy_flip_ease ) );
+		Vector3 tweenPosition;
+		if( flipped )
+			tweenPosition = enemy_cell_position * -1f;
+		else
+			tweenPosition = enemy_cell_position;
+
+		recycledTween.Recycle( transform.DOLocalMove( tweenPosition, GameSettings.Instance.enemy_flip_duration ).SetEase( GameSettings.Instance.enemy_flip_ease ) );
+
 	}
 #endregion
 
