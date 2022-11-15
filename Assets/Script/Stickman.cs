@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
+using TMPro;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 
@@ -57,6 +58,9 @@ public class Stickman : MonoBehaviour
     {
 		EmptyDelegates();
 
+		stickman_power_ui.gameObject.SetActive( true );
+		UpdateStickmanPowerUI();
+
 		stickman_ragdoll.SwitchRagdoll( false );
 		stickman_ragdoll.ToggleCollider( false );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
@@ -74,7 +78,6 @@ public class Stickman : MonoBehaviour
     public void LevelStarted()
     {
 		onFingerDown = Rise;
-
 		stickman_target_transform = notif_stickman_target_reference.sharedValue as Transform;
 	}
 
@@ -112,6 +115,7 @@ public class Stickman : MonoBehaviour
 
 	public void OnStickmanWon()
 	{
+		UpdateStickmanPowerUI();
 		PushStickmanAwayFromEnemy();
 		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_cell, false, SpawnInCurrentCell );
 	}
@@ -126,10 +130,19 @@ public class Stickman : MonoBehaviour
 	{
 		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
 	}
+
+	public void OnFinishLine()
+	{
+		//todo handle finish line
 	}
 #endregion
 
 #region Implementation
+	void UpdateStickmanPowerUI()
+	{
+		stickman_power_ui.text = notif_stickman_power.sharedValue.ToString();
+	}
+
 	void SpawnInCurrentCell()
 	{
 		stickman_ragdoll.SwitchRagdoll( false );
@@ -160,6 +173,7 @@ public class Stickman : MonoBehaviour
 
 		onFingerDown = Rise;
 	}
+
 	void PushStickmanAwayFromEnemy()
 	{
 		stickman_ragdoll.SwitchRagdoll( true );
@@ -208,6 +222,8 @@ public class Stickman : MonoBehaviour
     {
 		EmptyDelegates();
 		event_stickman_launch_end.Raise();
+
+		stickman_power_ui.gameObject.SetActive( false );
 
 		particle_launch_update.Stop( true, ParticleSystemStopBehavior.StopEmitting );
 
