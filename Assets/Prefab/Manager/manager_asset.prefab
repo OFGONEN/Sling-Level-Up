@@ -81,22 +81,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245dc21cc9428744fa28ad2d6ce7d327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableAfterStart: 0
   eventPairs:
-  - eventListener:
-      gameEvents:
-      - {fileID: 11400000, guid: a5edacec3496d4c5f9e94958dd3b9adf, type: 2}
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4364745634903858524}
-          m_TargetAssemblyTypeName: FFStudio.AssetManager, Assembly-CSharp
-          m_MethodName: VibrateAPI
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: a5edacec3496d4c5f9e94958dd3b9adf, type: 2}
-            m_ObjectArgumentAssemblyTypeName: FFStudio.IntGameEvent, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  - rid: 2955885637604737028
+  references:
+    version: 2
+    RefIds:
+    - rid: 2955885637604737028
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: a5edacec3496d4c5f9e94958dd3b9adf, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 4364745634903858524}
+              m_TargetAssemblyTypeName: FFStudio.AssetManager, Assembly-CSharp
+              m_MethodName: VibrateAPI
+              m_Mode: 2
+              m_Arguments:
+                m_ObjectArgument: {fileID: 11400000, guid: a5edacec3496d4c5f9e94958dd3b9adf, type: 2}
+                m_ObjectArgumentAssemblyTypeName: FFStudio.IntGameEvent, Assembly-CSharp
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
