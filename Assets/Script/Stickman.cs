@@ -137,6 +137,14 @@ public class Stickman : MonoBehaviour
 		event_stickman_victory.Raise();
 		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
 	}
+
+	public void OnStickmanFlipped( bool value )
+	{
+		if( value )
+			transform.localEulerAngles = transform.localEulerAngles.SetZ( 180 );
+		else
+			transform.localEulerAngles = transform.localEulerAngles.SetZ( 0 );
+	}
 #endregion
 
 #region Implementation
