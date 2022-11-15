@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notif_stickman_power: {fileID: 11400000, guid: 38834edc7362cbb4baf066af15b32131, type: 2}
+  notif_currency: {fileID: 11400000, guid: 772d4e63c1c02db4b8cb5bbaa9edc6a8, type: 2}
   event_stickman_lost: {fileID: 11400000, guid: 2b1973661dfe04204b14dbdaa9ca3890, type: 2}
   event_stickman_won: {fileID: 11400000, guid: 905a5b8ffdbd84527a965fc9b8e04e7d, type: 2}
   event_particle_hit: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}

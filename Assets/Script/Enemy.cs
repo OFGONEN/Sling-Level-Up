@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 #region Fields
   [ Title( "Shared Variables" ) ]
     [ SerializeField ] SharedIntNotifier notif_stickman_power;
+    [ SerializeField ] Currency notif_currency;
     [ SerializeField ] GameEvent event_stickman_lost;
     [ SerializeField ] IntGameEvent event_stickman_won;
     [ SerializeField ] ParticleSpawnEvent event_particle_hit;
@@ -92,6 +93,8 @@ public class Enemy : MonoBehaviour
 		rigidbody.AddForce( direction * GameSettings.Instance.enemy_defeat_force.ReturnRandom(), ForceMode.Impulse );
 
 		cooldown_disable.Start( GameSettings.Instance.enemy_defeat_duration.ReturnRandom(), false, OnDefeatComplete );
+
+		notif_currency.SharedValue += enemy_power * ( int )GameSettings.Instance.enemy_power_conversion_rate.ReturnRandom();
 
 		notif_stickman_power.SharedValue += enemy_power;
 		event_stickman_won.Raise( enemy_power );
