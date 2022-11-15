@@ -231,6 +231,12 @@ namespace FFStudio
 			return value;
 		}
 
+		public static Vector3 MultiplyX( this Vector3 theVector, float cofactor )
+		{
+			theVector.x *= cofactor;
+			return theVector;
+		}
+
 		public static Vector3 SetX( this Vector3 theVector, float newX )
 		{
 			theVector.x = newX;
