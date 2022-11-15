@@ -16,7 +16,10 @@ namespace FFStudio
 		[ LabelText( "Stickman Rise Ease" ) ] public Ease stickman_rise_ease;
 		[ LabelText( "Stickman Launch Rotation Speed" ) ] public float stickman_launch_rotation_speed;
 		[ LabelText( "Stickman Launch Rotation Speed" ), MinMaxSlider( 0, 1000 ) ] public Vector2 stickman_launch_power;
-
+		[ LabelText( "Stickman Cell Offset Height" ) ] public float stickman_cell_offset;
+		[ LabelText( "Stickman Cell Enemy Attack Offset" ) ] public float stickman_cell_enemy_attack_offset;
+		[ LabelText( "Stickman Cell Enemy Attack Duration" ) ] public float stickman_cell_enemy_attack_duration;
+		[ LabelText( "Stickman Cell Enemy Attack Ease" ) ] public Ease stickman_cell_enemy_attack_ease;
 
     [ Title( "Enemy" ) ]
 		[ LabelText( "Force to give Enemy when its defated" ) ] public Vector2 enemy_defeat_force;
