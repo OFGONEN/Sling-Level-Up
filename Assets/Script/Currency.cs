@@ -18,6 +18,15 @@ public class Currency : SharedIntNotifier
 #endregion
 
 #region API
+    public void LoadCurrency()
+    {
+		SetValue_NotifyAlways( PlayerPrefsUtility.Instance.GetInt( ExtensionMethods.Key_Currency, 0 ) );
+	}
+
+	public void SaveCurrency()
+	{
+		PlayerPrefsUtility.Instance.SetInt( ExtensionMethods.Key_Currency, sharedValue );
+	}
 #endregion
 
 #region Implementation
