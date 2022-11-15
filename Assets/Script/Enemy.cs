@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [ SerializeField ] SharedIntNotifier notif_stickman_power;
     [ SerializeField ] GameEvent event_stickman_lost;
     [ SerializeField ] IntGameEvent event_stickman_won;
+    [ SerializeField ] ParticleSpawnEvent event_particle_hit;
 
   [ Title( "Setup" ) ]
     [ SerializeField ] int enemy_power;
@@ -50,6 +51,8 @@ public class Enemy : MonoBehaviour
 #region API
 	public void OnPlayerTrigger( Collider enemy, Collider player ) // Info: Called from Enemy's own ragdoll collider 
 	{
+		event_particle_hit.Raise( "stickman_hit", enemy.transform.position );
+
 		if( enemy_power >= notif_stickman_power.sharedValue )
 			OnWin();
 		else
