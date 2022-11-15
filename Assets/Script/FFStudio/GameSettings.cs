@@ -20,6 +20,7 @@ namespace FFStudio
 		[ LabelText( "Stickman Cell Enemy Attack Offset" ) ] public float stickman_cell_enemy_attack_offset;
 		[ LabelText( "Stickman Cell Enemy Attack Duration" ) ] public float stickman_cell_enemy_attack_duration;
 		[ LabelText( "Stickman Cell Enemy Attack Ease" ) ] public Ease stickman_cell_enemy_attack_ease;
+		[ LabelText( "Stickman Cell Enemy Pushed Power" ) ] public Vector2 stickman_cell_enemy_pushed_force;
 
     [ Title( "Enemy" ) ]
 		[ LabelText( "Force to give Enemy when its defated" ) ] public Vector2 enemy_defeat_force;

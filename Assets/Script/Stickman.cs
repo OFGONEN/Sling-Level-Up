@@ -30,6 +30,7 @@ public class Stickman : MonoBehaviour
 	Transform stickman_target_transform;
 	Vector3 current_cell_position;
 	Enemy current_cell_enemy;
+	bool currenct_cell_enemy_isOnRight;
 
     UnityMessage onUpdate;
     UnityMessage onFingerDown;
@@ -87,16 +88,40 @@ public class Stickman : MonoBehaviour
 		var enemy              = value as Enemy;  // Info: Enemy's +Y position will give us the Cell's +Y position as well
 		    current_cell_enemy = enemy;
 
+		var enemyPosition = enemy.transform.position;
+
 		particle_cell_entered.Play();
 		ChangeIntoAttackPose();
 
-		recycledTween.Recycle( transform.DOMove( enemy.transform.position + GameSettings.Instance.stickman_cell_enemy_attack_offset * Vector3.up,
+		recycledTween.Recycle( transform.DOMove( enemyPosition + GameSettings.Instance.stickman_cell_enemy_attack_offset * Vector3.up,
 			GameSettings.Instance.stickman_cell_enemy_attack_duration )
 			.SetEase( GameSettings.Instance.stickman_cell_enemy_attack_ease ) );
+
+		currenct_cell_enemy_isOnRight = transform.position.x <= enemyPosition.x;
+	}
+
+	public void OnStickmanWon()
+	{
+		PushStickmanAwayFromEnemy();
+	}
+
+	public void OnStickmanLost()
+	{
+		PushStickmanAwayFromEnemy();
 	}
 #endregion
 
 #region Implementation
+	void PushStickmanAwayFromEnemy()
+	{
+		stickman_ragdoll.SwitchRagdoll( true );
+		stickman_ragdoll.ToggleCollider( true );
+		stickman_ragdoll.ToggleTriggerOnCollider( false );
+
+		var forceCofactor = currenct_cell_enemy_isOnRight ? 1 : -1f;
+		stickman_ragdoll.ApplyForce( GameSettings.Instance.stickman_cell_enemy_pushed_force.ReturnRandom() * Vector3.right * forceCofactor, ForceMode.Impulse );
+	}
+
 	void ChangeIntoAttackPose()
 	{
 		stickman_ragdoll.SwitchRagdoll( false );
