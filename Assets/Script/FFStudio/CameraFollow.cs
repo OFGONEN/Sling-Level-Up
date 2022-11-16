@@ -19,10 +19,13 @@ namespace FFStudio
         [ SerializeField ] SharedReferenceNotifier notif_camera_reference_sequence_start;
         [ SerializeField ] SharedReferenceNotifier notif_camera_reference_sequence_end;
 
+    [ Title( "Components" ) ]
+        [ SerializeField ] Camera _camera;
+
         Transform target_transform;
         UnityMessage updateMethod;
 
-        float target_offset_Z;
+        float camera_zoom_out;
 
         Vector3 camera_sequence_position_start;
         Vector3 camera_sequence_position_end;
@@ -73,7 +76,7 @@ namespace FFStudio
         public void OnStickmanLaunchStart()
         {
 			updateMethod += OnStickmanLaunchUpdate;
-			target_offset_Z = 0;
+			camera_zoom_out = 0;
 		}
 
 		public void OnStickmanLaunchEnd()
@@ -111,22 +114,22 @@ namespace FFStudio
         {
 			var targetOffset = GameSettings.Instance.camera_zoomOut_value_range.ReturnProgress( shared_finger_delta_magnitude.sharedValue );
 
-			target_offset_Z = Mathf.Lerp( target_offset_Z, targetOffset, GameSettings.Instance.camera_zoomOut_value_speed * Time.deltaTime );
+			camera_zoom_out = Mathf.Lerp( camera_zoom_out, targetOffset, GameSettings.Instance.camera_zoomOut_value_speed * Time.deltaTime );
+
+			_camera.orthographicSize = GameSettings.Instance.camera_zoom_value + camera_zoom_out;
 		}
 
         void FollowTargetDeltaTime()
         {
 			// Info: Simple follow logic.
-			var offset             = GameSettings.Instance.camera_follow_offset + Vector3.forward * target_offset_Z;
-			var targetPosition     = target_transform.position + offset;
+			var targetPosition     = target_transform.position + GameSettings.Instance.camera_follow_offset;
 			    transform.position = Vector3.Lerp( transform.position, targetPosition, GameSettings.Instance.camera_follow_speed * Time.deltaTime );
         }
 
 		void FollowTargetFixedDeltaTime()
 		{
 			// Info: Simple follow logic.
-			var offset             = GameSettings.Instance.camera_follow_offset + Vector3.forward * target_offset_Z;
-			var targetPosition     = target_transform.position + offset;
+			var targetPosition     = target_transform.position + GameSettings.Instance.camera_follow_offset;
 			    transform.position = Vector3.Lerp( transform.position, targetPosition, GameSettings.Instance.camera_follow_speed * Time.fixedDeltaTime );
 		}
 #endregion
@@ -140,6 +143,8 @@ namespace FFStudio
 
             if( stickman )
 				transform.position = stickman.transform.position + GameSettings.Instance.camera_follow_offset;
+
+			_camera.orthographicSize = GameSettings.Instance.camera_zoom_value;
 		}
 
         [ Button() ]
