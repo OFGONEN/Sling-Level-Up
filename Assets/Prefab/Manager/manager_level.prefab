@@ -48,6 +48,8 @@ MonoBehaviour:
   levelFailedEvent: {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
   levelCompleted: {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
   notifier_progress: {fileID: 11400000, guid: 43438d720c16f2e4aa5a19d520e1e15f, type: 2}
+  notif_stickman_follow_reference: {fileID: 11400000, guid: 232900546bff94b8fbd1f6c0f5a8a3c5, type: 2}
+  notif_finishLine_position: {fileID: 11400000, guid: 3262783b404027b4397874c393acb201, type: 2}
 --- !u!114 &6253295288017648143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +67,8 @@ MonoBehaviour:
   - rid: 2955885637604737029
   - rid: 2955885637604737030
   - rid: 2955885637604737031
+  - rid: 2955885659354300416
+  - rid: 2955885659354300417
   references:
     version: 2
     RefIds:
@@ -122,6 +126,48 @@ MonoBehaviour:
             - m_Target: {fileID: 3087407567312676473}
               m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
               m_MethodName: LevelStartedResponse
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+    - rid: 2955885659354300416
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 3087407567312676473}
+              m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
+              m_MethodName: OnLevelFailed
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+    - rid: 2955885659354300417
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: 8362fcfdaa0b71c49be3cefcb7cec31a, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 3087407567312676473}
+              m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
+              m_MethodName: OnStickmanReachedFinishLine
               m_Mode: 1
               m_Arguments:
                 m_ObjectArgument: {fileID: 0}
