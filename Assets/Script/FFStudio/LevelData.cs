@@ -16,6 +16,7 @@ namespace FFStudio
 		[ ValueDropdown( "SceneList" ), LabelText( "Scene Index" ) ] public int scene_index;
         [ LabelText( "Override As Active Scene" ) ] public bool scene_overrideAsActiveScene;
         [ LabelText( "Sequence" ) ] public bool scene_sequence;
+        [ LabelText( "Stickman Start Power" ), Min( 1 ) ] public int stickman_power_start = 1;
 
 	[ Title( "Sequence" ) ]
 		[ LabelText( "Sequence Duration" ), ShowIf( "scene_sequence" ) ] public float scene_sequence_duration;

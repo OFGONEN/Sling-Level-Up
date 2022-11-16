@@ -59,6 +59,8 @@ public class Stickman : MonoBehaviour
     {
 		EmptyDelegates();
 
+		notif_stickman_power.SetValue_NotifyAlways( CurrentLevelData.Instance.levelData.stickman_power_start );
+
 		stickman_power_ui.gameObject.SetActive( true );
 		UpdateStickmanPowerUI();
 
@@ -158,6 +160,8 @@ public class Stickman : MonoBehaviour
 		stickman_ragdoll.SwitchRagdoll( false );
 		stickman_ragdoll.ToggleCollider( false );
 
+		stickman_animator.enabled = true;
+
 		stickman_power_ui.gameObject.SetActive( true );
 
 		cell_position_previous = cell_position_current;
@@ -174,6 +178,8 @@ public class Stickman : MonoBehaviour
 		stickman_ragdoll.SwitchRagdoll( false );
 		stickman_ragdoll.ToggleCollider( false );
 
+		stickman_animator.enabled = true;
+
 		stickman_power_ui.gameObject.SetActive( true );
 
 		transform.position = cell_position_previous + Vector3.up * GameSettings.Instance.stickman_cell_offset;
@@ -188,6 +194,8 @@ public class Stickman : MonoBehaviour
 	{
 		stickman_ragdoll.SwitchRagdoll( false );
 		stickman_ragdoll.ToggleCollider( false );
+
+		stickman_animator.enabled = true;
 
 		stickman_power_ui.gameObject.SetActive( true );
 
@@ -223,6 +231,8 @@ public class Stickman : MonoBehaviour
 
 		stickman_ragdoll.ToggleCollider( true );
 		stickman_ragdoll.BecomeMovableRagdoll();
+
+		stickman_animator.enabled = false;
 
 		recycledTween.Recycle( transform.DOMove( GameSettings.Instance.stickman_rise_height * Vector3.up,
 			GameSettings.Instance.stickman_rise_duration )

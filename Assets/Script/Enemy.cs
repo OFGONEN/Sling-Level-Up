@@ -14,8 +14,10 @@ public class Enemy : MonoBehaviour
 #region Fields
   [ Title( "Shared Variables" ) ]
     [ SerializeField ] SharedIntNotifier notif_stickman_power;
+    [ SerializeField ] Currency notif_currency;
     [ SerializeField ] GameEvent event_stickman_lost;
     [ SerializeField ] IntGameEvent event_stickman_won;
+    [ SerializeField ] ParticleSpawnEvent event_particle_hit;
 
   [ Title( "Setup" ) ]
     [ SerializeField ] int enemy_power;
@@ -50,6 +52,8 @@ public class Enemy : MonoBehaviour
 #region API
 	public void OnPlayerTrigger( Collider enemy, Collider player ) // Info: Called from Enemy's own ragdoll collider 
 	{
+		event_particle_hit.Raise( "stickman_hit", enemy.transform.position );
+
 		if( enemy_power >= notif_stickman_power.sharedValue )
 			OnWin();
 		else
@@ -62,9 +66,16 @@ public class Enemy : MonoBehaviour
 		enemy_ragdoll.ToggleTriggerOnCollider( true );
 	}
 
-	public void OnStickmanLaunchFlipped()
+	public void OnStickmanLaunchFlipped( bool flipped ) //Info: If true: Stickman aiming towards left
 	{
-		recycledTween.Recycle( transform.DOLocalMove( -enemy_cell_position, GameSettings.Instance.enemy_flip_duration ).SetEase( GameSettings.Instance.enemy_flip_ease ) );
+		Vector3 tweenPosition;
+		if( flipped )
+			tweenPosition = enemy_cell_position * -1f;
+		else
+			tweenPosition = enemy_cell_position;
+
+		recycledTween.Recycle( transform.DOLocalMove( tweenPosition, GameSettings.Instance.enemy_flip_duration ).SetEase( GameSettings.Instance.enemy_flip_ease ) );
+
 	}
 #endregion
 
@@ -73,6 +84,8 @@ public class Enemy : MonoBehaviour
 	{
 		enemy_power_ui.gameObject.SetActive( false );
 
+		enemy_animator.enabled = false;
+
 		enemy_ragdoll.ToggleTriggerOnCollider( false );
 		enemy_ragdoll.SwitchRagdoll( true );
 
@@ -80,6 +93,8 @@ public class Enemy : MonoBehaviour
 		rigidbody.AddForce( direction * GameSettings.Instance.enemy_defeat_force.ReturnRandom(), ForceMode.Impulse );
 
 		cooldown_disable.Start( GameSettings.Instance.enemy_defeat_duration.ReturnRandom(), false, OnDefeatComplete );
+
+		notif_currency.SharedValue += enemy_power * ( int )GameSettings.Instance.enemy_power_conversion_rate.ReturnRandom();
 
 		notif_stickman_power.SharedValue += enemy_power;
 		event_stickman_won.Raise( enemy_power );
@@ -105,8 +120,15 @@ public class Enemy : MonoBehaviour
 #if UNITY_EDITOR
 	void OnValidate()
 	{
-		if( enemy_power_ui != null )
-			enemy_power_ui.text = enemy_power.ToString();
+		enemy_power_ui.text = enemy_power.ToString();
+	}
+
+	public void SetPower( int power )
+	{
+		UnityEditor.EditorUtility.SetDirty( gameObject );
+
+		enemy_power = power;
+		enemy_power_ui.text = enemy_power.ToString();
 	}
 #endif
 #endregion

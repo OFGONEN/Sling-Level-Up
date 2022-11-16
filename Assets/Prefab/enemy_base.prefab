@@ -150,7 +150,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2813788820311435206
 Transform:
@@ -182,12 +182,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notif_stickman_power: {fileID: 11400000, guid: 38834edc7362cbb4baf066af15b32131, type: 2}
+  notif_currency: {fileID: 11400000, guid: 772d4e63c1c02db4b8cb5bbaa9edc6a8, type: 2}
   event_stickman_lost: {fileID: 11400000, guid: 2b1973661dfe04204b14dbdaa9ca3890, type: 2}
   event_stickman_won: {fileID: 11400000, guid: 905a5b8ffdbd84527a965fc9b8e04e7d, type: 2}
+  event_particle_hit: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
   enemy_power: 0
   enemy_lost:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6572879819339603248}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   enemy_won:
     m_PersistentCalls:
       m_Calls: []
@@ -240,23 +254,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableAfterStart: 0
   eventPairs:
-  - rid: 3469633514364469250
+  - rid: 2955885637604737033
   references:
     version: 2
     RefIds:
-    - rid: 3469633514364469250
-      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+    - rid: 2955885637604737033
+      type: {class: EventAndBoolGameEventResponseData, ns: FFStudio, asm: Assembly-CSharp}
       data:
         eventListener:
           gameEvents:
-          - {fileID: 11400000, guid: 9b9dc91e098b74f48b3bec178c8316ec, type: 2}
+          - {fileID: 11400000, guid: f14b7ea4eec4d4e10b966151cbb4ed51, type: 2}
         unityEvent:
           m_PersistentCalls:
             m_Calls:
             - m_Target: {fileID: 25832106155183318}
               m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
               m_MethodName: OnStickmanLaunchFlipped
-              m_Mode: 1
+              m_Mode: 0
               m_Arguments:
                 m_ObjectArgument: {fileID: 0}
                 m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -265,6 +279,7 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
+        argument: {fileID: 11400000, guid: f14b7ea4eec4d4e10b966151cbb4ed51, type: 2}
 --- !u!1 &6836074319818350640
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,6 +291,7 @@ GameObject:
   - component: {fileID: 7524168424236707823}
   - component: {fileID: 488846509681519430}
   - component: {fileID: 5630003386843917820}
+  - component: {fileID: 852123107639947314}
   m_Layer: 5
   m_Name: ui_canvas_enemy
   m_TagString: Untagged
@@ -348,3 +364,17 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &852123107639947314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6836074319818350640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7993f4f2c0a6d1d47b9029194d027825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookAt_Reference: {fileID: 11400000, guid: db5826f36927641ef9b9dd098ccc2efc, type: 2}
+  lookAt_Axis: {x: 0, y: 1, z: 0}

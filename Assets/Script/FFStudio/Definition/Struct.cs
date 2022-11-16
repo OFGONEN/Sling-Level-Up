@@ -85,6 +85,18 @@ namespace FFStudio
 	public class EventAndIntGameEventResponseData : EventAndResponseGenericData< int > 
 	{
 		public IntGameEvent argument;
+
+		protected override void OnResponse()
+		{
+			unityEvent.Invoke( argument.eventValue );
+		}	
+	}
+
+	[ Serializable ]
+	public class EventAndBoolGameEventResponseData : EventAndResponseGenericData< bool > 
+	{
+		public BoolGameEvent argument;
+
 		protected override void OnResponse()
 		{
 			unityEvent.Invoke( argument.eventValue );
