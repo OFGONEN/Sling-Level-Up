@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6985704171737391925
 Transform:
@@ -86,6 +86,10 @@ PrefabInstance:
     - target: {fileID: 7438705575370815286, guid: c2e311c15f274da49ab60c64252ab390, type: 3}
       propertyPath: m_Name
       value: gfx_stickman_enemy_warrior_sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438705575370815286, guid: c2e311c15f274da49ab60c64252ab390, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2e311c15f274da49ab60c64252ab390, type: 3}
