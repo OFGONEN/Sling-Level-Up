@@ -145,9 +145,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 93b2bfa01326f6a49bf01a9fce64a910, type: 2}
     - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.7529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.16470589
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.54509807
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 1825575743928500513, guid: 93b2bfa01326f6a49bf01a9fce64a910, type: 2}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4290783883
+      objectReference: {fileID: 0}
     - target: {fileID: 3820213725720788279, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
       propertyPath: m_Name
       value: enemy_wizard
