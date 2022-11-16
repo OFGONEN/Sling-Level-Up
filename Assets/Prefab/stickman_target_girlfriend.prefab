@@ -57,6 +57,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e0ce2a1c11da6343b8ba788049b8e4a, type: 3}
+--- !u!95 &978596984594708138 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3281593872273649848, guid: 8e0ce2a1c11da6343b8ba788049b8e4a, type: 3}
+  m_PrefabInstance: {fileID: 2314354297333155346}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8834427294238715081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,6 +72,30 @@ PrefabInstance:
     - target: {fileID: 427720759753100415, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
       propertyPath: m_Name
       value: stickman_target_girlfriend
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 978596984594708138}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.Animator, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: victory
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5551015768526582918, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
       propertyPath: m_RootOrder

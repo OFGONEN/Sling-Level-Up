@@ -57,6 +57,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac8686a07ffb874ea6844dbe3150c23, type: 3}
+--- !u!95 &7995820737885400524 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4751003076454321357, guid: 8ac8686a07ffb874ea6844dbe3150c23, type: 3}
+  m_PrefabInstance: {fileID: 3393507093108842753}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8834427294238715081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,6 +72,30 @@ PrefabInstance:
     - target: {fileID: 427720759753100415, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
       propertyPath: m_Name
       value: stickman_target_friend
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7995820737885400524}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.Animator, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: victory
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739313511326803869, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: managedReferences[2955885547802853378].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5551015768526582918, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
       propertyPath: m_RootOrder
@@ -114,6 +143,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7435437029504311909, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7435437029504311909, guid: 9075a5c1ce9285c4eac71b51e0084bef, type: 3}
+      propertyPath: m_LocalPosition.x
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
