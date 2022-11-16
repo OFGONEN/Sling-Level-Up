@@ -108,6 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 736431116426058965}
   - component: {fileID: 3463548373604563610}
+  - component: {fileID: 2911495154970012637}
   m_Layer: 0
   m_Name: stickman
   m_TagString: Untagged
@@ -162,6 +163,20 @@ MonoBehaviour:
   particle_cell_entered: {fileID: 4199750565281668949}
   particle_cell_spawned: {fileID: 3688947622986420753}
   stickman_transform_array: []
+--- !u!114 &2911495154970012637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2999875915260009383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8b9286af946534c832e5352b9db9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedReferenceProperty: {fileID: 11400000, guid: 666be142ae6ef054283d79e59b79df92, type: 2}
+  referenceComponent: {fileID: 3463548373604563610}
 --- !u!1 &7491863236723733139
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +436,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b2f99a4264c9034199bf6c7399951d4, type: 3}
+--- !u!1 &1970075598358209385 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1314931880118016119, guid: 3b2f99a4264c9034199bf6c7399951d4, type: 3}
+  m_PrefabInstance: {fileID: 677948723338885918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1776344211285131164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970075598358209385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8b9286af946534c832e5352b9db9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedReferenceProperty: {fileID: 11400000, guid: 232900546bff94b8fbd1f6c0f5a8a3c5, type: 2}
+  referenceComponent: {fileID: 6884023046660799004}
 --- !u!4 &2957996744424874376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2334101112774187670, guid: 3b2f99a4264c9034199bf6c7399951d4, type: 3}
@@ -429,6 +463,11 @@ Transform:
 --- !u!95 &4987886554138673394 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5498902434684681196, guid: 3b2f99a4264c9034199bf6c7399951d4, type: 3}
+  m_PrefabInstance: {fileID: 677948723338885918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6884023046660799004 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6260136220145910018, guid: 3b2f99a4264c9034199bf6c7399951d4, type: 3}
   m_PrefabInstance: {fileID: 677948723338885918}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &7632591494193140397 stripped
