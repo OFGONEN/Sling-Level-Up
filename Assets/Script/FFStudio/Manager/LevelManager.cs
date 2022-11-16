@@ -23,6 +23,8 @@ namespace FFStudio
         // Info: Called from Editor.
         public void LevelLoadedResponse()
         {
+			notifier_progress.SharedValue = 0;
+
 			var levelData = CurrentLevelData.Instance.levelData;
             // Set Active Scene.
 			if( levelData.scene_overrideAsActiveScene )
