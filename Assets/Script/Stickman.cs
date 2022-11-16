@@ -232,6 +232,8 @@ public class Stickman : MonoBehaviour
 		stickman_ragdoll.ToggleCollider( true );
 		stickman_ragdoll.BecomeMovableRagdoll();
 
+		particle_launch_update.Play();
+
 		stickman_animator.enabled = false;
 
 		recycledTween.Recycle( transform.DOMove( GameSettings.Instance.stickman_rise_height * Vector3.up,
@@ -245,8 +247,6 @@ public class Stickman : MonoBehaviour
     {
 		onFingerUp = Launch;
 		event_stickman_launch_start.Raise(); // Launch direction target is on default position now.
-
-		particle_launch_update.Play();
 
 		onUpdate = OnLaunchUpdate;
 	}
