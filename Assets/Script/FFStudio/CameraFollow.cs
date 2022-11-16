@@ -109,7 +109,9 @@ namespace FFStudio
 
 		void OnStickmanLaunchUpdate()
         {
-			target_offset_Z = Mathf.InverseLerp( shared_finger_delta_magnitude.sharedValue, GameSettings.Instance.camera_zoomOut_value_range.x, GameSettings.Instance.camera_zoomOut_value_range.y ) * GameSettings.Instance.camera_zoomOut_value_max;
+			var targetOffset = GameSettings.Instance.camera_zoomOut_value_range.ReturnProgress( shared_finger_delta_magnitude.sharedValue );
+
+			target_offset_Z = Mathf.Lerp( target_offset_Z, targetOffset, GameSettings.Instance.camera_zoomOut_value_speed * Time.deltaTime );
 		}
 
         void FollowTargetDeltaTime()

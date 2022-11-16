@@ -15,7 +15,7 @@ namespace FFStudio
 		[ LabelText( "Stickman Rise Duration" ) ] public float stickman_rise_duration;
 		[ LabelText( "Stickman Rise Ease" ) ] public Ease stickman_rise_ease;
 		[ LabelText( "Stickman Launch Rotation Speed" ) ] public float stickman_launch_rotation_speed;
-		[ LabelText( "Stickman Launch Rotation Speed" ), MinMaxSlider( 0, 1000 ) ] public Vector2 stickman_launch_power;
+		[ LabelText( "Stickman Launch Power" ) ] public Vector2 stickman_launch_power;
 		[ LabelText( "Stickman Cell Offset Height" ) ] public float stickman_cell_offset;
 		[ LabelText( "Stickman Cell Enemy Attack Offset" ) ] public float stickman_cell_enemy_attack_offset;
 		[ LabelText( "Stickman Cell Enemy Attack Duration" ) ] public float stickman_cell_enemy_attack_duration;
@@ -35,8 +35,9 @@ namespace FFStudio
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed;
         [ LabelText( "Follow Offset" ) ] public Vector3 camera_follow_offset;
-        [ LabelText( "Max Zoom Out Value" ), Min( 0 ) ] public float camera_zoomOut_value_max;
-        [ LabelText( "Max Zoom Out Range" ), MinMaxSlider( 0, 1 ) ] public Vector2 camera_zoomOut_value_range;
+        [ LabelText( "Max Zoom Out Range" ) ] public Vector2 camera_zoomOut_value_range;
+        [ LabelText( "Max Zoom Out Speed" ), Min( 0 ) ] public float camera_zoomOut_value_speed;
+
     
     [ Title( "Project Setup", "These settings should not be edited by Level Designer(s).", TitleAlignments.Centered ) ]
         public int maxLevelCount;
