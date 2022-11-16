@@ -35,6 +35,8 @@ MonoBehaviour:
   camera_zoom_value: 12
   camera_zoomOut_value_range: {x: -1, y: 2.5}
   camera_zoomOut_value_speed: 5
+  camera_zoomIn_duration: 0.7
+  camera_zoomIn_ease: 18
   maxLevelCount: 1
   game_input_maxDelta_percentage: 0.4
   game_forward: {x: 1, y: 0, z: 0}

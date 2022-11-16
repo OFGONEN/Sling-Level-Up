@@ -24,8 +24,9 @@ namespace FFStudio
 
         Transform target_transform;
         UnityMessage updateMethod;
+		RecycledTween recycledTween = new RecycledTween();
 
-        float camera_zoom_out;
+		float camera_zoom_out_value;
 
         Vector3 camera_sequence_position_start;
         Vector3 camera_sequence_position_end;
@@ -37,6 +38,7 @@ namespace FFStudio
 #region Unity API
         void OnDisable()
         {
+			recycledTween.Kill();
 			updateMethod = ExtensionMethods.EmptyMethod;
 		}
 
@@ -76,11 +78,15 @@ namespace FFStudio
         public void OnStickmanLaunchStart()
         {
 			updateMethod += OnStickmanLaunchUpdate;
-			camera_zoom_out = 0;
+			camera_zoom_out_value = 0;
 		}
 
 		public void OnStickmanLaunchEnd()
 		{
+			recycledTween.Recycle( DOTween.To( GetZoomValue,
+				SetZoomOutValue, 0, GameSettings.Instance.camera_zoomIn_duration )
+				.SetEase( GameSettings.Instance.camera_zoomIn_ease ) );
+
 			updateMethod -= OnStickmanLaunchUpdate;
 		}
 #endregion
@@ -114,9 +120,9 @@ namespace FFStudio
         {
 			var targetOffset = GameSettings.Instance.camera_zoomOut_value_range.ReturnProgress( shared_finger_delta_magnitude.sharedValue );
 
-			camera_zoom_out = Mathf.Lerp( camera_zoom_out, targetOffset, GameSettings.Instance.camera_zoomOut_value_speed * Time.deltaTime );
+			camera_zoom_out_value = Mathf.Lerp( camera_zoom_out_value, targetOffset, GameSettings.Instance.camera_zoomOut_value_speed * Time.deltaTime );
 
-			_camera.orthographicSize = GameSettings.Instance.camera_zoom_value + camera_zoom_out;
+			_camera.orthographicSize = GameSettings.Instance.camera_zoom_value + camera_zoom_out_value;
 		}
 
         void FollowTargetDeltaTime()
@@ -131,6 +137,16 @@ namespace FFStudio
 			// Info: Simple follow logic.
 			var targetPosition     = target_transform.position + GameSettings.Instance.camera_follow_offset;
 			    transform.position = Vector3.Lerp( transform.position, targetPosition, GameSettings.Instance.camera_follow_speed * Time.fixedDeltaTime );
+		}
+
+        float GetZoomValue()
+        {
+			return camera_zoom_out_value;
+		}
+
+        void SetZoomOutValue( float value )
+        {
+			camera_zoom_out_value = value;
 		}
 #endregion
 

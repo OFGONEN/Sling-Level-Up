@@ -38,6 +38,8 @@ namespace FFStudio
         [ LabelText( "Follow Zoom Value" ) ] public float camera_zoom_value;
         [ LabelText( "Max Zoom Out Range" ) ] public Vector2 camera_zoomOut_value_range;
         [ LabelText( "Max Zoom Out Speed" ), Min( 0 ) ] public float camera_zoomOut_value_speed;
+        [ LabelText( "Max Zoom In Duration" ) ] public float camera_zoomIn_duration;
+        [ LabelText( "Max Zoom In Ease" ) ] public Ease camera_zoomIn_ease;
 
     
     [ Title( "Project Setup", "These settings should not be edited by Level Designer(s).", TitleAlignments.Centered ) ]
