@@ -152,6 +152,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemy_wizard
       objectReference: {fileID: 0}
+    - target: {fileID: 7524168424236707823, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
 --- !u!4 &4787096851815772755 stripped
