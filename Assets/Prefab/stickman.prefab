@@ -152,7 +152,9 @@ MonoBehaviour:
   notif_stickman_finishLine_spawn_position: {fileID: 11400000, guid: d6b61ac8f4d334ed49fa2488cfb3e334, type: 2}
   shared_finger_delta_magnitude: {fileID: 11400000, guid: bbc2e82daf24c7c4ab231c2f9bbf35ee, type: 2}
   notif_stickman_target_reference: {fileID: 11400000, guid: 8a915337dc94fbb4389d566ff4f2633c, type: 2}
-  stickman_pose_array: []
+  stickman_pose_array:
+  - {fileID: 11400000, guid: e9b50f5777896415ebc246f8aeaa1e41, type: 2}
+  - {fileID: 11400000, guid: ca08a5a6537f5724fbd3f460751c5073, type: 2}
   event_stickman_launch_start: {fileID: 11400000, guid: 2d21c251972894c36850c87658e75fc6, type: 2}
   event_stickman_launch_end: {fileID: 11400000, guid: 7be1935aed4ea48c2937ea7b4ae20d3e, type: 2}
   event_stickman_victory: {fileID: 11400000, guid: 22873f72c6f06f44cac81d13b29f59e2, type: 2}
