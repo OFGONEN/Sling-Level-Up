@@ -35,6 +35,7 @@ namespace FFStudio
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed;
         [ LabelText( "Follow Offset" ) ] public Vector3 camera_follow_offset;
+        [ LabelText( "Follow Zoom Value" ) ] public float camera_zoom_value;
         [ LabelText( "Max Zoom Out Range" ) ] public Vector2 camera_zoomOut_value_range;
         [ LabelText( "Max Zoom Out Speed" ), Min( 0 ) ] public float camera_zoomOut_value_speed;
 
