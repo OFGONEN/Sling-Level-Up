@@ -149,7 +149,7 @@ public class Stickman : MonoBehaviour
 		EmptyDelegates();
 
 		event_stickman_victory.Raise();
-		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnOnTarget );
+		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_finishLine, false, SpawnOnTarget );
 	}
 
 	public void OnStickmanFlipped( bool value )
