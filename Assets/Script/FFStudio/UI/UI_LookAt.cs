@@ -31,6 +31,11 @@ namespace FFStudio
 			updateMethod = LookAtTarget;
 		}
 
+		private void Start()
+		{
+			OnEnable();
+		}
+
 		void OnDisable()
 		{
 			updateMethod = ExtensionMethods.EmptyMethod;
