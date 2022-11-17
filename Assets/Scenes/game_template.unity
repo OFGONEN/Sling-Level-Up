@@ -323,6 +323,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cell_warrior_top
       objectReference: {fileID: 0}
+    - target: {fileID: 5959865295961025316, guid: 670da9472ff4e01429e985bf18245528, type: 3}
+      propertyPath: m_text
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8927902384424943612, guid: 670da9472ff4e01429e985bf18245528, type: 3}
       propertyPath: enemy_power
       value: 5
@@ -512,6 +516,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1088741673}
     m_Modifications:
+    - target: {fileID: 1707285552013052583, guid: ac6a2a7430b1a4948886099460debcb4, type: 3}
+      propertyPath: m_text
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1852625434723120495, guid: ac6a2a7430b1a4948886099460debcb4, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.15
@@ -983,7 +991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2686091713351993168, guid: e17796da38599ce4490c2e21c5cb3e41, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2686091713351993168, guid: e17796da38599ce4490c2e21c5cb3e41, type: 3}
       propertyPath: m_LocalPosition.z
