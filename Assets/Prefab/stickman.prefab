@@ -151,6 +151,7 @@ MonoBehaviour:
   - rid: 2955885672608038920
   - rid: 2955885672608038921
   - rid: 2955885672608038922
+  - rid: 2955885672608038923
   references:
     version: 2
     RefIds:
@@ -261,6 +262,27 @@ MonoBehaviour:
                 m_BoolArgument: 0
               m_CallState: 2
         argument: {fileID: 11400000, guid: f14b7ea4eec4d4e10b966151cbb4ed51, type: 2}
+    - rid: 2955885672608038923
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: 8362fcfdaa0b71c49be3cefcb7cec31a, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 3463548373604563610}
+              m_TargetAssemblyTypeName: Stickman, Assembly-CSharp
+              m_MethodName: OnFinishLine
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
 --- !u!1 &2999875915260009383
 GameObject:
   m_ObjectHideFlags: 0
