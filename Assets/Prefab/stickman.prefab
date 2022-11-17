@@ -98,6 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookAt_Reference: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
   lookAt_Axis: {x: 0, y: 1, z: 0}
+  can_override: 1
+  lookAt_Axis_override: {x: 0, y: 1, z: 0}
 --- !u!1 &2747827875669690573
 GameObject:
   m_ObjectHideFlags: 0
