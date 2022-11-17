@@ -346,6 +346,7 @@ MonoBehaviour:
   event_stickman_launch_start: {fileID: 11400000, guid: 2d21c251972894c36850c87658e75fc6, type: 2}
   event_stickman_launch_end: {fileID: 11400000, guid: 7be1935aed4ea48c2937ea7b4ae20d3e, type: 2}
   event_stickman_victory: {fileID: 11400000, guid: 22873f72c6f06f44cac81d13b29f59e2, type: 2}
+  event_level_completed: {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
   stickman_animator: {fileID: 4987886554138673394}
   stickman_ragdoll: {fileID: 7632591494193140397}
   stickman_power_ui: {fileID: 7667448769982762551}

@@ -23,6 +23,7 @@ public class Stickman : MonoBehaviour
 	[ SerializeField ] GameEvent event_stickman_launch_start;
 	[ SerializeField ] GameEvent event_stickman_launch_end;
 	[ SerializeField ] GameEvent event_stickman_victory;
+	[ SerializeField ] GameEvent event_level_completed;
 
   [ Title( "Components" ) ]
 	[ SerializeField ] Animator stickman_animator;
@@ -230,6 +231,8 @@ public class Stickman : MonoBehaviour
 
 		particle_cell_spawned.Play();
 		stickman_animator.SetTrigger( "victory" );
+
+		event_level_completed.Raise();
 	}
 
 	void PushStickmanAwayFromEnemy()
