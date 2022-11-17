@@ -79,7 +79,7 @@ namespace FFStudio
 		{
 			var fingerPosition                  = finger.ScreenPosition;
 			var delta = fingerPosition - finger_down_position;
-			    shared_finger_delta_direction.sharedValue = delta.normalized;
+			    shared_finger_delta_direction.sharedValue = -delta.normalized; // Inverse input
 
 			shared_finger_delta_magnitude.sharedValue = delta.magnitude / input_delta_max;
 		}
