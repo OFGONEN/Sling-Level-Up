@@ -235,6 +235,7 @@ public class Stickman : MonoBehaviour
 		onFingerDown = ExtensionMethods.EmptyMethod;
 
 		stickman_ragdoll.ToggleCollider( true );
+		stickman_ragdoll.ToggleTriggerOnCollider( false );
 		stickman_ragdoll.BecomeMovableRagdoll();
 
 		particle_launch_update.Play();
@@ -265,6 +266,7 @@ public class Stickman : MonoBehaviour
 
 		particle_launch_update.Stop( true, ParticleSystemStopBehavior.StopEmitting );
 
+		stickman_ragdoll.MakeMainRbDynamic();
 		stickman_ragdoll.ApplyForce( transform.forward * GameSettings.Instance.stickman_launch_power.ReturnProgress( shared_finger_delta_magnitude.sharedValue ), ForceMode.Impulse );
 	}
 
