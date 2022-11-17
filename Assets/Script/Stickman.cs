@@ -59,16 +59,21 @@ public class Stickman : MonoBehaviour
     {
 		EmptyDelegates();
 
-		notif_stickman_power.SetValue_NotifyAlways( CurrentLevelData.Instance.levelData.stickman_power_start );
 
-		stickman_power_ui.gameObject.SetActive( true );
-		UpdateStickmanPowerUI();
 
 		stickman_ragdoll.SwitchRagdoll( false );
 		stickman_ragdoll.ToggleCollider( false );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
 
 		cell_position_previous = transform.position - Vector3.up * GameSettings.Instance.stickman_cell_offset;
+	}
+
+	private void Start()
+	{
+		notif_stickman_power.SetValue_NotifyAlways( CurrentLevelData.Instance.levelData.stickman_power_start );
+
+		stickman_power_ui.gameObject.SetActive( true );
+		UpdateStickmanPowerUI();
 	}
 
 	private void Update()
@@ -239,12 +244,12 @@ public class Stickman : MonoBehaviour
 		recycledTween.Recycle( transform.DOMove( GameSettings.Instance.stickman_rise_height * Vector3.up,
 			GameSettings.Instance.stickman_rise_duration )
 			.SetEase( GameSettings.Instance.stickman_rise_ease )
-			.SetRelative()
-			.OnComplete( OnRiseComplete ) );
+			.SetRelative(), OnRiseComplete );
 	}
 
     void OnRiseComplete()
     {
+		FFLogger.Log( "Rise Complete" );
 		onFingerUp = Launch;
 		event_stickman_launch_start.Raise(); // Launch direction target is on default position now.
 
