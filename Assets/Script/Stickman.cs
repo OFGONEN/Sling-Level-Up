@@ -238,7 +238,7 @@ public class Stickman : MonoBehaviour
 		stickman_ragdoll.ToggleCollider( true );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
 
-		var forceCofactor = enemy_current_isOnRight ? 1 : -1f;
+		var forceCofactor = enemy_current_isOnRight ? -1f : 1f;
 		stickman_ragdoll.ApplyForce( GameSettings.Instance.stickman_cell_enemy_pushed_force.ReturnRandom() * Vector3.right * forceCofactor, ForceMode.Impulse );
 	}
 
