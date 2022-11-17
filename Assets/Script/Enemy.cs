@@ -30,6 +30,8 @@ public class Enemy : MonoBehaviour
     [ SerializeField ] TextMeshProUGUI enemy_power_ui;
 
 // Private
+	ColliderTransmitMessage onPlayerCollided;
+
 	Cooldown      cooldown_disable = new Cooldown();
 	RecycledTween recycledTween    = new RecycledTween();
 
@@ -42,6 +44,8 @@ public class Enemy : MonoBehaviour
 #region Unity API
 	void Awake()
 	{
+		onPlayerCollided = ExtensionMethods.EmptyMethod;
+
 		enemy_ragdoll.SwitchRagdoll( false );
 		enemy_ragdoll.ToggleCollider( false );
 
@@ -52,20 +56,15 @@ public class Enemy : MonoBehaviour
 #region API
 	public void OnPlayerTrigger( Collider enemy, Collider player ) // Info: Called from Enemy's own ragdoll collider 
 	{
-		recycledTween.Kill();
-
-		event_particle_hit.Raise( "stickman_hit", enemy.transform.position );
-
-		if( enemy_power > notif_stickman_power.sharedValue )
-			OnWin();
-		else
-			OnLoose( enemy, ( enemy.transform.position - player.transform.position ).normalized );
+		onPlayerCollided( enemy, player );
 	}
 
 	public void EnableTriggerOnRagdoll() // Info: Called from Cell prefab
 	{
 		enemy_ragdoll.ToggleCollider( true );
 		enemy_ragdoll.ToggleTriggerOnCollider( true );
+
+		onPlayerCollided = PlayerTrigger;
 	}
 
 	public void OnStickmanLaunchFlipped( bool flipped ) //Info: If true: Stickman aiming towards left
@@ -83,6 +82,19 @@ public class Enemy : MonoBehaviour
 #endregion
 
 #region Implementation
+	void PlayerTrigger( Collider enemy, Collider player ) 
+	{
+		onPlayerCollided = ExtensionMethods.EmptyMethod;
+		recycledTween.Kill();
+
+		event_particle_hit.Raise( "stickman_hit", enemy.transform.position );
+
+		if( enemy_power > notif_stickman_power.sharedValue )
+			OnWin();
+		else
+			OnLoose( enemy, ( enemy.transform.position - player.transform.position ).normalized );
+	}
+
 	void OnLoose( Collider collider, Vector3 direction )
 	{
 		enemy_power_ui.gameObject.SetActive( false );

@@ -9,6 +9,7 @@ namespace FFStudio
 	public delegate void DrawShape( Camera cam );
     public delegate void TriggerMessage( Collider other );
     public delegate void CollisionMessage( Collision collision );
+    public delegate void ColliderTransmitMessage( Collider _base, Collider other );
 	public delegate void UnityMessage();
 	public delegate void OnCompleteMessage();
 	public delegate void LeanFingerDelegate( LeanFinger finger );

@@ -156,6 +156,11 @@ namespace FFStudio
 		{
 			/* Intentionally empty, by definition. */
 		}
+
+		public static void EmptyMethod( Collider _base, Collider other )
+		{
+			/* Intentionally empty, by definition. */
+		}
 		
 		public static void EmptyMethod( Vector2 vector2 )
 		{
