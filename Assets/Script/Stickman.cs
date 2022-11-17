@@ -78,7 +78,7 @@ public class Stickman : MonoBehaviour
 #endregion
 
 #region API
-    public void LevelStarted()
+    public void OnLevelStarted()
     {
 		onFingerDown = Rise;
 		stickman_target_transform = notif_stickman_target_reference.sharedValue as Transform;
