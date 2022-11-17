@@ -19,6 +19,7 @@ public class Stickman : MonoBehaviour
     [ SerializeField ] StickmanPose[] stickman_pose_array;
 
   [ Title( "Fired Events" ) ]
+	[ SerializeField ] GameEvent event_stickman_spawned;
 	[ SerializeField ] GameEvent event_stickman_launch_start;
 	[ SerializeField ] GameEvent event_stickman_launch_end;
 	[ SerializeField ] GameEvent event_stickman_victory;
@@ -188,6 +189,8 @@ public class Stickman : MonoBehaviour
 		particle_cell_spawned.Play();
 		stickman_animator.SetTrigger( "idle" );
 
+		event_stickman_spawned.Raise();
+
 		onFingerDown = Rise;
 	}
 
@@ -206,6 +209,8 @@ public class Stickman : MonoBehaviour
 		particle_cell_spawned.Play();
 		stickman_animator.SetTrigger( "idle" );
 
+		event_stickman_spawned.Raise();
+
 		onFingerDown = Rise;
 	}
 
@@ -220,6 +225,8 @@ public class Stickman : MonoBehaviour
 
 		transform.position    = notif_stickman_finishLine_spawn_position.sharedValue + Vector3.up * GameSettings.Instance.stickman_cell_offset;
 		transform.eulerAngles = cell_rotation;
+
+		event_stickman_spawned.Raise();
 
 		particle_cell_spawned.Play();
 		stickman_animator.SetTrigger( "victory" );

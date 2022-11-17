@@ -320,6 +320,7 @@ MonoBehaviour:
   stickman_pose_array:
   - {fileID: 11400000, guid: e9b50f5777896415ebc246f8aeaa1e41, type: 2}
   - {fileID: 11400000, guid: ca08a5a6537f5724fbd3f460751c5073, type: 2}
+  event_stickman_spawned: {fileID: 11400000, guid: eae126b5bb74f44ed89847b716f63c4d, type: 2}
   event_stickman_launch_start: {fileID: 11400000, guid: 2d21c251972894c36850c87658e75fc6, type: 2}
   event_stickman_launch_end: {fileID: 11400000, guid: 7be1935aed4ea48c2937ea7b4ae20d3e, type: 2}
   event_stickman_victory: {fileID: 11400000, guid: 22873f72c6f06f44cac81d13b29f59e2, type: 2}
