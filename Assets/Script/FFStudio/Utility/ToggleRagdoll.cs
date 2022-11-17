@@ -52,6 +52,12 @@ namespace FFStudio
 			ragdollRigidbody_main.useGravity  = false;
 		}
 
+		public void MakeMainRbDynamic()
+		{
+			ragdollRigidbody_main.isKinematic = false;
+			ragdollRigidbody_main.useGravity  = true;
+		}
+
         [ Button() ]
         public void SwitchRagdoll( bool on )
         {
