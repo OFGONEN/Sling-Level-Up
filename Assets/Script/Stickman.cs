@@ -33,6 +33,7 @@ public class Stickman : MonoBehaviour
 	[ SerializeField ] Transform[] stickman_transform_array;
 // Private
 	Transform stickman_target_transform;
+	Vector3 cell_rotation;
 	Vector3 cell_position_previous;
 	Vector3 cell_position_current;
 	Enemy enemy_current;
@@ -41,6 +42,7 @@ public class Stickman : MonoBehaviour
     UnityMessage onUpdate;
     UnityMessage onFingerDown;
     UnityMessage onFingerUp;
+	UnityMessage onStickmanCollidedGround;
 
 	RecycledTween recycledTween  = new RecycledTween();
 	Cooldown      cooldown_spawn = new Cooldown();
@@ -59,16 +61,20 @@ public class Stickman : MonoBehaviour
     {
 		EmptyDelegates();
 
-		notif_stickman_power.SetValue_NotifyAlways( CurrentLevelData.Instance.levelData.stickman_power_start );
-
-		stickman_power_ui.gameObject.SetActive( true );
-		UpdateStickmanPowerUI();
-
 		stickman_ragdoll.SwitchRagdoll( false );
 		stickman_ragdoll.ToggleCollider( false );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
 
 		cell_position_previous = transform.position - Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		cell_rotation          = transform.eulerAngles;
+	}
+
+	private void Start()
+	{
+		notif_stickman_power.SetValue_NotifyAlways( CurrentLevelData.Instance.levelData.stickman_power_start );
+
+		stickman_power_ui.gameObject.SetActive( true );
+		UpdateStickmanPowerUI();
 	}
 
 	private void Update()
@@ -78,7 +84,7 @@ public class Stickman : MonoBehaviour
 #endregion
 
 #region API
-    public void LevelStarted()
+    public void OnLevelStarted()
     {
 		onFingerDown = Rise;
 		stickman_target_transform = notif_stickman_target_reference.sharedValue as Transform;
@@ -103,6 +109,9 @@ public class Stickman : MonoBehaviour
 
 		particle_cell_entered.Play();
 		ChangeIntoAttackPose();
+
+		EmptyDelegates();
+		cooldown_spawn.Kill();
 
 		recycledTween.Recycle( transform.DOMove( enemyPosition + GameSettings.Instance.stickman_cell_enemy_attack_offset * Vector3.up,
 			GameSettings.Instance.stickman_cell_enemy_attack_duration )
@@ -131,25 +140,33 @@ public class Stickman : MonoBehaviour
 
 	public void OnStickmanGround()
 	{
-		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
+		onStickmanCollidedGround();
 	}
 
 	public void OnFinishLine()
 	{
+		EmptyDelegates();
+
 		event_stickman_victory.Raise();
-		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
+		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnOnTarget );
 	}
 
 	public void OnStickmanFlipped( bool value )
 	{
-		if( value )
-			transform.localEulerAngles = transform.localEulerAngles.SetZ( 180 );
-		else
-			transform.localEulerAngles = transform.localEulerAngles.SetZ( 0 );
+		// if( value )
+			// transform.localEulerAngles = transform.localEulerAngles.SetZ( 180 );
+		// else
+			// transform.localEulerAngles = transform.localEulerAngles.SetZ( 0 );
 	}
 #endregion
 
 #region Implementation
+	void StickmanCollideWithGround()
+	{
+		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
+		onStickmanCollidedGround = ExtensionMethods.EmptyMethod;
+	}
+
 	void UpdateStickmanPowerUI()
 	{
 		stickman_power_ui.text = notif_stickman_power.sharedValue.ToString();
@@ -166,6 +183,7 @@ public class Stickman : MonoBehaviour
 
 		cell_position_previous = cell_position_current;
 		transform.position     = cell_position_current + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		transform.eulerAngles  = cell_rotation;
 
 		particle_cell_spawned.Play();
 		stickman_animator.SetTrigger( "idle" );
@@ -182,7 +200,8 @@ public class Stickman : MonoBehaviour
 
 		stickman_power_ui.gameObject.SetActive( true );
 
-		transform.position = cell_position_previous + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		transform.position    = cell_position_previous + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		transform.eulerAngles = cell_rotation;
 
 		particle_cell_spawned.Play();
 		stickman_animator.SetTrigger( "idle" );
@@ -199,7 +218,8 @@ public class Stickman : MonoBehaviour
 
 		stickman_power_ui.gameObject.SetActive( true );
 
-		transform.position = notif_stickman_finishLine_spawn_position.sharedValue + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		transform.position    = notif_stickman_finishLine_spawn_position.sharedValue + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		transform.eulerAngles = cell_rotation;
 
 		particle_cell_spawned.Play();
 		stickman_animator.SetTrigger( "victory" );
@@ -227,45 +247,49 @@ public class Stickman : MonoBehaviour
 
     void Rise()
     {
-		onFingerDown.EmptyDelegate();
+		onFingerDown             = ExtensionMethods.EmptyMethod;
 
 		stickman_ragdoll.ToggleCollider( true );
+		stickman_ragdoll.ToggleTriggerOnCollider( false );
 		stickman_ragdoll.BecomeMovableRagdoll();
+
+		particle_launch_update.Play();
 
 		stickman_animator.enabled = false;
 
 		recycledTween.Recycle( transform.DOMove( GameSettings.Instance.stickman_rise_height * Vector3.up,
 			GameSettings.Instance.stickman_rise_duration )
 			.SetEase( GameSettings.Instance.stickman_rise_ease )
-			.SetRelative()
-			.OnComplete( OnRiseComplete ) );
+			.SetRelative(), OnRiseComplete );
 	}
 
     void OnRiseComplete()
     {
 		onFingerUp = Launch;
+		onUpdate   = OnLaunchUpdate;
+
 		event_stickman_launch_start.Raise(); // Launch direction target is on default position now.
-
-		particle_launch_update.Play();
-
-		onUpdate = OnLaunchUpdate;
 	}
 
     void Launch()
     {
 		EmptyDelegates();
+
+		onStickmanCollidedGround = StickmanCollideWithGround;
+
 		event_stickman_launch_end.Raise();
 
 		stickman_power_ui.gameObject.SetActive( false );
 
 		particle_launch_update.Stop( true, ParticleSystemStopBehavior.StopEmitting );
 
+		stickman_ragdoll.MakeMainRbDynamic();
 		stickman_ragdoll.ApplyForce( transform.forward * GameSettings.Instance.stickman_launch_power.ReturnProgress( shared_finger_delta_magnitude.sharedValue ), ForceMode.Impulse );
 	}
 
 	void OnLaunchUpdate()
 	{
-		transform.LookAtOverTimeAxis( stickman_target_transform.position, Vector3.right, GameSettings.Instance.stickman_launch_rotation_speed );
+		transform.LookAtOverTime( stickman_target_transform.position, GameSettings.Instance.stickman_launch_rotation_speed );
 	}
 
 	void ChangeStickmanPose( StickmanPose pose )
@@ -283,9 +307,10 @@ public class Stickman : MonoBehaviour
 
     void EmptyDelegates()
     {
-		onUpdate.EmptyDelegate();
-		onFingerDown.EmptyDelegate();
-		onFingerUp.EmptyDelegate();
+		onUpdate                 = ExtensionMethods.EmptyMethod;
+		onFingerDown             = ExtensionMethods.EmptyMethod;
+		onFingerUp               = ExtensionMethods.EmptyMethod;
+		onStickmanCollidedGround = ExtensionMethods.EmptyMethod;
 	}
 #endregion
 

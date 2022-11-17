@@ -20,6 +20,8 @@ public class LaunchDirection : MonoBehaviour
     [ SerializeField ] Transform gfx;
     [ SerializeField, ReadOnly ] GameObject[] gfx_child_array;
 
+	Transform stickman_transform;
+
 	UnityMessage onDirectionFlipCheck;
     UnityMessage onUpdate;
 #endregion
@@ -30,13 +32,18 @@ public class LaunchDirection : MonoBehaviour
 #region Unity API
     void OnDisable()
     {
-		onUpdate.EmptyDelegate();
+		onUpdate = ExtensionMethods.EmptyMethod;
 	}
 
     void Awake()
     {
-		onUpdate.EmptyDelegate();
+		onUpdate = ExtensionMethods.EmptyMethod;
 		DisableLaunchVisual();
+	}
+
+	private void Start()
+	{
+		stickman_transform = notif_stickman_reference.sharedValue as Transform;
 	}
 
     void Update()
@@ -48,7 +55,9 @@ public class LaunchDirection : MonoBehaviour
 #region API
     public void OnStickmanLaunchStart()
     {
+		transform.position   = stickman_transform.position;
 		target.localPosition = Vector3.right;
+
 		DisableLaunchVisual();
 
 		onUpdate = OnLaunchUpdate;
@@ -86,17 +95,20 @@ public class LaunchDirection : MonoBehaviour
     void OnLaunchUpdate()
     {
 		target.localPosition = shared_finger_delta_direction.sharedValue;
+		gfx.right = shared_finger_delta_direction.sharedValue;
 
-		onDirectionFlipCheck();
 		OnLaunchUpdate_Visual();
 	}
 
     void OnLaunchUpdate_Visual()
     {
-		var lastIndex = Mathf.Lerp( 1, gfx_child_array.Length, shared_finger_delta_magnitude.sharedValue );
+		var lastIndex = Mathf.FloorToInt( Mathf.Lerp( 1, gfx_child_array.Length, shared_finger_delta_magnitude.sharedValue ) );
 
-        for( var i = 1; i < lastIndex; i++ )
+		for( var i = 1; i < lastIndex; i++ )
 			gfx_child_array[ i ].SetActive( true );
+		
+		for( var i = lastIndex; i < gfx_child_array.Length; i++ )
+			gfx_child_array[ i ].SetActive( false );
 	}
 
     void DisableLaunchVisual()

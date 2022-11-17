@@ -52,9 +52,11 @@ public class Enemy : MonoBehaviour
 #region API
 	public void OnPlayerTrigger( Collider enemy, Collider player ) // Info: Called from Enemy's own ragdoll collider 
 	{
+		recycledTween.Kill();
+
 		event_particle_hit.Raise( "stickman_hit", enemy.transform.position );
 
-		if( enemy_power >= notif_stickman_power.sharedValue )
+		if( enemy_power > notif_stickman_power.sharedValue )
 			OnWin();
 		else
 			OnLoose( enemy, ( enemy.transform.position - player.transform.position ).normalized );
@@ -69,6 +71,7 @@ public class Enemy : MonoBehaviour
 	public void OnStickmanLaunchFlipped( bool flipped ) //Info: If true: Stickman aiming towards left
 	{
 		Vector3 tweenPosition;
+
 		if( flipped )
 			tweenPosition = enemy_cell_position * -1f;
 		else

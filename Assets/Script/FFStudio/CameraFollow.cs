@@ -19,10 +19,14 @@ namespace FFStudio
         [ SerializeField ] SharedReferenceNotifier notif_camera_reference_sequence_start;
         [ SerializeField ] SharedReferenceNotifier notif_camera_reference_sequence_end;
 
+    [ Title( "Components" ) ]
+        [ SerializeField ] Camera _camera;
+
         Transform target_transform;
         UnityMessage updateMethod;
+		RecycledTween recycledTween = new RecycledTween();
 
-        float target_offset_Z;
+		float camera_zoom_out_value;
 
         Vector3 camera_sequence_position_start;
         Vector3 camera_sequence_position_end;
@@ -34,6 +38,7 @@ namespace FFStudio
 #region Unity API
         void OnDisable()
         {
+			recycledTween.Kill();
 			updateMethod = ExtensionMethods.EmptyMethod;
 		}
 
@@ -73,11 +78,15 @@ namespace FFStudio
         public void OnStickmanLaunchStart()
         {
 			updateMethod += OnStickmanLaunchUpdate;
-			target_offset_Z = 0;
+			camera_zoom_out_value = 0;
 		}
 
 		public void OnStickmanLaunchEnd()
 		{
+			recycledTween.Recycle( DOTween.To( GetZoomValue,
+				SetZoomOutValue, 0, GameSettings.Instance.camera_zoomIn_duration )
+				.SetEase( GameSettings.Instance.camera_zoomIn_ease ) );
+
 			updateMethod -= OnStickmanLaunchUpdate;
 		}
 #endregion
@@ -109,23 +118,35 @@ namespace FFStudio
 
 		void OnStickmanLaunchUpdate()
         {
-			target_offset_Z = Mathf.InverseLerp( shared_finger_delta_magnitude.sharedValue, GameSettings.Instance.camera_zoomOut_value_range.x, GameSettings.Instance.camera_zoomOut_value_range.y ) * GameSettings.Instance.camera_zoomOut_value_max;
+			var targetOffset = GameSettings.Instance.camera_zoomOut_value_range.ReturnProgress( shared_finger_delta_magnitude.sharedValue );
+
+			camera_zoom_out_value = Mathf.Lerp( camera_zoom_out_value, targetOffset, GameSettings.Instance.camera_zoomOut_value_speed * Time.deltaTime );
+
+			_camera.orthographicSize = GameSettings.Instance.camera_zoom_value + camera_zoom_out_value;
 		}
 
         void FollowTargetDeltaTime()
         {
 			// Info: Simple follow logic.
-			var offset             = GameSettings.Instance.camera_follow_offset + Vector3.forward * target_offset_Z;
-			var targetPosition     = target_transform.position + offset;
+			var targetPosition     = target_transform.position + GameSettings.Instance.camera_follow_offset;
 			    transform.position = Vector3.Lerp( transform.position, targetPosition, GameSettings.Instance.camera_follow_speed * Time.deltaTime );
         }
 
 		void FollowTargetFixedDeltaTime()
 		{
 			// Info: Simple follow logic.
-			var offset             = GameSettings.Instance.camera_follow_offset + Vector3.forward * target_offset_Z;
-			var targetPosition     = target_transform.position + offset;
+			var targetPosition     = target_transform.position + GameSettings.Instance.camera_follow_offset;
 			    transform.position = Vector3.Lerp( transform.position, targetPosition, GameSettings.Instance.camera_follow_speed * Time.fixedDeltaTime );
+		}
+
+        float GetZoomValue()
+        {
+			return camera_zoom_out_value;
+		}
+
+        void SetZoomOutValue( float value )
+        {
+			camera_zoom_out_value = value;
 		}
 #endregion
 
@@ -138,6 +159,8 @@ namespace FFStudio
 
             if( stickman )
 				transform.position = stickman.transform.position + GameSettings.Instance.camera_follow_offset;
+
+			_camera.orthographicSize = GameSettings.Instance.camera_zoom_value;
 		}
 
         [ Button() ]

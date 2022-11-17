@@ -517,9 +517,5 @@ namespace FFStudio
 			elementOfInterest.particle1 = previousElement.particle2;
 		}
 #endif
-		public static void EmptyDelegate( this UnityMessage callback )
-		{
-			callback = ExtensionMethods.EmptyMethod;
-		}
 	}
 }

@@ -1419,7 +1419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b0963315ddbad4aa84a527e08fce12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedDataNotifier: {fileID: 11400000, guid: 772d4e63c1c02db4b8cb5bbaa9edc6a8, type: 2}
+  sharedDataNotifier: {fileID: 11400000, guid: 38834edc7362cbb4baf066af15b32131, type: 2}
 --- !u!1 &6916133170133952359
 GameObject:
   m_ObjectHideFlags: 0

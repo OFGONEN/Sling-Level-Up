@@ -62,8 +62,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 12.08
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -152,6 +152,7 @@ MonoBehaviour:
   event_level_started: {fileID: 11400000, guid: efef06bf257ee27438d6c2aab4936226, type: 2}
   notif_camera_reference_sequence_start: {fileID: 11400000, guid: a3a7a2811ac9c4dc69e9d85cdd5c4b60, type: 2}
   notif_camera_reference_sequence_end: {fileID: 11400000, guid: db5826f36927641ef9b9dd098ccc2efc, type: 2}
+  _camera: {fileID: 1253889938108595587}
 --- !u!1 &2932708605208369588
 GameObject:
   m_ObjectHideFlags: 0
