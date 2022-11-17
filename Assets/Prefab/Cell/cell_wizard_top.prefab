@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4814864333207357444, guid: 2dbe1c823ed8a0d41b7ea8fed789ac75, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7208057450237213860, guid: 2dbe1c823ed8a0d41b7ea8fed789ac75, type: 3}
       propertyPath: m_Name
       value: cell_wizard_top
@@ -75,7 +79,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4331998990014408039, guid: dd17a9d601ba91840bbb48d49d4c611b, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4331998990014408039, guid: dd17a9d601ba91840bbb48d49d4c611b, type: 3}
       propertyPath: m_LocalPosition.x
