@@ -227,7 +227,7 @@ public class Stickman : MonoBehaviour
 
     void Rise()
     {
-		onFingerDown.EmptyDelegate();
+		onFingerDown = ExtensionMethods.EmptyMethod;
 
 		stickman_ragdoll.ToggleCollider( true );
 		stickman_ragdoll.BecomeMovableRagdoll();
@@ -283,9 +283,9 @@ public class Stickman : MonoBehaviour
 
     void EmptyDelegates()
     {
-		onUpdate.EmptyDelegate();
-		onFingerDown.EmptyDelegate();
-		onFingerUp.EmptyDelegate();
+		onUpdate     = ExtensionMethods.EmptyMethod;
+		onFingerDown = ExtensionMethods.EmptyMethod;
+		onFingerUp   = ExtensionMethods.EmptyMethod;
 	}
 #endregion
 

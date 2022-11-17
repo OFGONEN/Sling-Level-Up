@@ -30,12 +30,12 @@ public class LaunchDirection : MonoBehaviour
 #region Unity API
     void OnDisable()
     {
-		onUpdate.EmptyDelegate();
+		onUpdate = ExtensionMethods.EmptyMethod;
 	}
 
     void Awake()
     {
-		onUpdate.EmptyDelegate();
+		onUpdate = ExtensionMethods.EmptyMethod;
 		DisableLaunchVisual();
 	}
 

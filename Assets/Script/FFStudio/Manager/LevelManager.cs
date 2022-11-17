@@ -27,7 +27,7 @@ namespace FFStudio
 #region UnityAPI
         private void Awake()
         {
-			onUpdate.EmptyDelegate();
+			onUpdate = ExtensionMethods.EmptyMethod;
 		}
 
         private void Update()
@@ -67,13 +67,13 @@ namespace FFStudio
 
         public void OnStickmanReachedFinishLine()
         {
-			onUpdate.EmptyDelegate();
+			onUpdate = ExtensionMethods.EmptyMethod;
 			notifier_progress.SharedValue = 1f;
 		}
 
         public void OnLevelFailed()
         {
-			onUpdate.EmptyDelegate();
+			onUpdate = ExtensionMethods.EmptyMethod;
 		}
 #endregion
 
