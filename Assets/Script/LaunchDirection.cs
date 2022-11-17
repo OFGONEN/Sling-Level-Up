@@ -20,6 +20,8 @@ public class LaunchDirection : MonoBehaviour
     [ SerializeField ] Transform gfx;
     [ SerializeField, ReadOnly ] GameObject[] gfx_child_array;
 
+	Transform stickman_transform;
+
 	UnityMessage onDirectionFlipCheck;
     UnityMessage onUpdate;
 #endregion
@@ -39,6 +41,11 @@ public class LaunchDirection : MonoBehaviour
 		DisableLaunchVisual();
 	}
 
+	private void Start()
+	{
+		stickman_transform = notif_stickman_reference.sharedValue as Transform;
+	}
+
     void Update()
     {
 		onUpdate();
@@ -48,7 +55,9 @@ public class LaunchDirection : MonoBehaviour
 #region API
     public void OnStickmanLaunchStart()
     {
+		transform.position   = stickman_transform.position;
 		target.localPosition = Vector3.right;
+
 		DisableLaunchVisual();
 
 		onUpdate = OnLaunchUpdate;
