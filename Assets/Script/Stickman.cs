@@ -270,7 +270,7 @@ public class Stickman : MonoBehaviour
 
 	void OnLaunchUpdate()
 	{
-		transform.LookAtOverTimeAxis( stickman_target_transform.position, Vector3.right, GameSettings.Instance.stickman_launch_rotation_speed );
+		transform.LookAtOverTime( stickman_target_transform.position, GameSettings.Instance.stickman_launch_rotation_speed );
 	}
 
 	void ChangeStickmanPose( StickmanPose pose )

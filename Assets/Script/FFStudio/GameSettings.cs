@@ -14,6 +14,7 @@ namespace FFStudio
 		[ LabelText( "Stickman Rise Height" ) ] public float stickman_rise_height;
 		[ LabelText( "Stickman Rise Duration" ) ] public float stickman_rise_duration;
 		[ LabelText( "Stickman Rise Ease" ) ] public Ease stickman_rise_ease;
+		[ LabelText( "Stickman Launch Rotation Axis" ) ] public Vector3 stickman_launch_rotation_axis;
 		[ LabelText( "Stickman Launch Rotation Speed" ) ] public float stickman_launch_rotation_speed;
 		[ LabelText( "Stickman Launch Power" ) ] public Vector2 stickman_launch_power;
 		[ LabelText( "Stickman Cell Offset Height" ) ] public float stickman_cell_offset;
