@@ -102,10 +102,13 @@ public class LaunchDirection : MonoBehaviour
 
     void OnLaunchUpdate_Visual()
     {
-		var lastIndex = Mathf.Lerp( 1, gfx_child_array.Length, shared_finger_delta_magnitude.sharedValue );
+		var lastIndex = Mathf.FloorToInt( Mathf.Lerp( 1, gfx_child_array.Length, shared_finger_delta_magnitude.sharedValue ) );
 
-        for( var i = 1; i < lastIndex; i++ )
+		for( var i = 1; i < lastIndex; i++ )
 			gfx_child_array[ i ].SetActive( true );
+		
+		for( var i = lastIndex; i < gfx_child_array.Length; i++ )
+			gfx_child_array[ i ].SetActive( false );
 	}
 
     void DisableLaunchVisual()
