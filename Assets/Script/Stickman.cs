@@ -33,6 +33,7 @@ public class Stickman : MonoBehaviour
 	[ SerializeField ] Transform[] stickman_transform_array;
 // Private
 	Transform stickman_target_transform;
+	Vector3 cell_rotation;
 	Vector3 cell_position_previous;
 	Vector3 cell_position_current;
 	Enemy enemy_current;
@@ -59,13 +60,12 @@ public class Stickman : MonoBehaviour
     {
 		EmptyDelegates();
 
-
-
 		stickman_ragdoll.SwitchRagdoll( false );
 		stickman_ragdoll.ToggleCollider( false );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
 
 		cell_position_previous = transform.position - Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		cell_rotation          = transform.eulerAngles;
 	}
 
 	private void Start()
@@ -171,6 +171,7 @@ public class Stickman : MonoBehaviour
 
 		cell_position_previous = cell_position_current;
 		transform.position     = cell_position_current + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		transform.eulerAngles  = cell_rotation;
 
 		particle_cell_spawned.Play();
 		stickman_animator.SetTrigger( "idle" );
@@ -187,7 +188,8 @@ public class Stickman : MonoBehaviour
 
 		stickman_power_ui.gameObject.SetActive( true );
 
-		transform.position = cell_position_previous + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		transform.position    = cell_position_previous + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		transform.eulerAngles = cell_rotation;
 
 		particle_cell_spawned.Play();
 		stickman_animator.SetTrigger( "idle" );
@@ -204,7 +206,8 @@ public class Stickman : MonoBehaviour
 
 		stickman_power_ui.gameObject.SetActive( true );
 
-		transform.position = notif_stickman_finishLine_spawn_position.sharedValue + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		transform.position    = notif_stickman_finishLine_spawn_position.sharedValue + Vector3.up * GameSettings.Instance.stickman_cell_offset;
+		transform.eulerAngles = cell_rotation;
 
 		particle_cell_spawned.Play();
 		stickman_animator.SetTrigger( "victory" );
