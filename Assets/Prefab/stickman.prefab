@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7993f4f2c0a6d1d47b9029194d027825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAt_Reference: {fileID: 11400000, guid: db5826f36927641ef9b9dd098ccc2efc, type: 2}
+  lookAt_Reference: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
   lookAt_Axis: {x: 0, y: 1, z: 0}
 --- !u!1 &2999875915260009383
 GameObject:
