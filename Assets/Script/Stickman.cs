@@ -147,10 +147,10 @@ public class Stickman : MonoBehaviour
 
 	public void OnStickmanFlipped( bool value )
 	{
-		if( value )
-			transform.localEulerAngles = transform.localEulerAngles.SetZ( 180 );
-		else
-			transform.localEulerAngles = transform.localEulerAngles.SetZ( 0 );
+		// if( value )
+			// transform.localEulerAngles = transform.localEulerAngles.SetZ( 180 );
+		// else
+			// transform.localEulerAngles = transform.localEulerAngles.SetZ( 0 );
 	}
 #endregion
 
