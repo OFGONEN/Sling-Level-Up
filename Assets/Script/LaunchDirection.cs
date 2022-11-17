@@ -95,8 +95,8 @@ public class LaunchDirection : MonoBehaviour
     void OnLaunchUpdate()
     {
 		target.localPosition = shared_finger_delta_direction.sharedValue;
+		gfx.right = shared_finger_delta_direction.sharedValue;
 
-		onDirectionFlipCheck();
 		OnLaunchUpdate_Visual();
 	}
 
