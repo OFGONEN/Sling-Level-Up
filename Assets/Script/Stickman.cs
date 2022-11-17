@@ -42,6 +42,7 @@ public class Stickman : MonoBehaviour
     UnityMessage onUpdate;
     UnityMessage onFingerDown;
     UnityMessage onFingerUp;
+	UnityMessage onStickmanCollidedGround;
 
 	RecycledTween recycledTween  = new RecycledTween();
 	Cooldown      cooldown_spawn = new Cooldown();
@@ -136,7 +137,7 @@ public class Stickman : MonoBehaviour
 
 	public void OnStickmanGround()
 	{
-		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
+		onStickmanCollidedGround();
 	}
 
 	public void OnFinishLine()
@@ -155,6 +156,11 @@ public class Stickman : MonoBehaviour
 #endregion
 
 #region Implementation
+	void StickmanCollideWithGround()
+	{
+		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
+	}
+
 	void UpdateStickmanPowerUI()
 	{
 		stickman_power_ui.text = notif_stickman_power.sharedValue.ToString();
@@ -235,7 +241,8 @@ public class Stickman : MonoBehaviour
 
     void Rise()
     {
-		onFingerDown = ExtensionMethods.EmptyMethod;
+		onFingerDown             = ExtensionMethods.EmptyMethod;
+		onStickmanCollidedGround = StickmanCollideWithGround;
 
 		stickman_ragdoll.ToggleCollider( true );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
@@ -292,9 +299,10 @@ public class Stickman : MonoBehaviour
 
     void EmptyDelegates()
     {
-		onUpdate     = ExtensionMethods.EmptyMethod;
-		onFingerDown = ExtensionMethods.EmptyMethod;
-		onFingerUp   = ExtensionMethods.EmptyMethod;
+		onUpdate                 = ExtensionMethods.EmptyMethod;
+		onFingerDown             = ExtensionMethods.EmptyMethod;
+		onFingerUp               = ExtensionMethods.EmptyMethod;
+		onStickmanCollidedGround = ExtensionMethods.EmptyMethod;
 	}
 #endregion
 
