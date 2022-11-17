@@ -17,16 +17,16 @@ MonoBehaviour:
   stickman_rise_ease: 18
   stickman_launch_rotation_axis: {x: 0, y: 1, z: 1}
   stickman_launch_rotation_speed: 30
-  stickman_launch_power: {x: 10, y: 12.5}
-  stickman_cell_offset: 1.2
+  stickman_launch_power: {x: 300, y: 325}
+  stickman_cell_offset: 1.1
   stickman_cell_enemy_attack_offset: 1
   stickman_cell_enemy_attack_duration: 0.5
   stickman_cell_enemy_attack_ease: 18
-  stickman_cell_enemy_pushed_force: {x: 5, y: 7.5}
+  stickman_cell_enemy_pushed_force: {x: 50, y: 75}
   stickman_spawn_delay_cell: 2
   stickman_spawn_delay_ground: 1
   stickman_spawn_delay_finishLine: 0.35
-  enemy_defeat_force: {x: 10, y: 12.5}
+  enemy_defeat_force: {x: 150, y: 200}
   enemy_defeat_duration: {x: 2, y: 3}
   enemy_flip_duration: 0.35
   enemy_flip_ease: 18
