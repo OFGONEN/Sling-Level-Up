@@ -142,7 +142,7 @@ public class Stickman : MonoBehaviour
 	public void OnFinishLine()
 	{
 		event_stickman_victory.Raise();
-		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
+		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnOnTarget );
 	}
 
 	public void OnStickmanFlipped( bool value )
@@ -253,7 +253,6 @@ public class Stickman : MonoBehaviour
 
     void OnRiseComplete()
     {
-		FFLogger.Log( "Rise Complete" );
 		onFingerUp = Launch;
 		event_stickman_launch_start.Raise(); // Launch direction target is on default position now.
 
