@@ -72,7 +72,7 @@ namespace FFStudio
 
         public void OnLevelFinishedResponse()
         {
-            updateMethod = ExtensionMethods.EmptyMethod;
+            // updateMethod = ExtensionMethods.EmptyMethod;
         }
 
         public void OnStickmanLaunchStart()
