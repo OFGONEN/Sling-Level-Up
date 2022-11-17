@@ -110,6 +110,9 @@ public class Stickman : MonoBehaviour
 		particle_cell_entered.Play();
 		ChangeIntoAttackPose();
 
+		EmptyDelegates();
+		cooldown_spawn.Kill();
+
 		recycledTween.Recycle( transform.DOMove( enemyPosition + GameSettings.Instance.stickman_cell_enemy_attack_offset * Vector3.up,
 			GameSettings.Instance.stickman_cell_enemy_attack_duration )
 			.SetEase( GameSettings.Instance.stickman_cell_enemy_attack_ease ) );
@@ -142,6 +145,8 @@ public class Stickman : MonoBehaviour
 
 	public void OnFinishLine()
 	{
+		EmptyDelegates();
+
 		event_stickman_victory.Raise();
 		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnOnTarget );
 	}
@@ -159,6 +164,7 @@ public class Stickman : MonoBehaviour
 	void StickmanCollideWithGround()
 	{
 		cooldown_spawn.Start( GameSettings.Instance.stickman_spawn_delay_ground, false, SpawnInPreviousCell );
+		onStickmanCollidedGround = ExtensionMethods.EmptyMethod;
 	}
 
 	void UpdateStickmanPowerUI()
@@ -242,7 +248,6 @@ public class Stickman : MonoBehaviour
     void Rise()
     {
 		onFingerDown             = ExtensionMethods.EmptyMethod;
-		onStickmanCollidedGround = StickmanCollideWithGround;
 
 		stickman_ragdoll.ToggleCollider( true );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
@@ -261,14 +266,17 @@ public class Stickman : MonoBehaviour
     void OnRiseComplete()
     {
 		onFingerUp = Launch;
-		event_stickman_launch_start.Raise(); // Launch direction target is on default position now.
+		onUpdate   = OnLaunchUpdate;
 
-		onUpdate = OnLaunchUpdate;
+		event_stickman_launch_start.Raise(); // Launch direction target is on default position now.
 	}
 
     void Launch()
     {
 		EmptyDelegates();
+
+		onStickmanCollidedGround = StickmanCollideWithGround;
+
 		event_stickman_launch_end.Raise();
 
 		stickman_power_ui.gameObject.SetActive( false );
