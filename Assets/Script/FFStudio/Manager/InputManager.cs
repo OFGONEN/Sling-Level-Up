@@ -21,6 +21,7 @@ namespace FFStudio
 
 		float swipeThreshold;
 		float screen_width;
+		float input_delta_max;
 		Vector2 finger_down_position;
 
 		Transform transform_camera_main;
@@ -41,8 +42,9 @@ namespace FFStudio
 
 		void Awake()
 		{
-			screen_width   = Screen.width;
-			swipeThreshold = screen_width * GameSettings.Instance.swipeThreshold / 100;
+			screen_width    = Screen.width;
+			swipeThreshold  = screen_width * GameSettings.Instance.swipeThreshold / 100;
+			input_delta_max = screen_width * GameSettings.Instance.game_input_maxDelta_percentage;
 
 			leanTouch         = GetComponent< LeanTouch >();
 			leanTouch.enabled = false;
@@ -79,8 +81,7 @@ namespace FFStudio
 			var delta = fingerPosition - finger_down_position;
 			    shared_finger_delta_direction.sharedValue = delta.normalized;
 
-			shared_finger_delta_magnitude.sharedValue = Mathf.Min( GameSettings.Instance.game_input_maxDelta_percentage,
-				delta.x / screen_width );
+			shared_finger_delta_magnitude.sharedValue = delta.magnitude / input_delta_max;
 		}
 #endregion
 
