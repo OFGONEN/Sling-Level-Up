@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using FFStudio;
+using Sirenix.OdinInspector;
 
 public class ColliderTransmiter : MonoBehaviour
 {
 #region Fields
-    [ SerializeField ] Collider _collider;
+    [ LabelText( "Cache The Collider" ), SerializeField ] bool collider_cache;
+    [ HideIf( "collider_cache" ), SerializeField ] Collider _collider;
     [ SerializeField ] UnityEvent< Collider, Collider > unityEvent;
 #endregion
 
@@ -17,13 +19,22 @@ public class ColliderTransmiter : MonoBehaviour
 #endregion
 
 #region Unity API
+    private void Awake()
+    {
+        _collider = GetComponent< Collider >();
+
+#if UNITY_EDITOR
+        if( !_collider )
+            FFLogger.LogError( "Collider DID NOT FOUND", gameObject );
+#endif
+    }
+#endregion
+
+#region API
     public void Transmit( Collider other )
     {
 		unityEvent.Invoke( _collider, other );
 	}
-#endregion
-
-#region API
 #endregion
 
 #region Implementation
