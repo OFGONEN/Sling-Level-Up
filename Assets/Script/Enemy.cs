@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
 
 		event_particle_hit.Raise( "stickman_hit", enemy.transform.position );
 
-		if( enemy_power >= notif_stickman_power.sharedValue )
+		if( enemy_power > notif_stickman_power.sharedValue )
 			OnWin();
 		else
 			OnLoose( enemy, ( enemy.transform.position - player.transform.position ).normalized );
