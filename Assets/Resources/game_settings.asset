@@ -15,6 +15,7 @@ MonoBehaviour:
   stickman_rise_height: 0.2
   stickman_rise_duration: 0.2
   stickman_rise_ease: 18
+  stickman_launch_rotation_axis: {x: 0, y: 1, z: 1}
   stickman_launch_rotation_speed: 30
   stickman_launch_power: {x: 10, y: 12.5}
   stickman_cell_offset: 1.2
@@ -38,7 +39,7 @@ MonoBehaviour:
   camera_zoomIn_duration: 0.7
   camera_zoomIn_ease: 18
   maxLevelCount: 1
-  game_input_maxDelta_percentage: 0.4
+  game_input_maxDelta_percentage: 0.15
   game_forward: {x: 1, y: 0, z: 0}
   useRemoteConfig_GameSettings: 0
   useRemoteConfig_Components: 0
