@@ -86,8 +86,10 @@ namespace FFStudio
 
 		public void OnStickmanLaunchEnd()
 		{
+			camera_zoom_out_value = 0;
+			
 			recycledTween.Recycle( DOTween.To( GetZoomValue,
-				SetZoomOutValue, 0, GameSettings.Instance.camera_zoomIn_duration )
+				SetZoomOutValue, GameSettings.Instance.camera_zoom_value, GameSettings.Instance.camera_zoomIn_duration )
 				.SetEase( GameSettings.Instance.camera_zoomIn_ease ) );
 
 			updateMethod -= OnStickmanLaunchUpdate;
@@ -144,12 +146,12 @@ namespace FFStudio
 
         float GetZoomValue()
         {
-			return camera_zoom_out_value;
+			return _camera.orthographicSize;
 		}
 
         void SetZoomOutValue( float value )
         {
-			camera_zoom_out_value = value;
+			_camera.orthographicSize = value;
 		}
 #endregion
 
