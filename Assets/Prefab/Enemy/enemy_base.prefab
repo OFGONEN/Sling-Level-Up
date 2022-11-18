@@ -256,6 +256,7 @@ MonoBehaviour:
   disableAfterStart: 0
   eventPairs:
   - rid: 2955885637604737033
+  - rid: 3469633605563842561
   references:
     version: 2
     RefIds:
@@ -281,6 +282,27 @@ MonoBehaviour:
                 m_BoolArgument: 0
               m_CallState: 2
         argument: {fileID: 11400000, guid: f14b7ea4eec4d4e10b966151cbb4ed51, type: 2}
+    - rid: 3469633605563842561
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: eae126b5bb74f44ed89847b716f63c4d, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 25832106155183318}
+              m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+              m_MethodName: OnPlayerSpawned
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
 --- !u!1 &6836074319818350640
 GameObject:
   m_ObjectHideFlags: 0

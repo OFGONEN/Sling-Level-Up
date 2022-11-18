@@ -65,6 +65,11 @@ public class Enemy : MonoBehaviour
 		onPlayerCollided( enemy, player );
 	}
 
+	public void OnPlayerSpawned()
+	{
+		OnStickmanLaunchFlipped( false );
+	}
+
 	public void EnableTriggerOnRagdoll() // Info: Called from Cell prefab
 	{
 		enemy_ragdoll.ToggleCollider( true );
