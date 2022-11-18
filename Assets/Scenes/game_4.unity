@@ -1172,10 +1172,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: finishLine_girlfriend
       objectReference: {fileID: 0}
-    - target: {fileID: 5720224050275100773, guid: 3e39810e070fc8c479d0c7e5600db280, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e39810e070fc8c479d0c7e5600db280, type: 3}
 --- !u!1001 &1719738607

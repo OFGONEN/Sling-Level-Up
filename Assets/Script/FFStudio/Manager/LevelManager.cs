@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
@@ -22,9 +23,8 @@ namespace FFStudio
         UnityMessage onUpdate;
 
         Transform stickman_transform;
-        float stickman_finishLine_distance;
-        float stickman_enemy_count_spawned;
-        float stickman_enemy_count_lost;
+        [ ShowInInspector, ReadOnly ] float stickman_enemy_count_spawned;
+        [ ShowInInspector, ReadOnly ] float stickman_enemy_count_lost;
 #endregion
 
 #region UnityAPI
