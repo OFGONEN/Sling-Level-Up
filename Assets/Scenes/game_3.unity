@@ -957,7 +957,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4531334995784539775, guid: ac6a2a7430b1a4948886099460debcb4, type: 3}
       propertyPath: enemy_power
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7650998641711766624, guid: ac6a2a7430b1a4948886099460debcb4, type: 3}
       propertyPath: m_RootOrder

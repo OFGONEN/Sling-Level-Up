@@ -63,7 +63,6 @@ namespace FFStudio
 		public void OnStickmanEnemySpawned()
 		{
 			stickman_enemy_count_spawned += 1;
-            FFLogger.Log( "Spawned: " + stickman_enemy_count_spawned );
 		}
 
         public void OnStickmanEnemyLost()
