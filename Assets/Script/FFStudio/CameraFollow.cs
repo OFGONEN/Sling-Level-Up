@@ -45,15 +45,18 @@ namespace FFStudio
         void Awake()
         {
             updateMethod = ExtensionMethods.EmptyMethod;
+        }
 
-            if( CurrentLevelData.Instance.levelData.scene_sequence )
+		private void Start()
+		{
+			if( CurrentLevelData.Instance.levelData.scene_sequence )
             {
 				camera_sequence_position_start = ( notif_camera_reference_sequence_start.sharedValue as Transform ).position;
 				camera_sequence_position_end   = ( notif_camera_reference_sequence_end.sharedValue as Transform ).position;
 
 				transform.position = camera_sequence_position_start;
 			}
-        }
+		}
 
         void Update()
         {
