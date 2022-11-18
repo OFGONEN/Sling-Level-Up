@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 549829582464482572}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelFailedEvent: {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
   levelCompleted: {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
+  event_stickman_enemy_cleared: {fileID: 11400000, guid: 5d20749a7fb5c004491927ee38946ebc, type: 2}
   notifier_progress: {fileID: 11400000, guid: 43438d720c16f2e4aa5a19d520e1e15f, type: 2}
   notif_stickman_follow_reference: {fileID: 11400000, guid: 232900546bff94b8fbd1f6c0f5a8a3c5, type: 2}
   notif_finishLine_position: {fileID: 11400000, guid: 3262783b404027b4397874c393acb201, type: 2}
@@ -68,7 +70,6 @@ MonoBehaviour:
   - rid: 2955885637604737030
   - rid: 2955885637604737031
   - rid: 2955885659354300416
-  - rid: 2955885659354300417
   references:
     version: 2
     RefIds:
@@ -141,12 +142,13 @@ MonoBehaviour:
         eventListener:
           gameEvents:
           - {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
+          - {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
         unityEvent:
           m_PersistentCalls:
             m_Calls:
             - m_Target: {fileID: 3087407567312676473}
               m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
-              m_MethodName: OnLevelFailed
+              m_MethodName: OnLevelFinished
               m_Mode: 1
               m_Arguments:
                 m_ObjectArgument: {fileID: 0}
@@ -156,18 +158,90 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-    - rid: 2955885659354300417
+--- !u!1 &4758567016163715002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 549829582464482572}
+  - component: {fileID: 4331786169552578360}
+  m_Layer: 0
+  m_Name: logic_game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &549829582464482572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758567016163715002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 545607841950496312}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4331786169552578360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758567016163715002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245dc21cc9428744fa28ad2d6ce7d327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableAfterStart: 0
+  eventPairs:
+  - rid: 2955885696873660416
+  - rid: 2955885696873660417
+  references:
+    version: 2
+    RefIds:
+    - rid: 2955885696873660416
       type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
       data:
         eventListener:
           gameEvents:
-          - {fileID: 11400000, guid: 8362fcfdaa0b71c49be3cefcb7cec31a, type: 2}
+          - {fileID: 11400000, guid: f1f36494b9bbeb349895027bbada3e52, type: 2}
         unityEvent:
           m_PersistentCalls:
             m_Calls:
             - m_Target: {fileID: 3087407567312676473}
               m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
-              m_MethodName: OnStickmanReachedFinishLine
+              m_MethodName: OnStickmanEnemySpawned
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+    - rid: 2955885696873660417
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: 905a5b8ffdbd84527a965fc9b8e04e7d, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 3087407567312676473}
+              m_TargetAssemblyTypeName: FFStudio.LevelManager, Assembly-CSharp
+              m_MethodName: OnStickmanEnemyLost
               m_Mode: 1
               m_Arguments:
                 m_ObjectArgument: {fileID: 0}
