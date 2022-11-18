@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene_index: 2
   scene_overrideAsActiveScene: 0
-  scene_sequence: 0
+  scene_sequence: 1
   stickman_power_start: 3
-  scene_sequence_duration: 0
-  scene_sequence_ease: 0
+  scene_sequence_duration: 1
+  scene_sequence_ease: 1
