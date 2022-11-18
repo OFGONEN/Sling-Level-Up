@@ -28,6 +28,7 @@ MonoBehaviour:
   stickman_spawn_delay_finishLine: 0.35
   enemy_defeat_force: {x: 150, y: 200}
   enemy_defeat_duration: {x: 2, y: 3}
+  enemy_flip_value: 0.95
   enemy_flip_duration: 0.1
   enemy_flip_ease: 18
   enemy_power_conversion_rate: {x: 0.8, y: 1.2}

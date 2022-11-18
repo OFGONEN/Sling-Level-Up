@@ -76,7 +76,7 @@ public class LaunchDirection : MonoBehaviour
 #region Implementation
 	void CheckIfDirectionFlippedToLeft()
 	{
-		if( shared_finger_delta_direction.sharedValue.x < 0 )
+		if( shared_finger_delta_direction.sharedValue.x < 0 && Mathf.Abs( shared_finger_delta_direction.sharedValue.y ) <= 0.7f )
 		{
 			event_stickman_flipped.Raise( true );
 			onDirectionFlipCheck = CheckIfDirectionFlippedToRight;
@@ -85,7 +85,7 @@ public class LaunchDirection : MonoBehaviour
 
 	void CheckIfDirectionFlippedToRight()
 	{
-		if( shared_finger_delta_direction.sharedValue.x > 0 )
+		if( shared_finger_delta_direction.sharedValue.x > 0 && Mathf.Abs( shared_finger_delta_direction.sharedValue.y ) <= 0.7f )
 		{
 			event_stickman_flipped.Raise( false );
 			onDirectionFlipCheck = CheckIfDirectionFlippedToLeft;
