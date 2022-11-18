@@ -108,6 +108,7 @@ public class Stickman : MonoBehaviour
 		    enemy_current = enemy;
 
 		var enemyPosition = enemy.transform.position;
+		var enemyLocalPosition = enemy.transform.localPosition;
 
 		particle_cell_entered.Play();
 		ChangeIntoAttackPose();
@@ -120,11 +121,12 @@ public class Stickman : MonoBehaviour
 			.SetEase( GameSettings.Instance.stickman_cell_enemy_attack_ease ) );
 
 		enemy_current_isOnRight = transform.position.x <= enemyPosition.x;
+		cell_position_current = enemyPosition + enemyLocalPosition;
 
-		if( enemy_current_isOnRight )
-			cell_position_current = enemyPosition;
-		else
-			cell_position_current = enemyPosition.MultiplyX( -1f );
+		// if( enemy_current_isOnRight )
+		// 	cell_position_current = enemyPosition + enemyLocalPosition;
+		// else
+		// 	cell_position_current = enemyPosition + enemyLocalPosition;
 	}
 
 	public void OnStickmanWon()
