@@ -86,17 +86,21 @@ namespace FFStudio
 
 		public void OnStickmanLaunchEnd()
 		{
-			camera_zoom_out_value = 0;
-			
-			recycledTween.Recycle( DOTween.To( GetZoomValue,
-				SetZoomOutValue, GameSettings.Instance.camera_zoom_value, GameSettings.Instance.camera_zoomIn_duration )
-				.SetEase( GameSettings.Instance.camera_zoomIn_ease ) );
+			ZoomIn();
 
 			updateMethod -= OnStickmanLaunchUpdate;
 		}
 #endregion
 
 #region Implementation
+		void ZoomIn()
+		{
+			camera_zoom_out_value = 0;
+			
+			recycledTween.Recycle( DOTween.To( GetZoomValue,
+				SetZoomOutValue, GameSettings.Instance.camera_zoom_value, GameSettings.Instance.camera_zoomIn_duration )
+				.SetEase( GameSettings.Instance.camera_zoomIn_ease ) );
+		}
         void DoSequence()
         {
 			transform.DOMove( camera_sequence_position_end,
@@ -107,6 +111,7 @@ namespace FFStudio
 
         void OnCameraSequenceComplete()
         {
+			ZoomIn();
 			event_level_started.Raise();
 			StartFollowingTarget();
 		}
