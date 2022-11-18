@@ -16,9 +16,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 1289371283
+  - 828573878353720
   appLabels:
-  - Change Me
+  - 'Stick War: Sling Shot'
   cookie: 1
   logging: 1
   status: 1
