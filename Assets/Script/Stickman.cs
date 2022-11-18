@@ -259,7 +259,7 @@ public class Stickman : MonoBehaviour
 
     void Rise()
     {
-		onFingerDown             = ExtensionMethods.EmptyMethod;
+		EmptyDelegates();
 
 		stickman_ragdoll.ToggleCollider( true );
 		stickman_ragdoll.ToggleTriggerOnCollider( false );
