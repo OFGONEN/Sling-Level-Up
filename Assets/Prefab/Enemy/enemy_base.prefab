@@ -185,6 +185,7 @@ MonoBehaviour:
   notif_currency: {fileID: 11400000, guid: 772d4e63c1c02db4b8cb5bbaa9edc6a8, type: 2}
   event_stickman_lost: {fileID: 11400000, guid: 2b1973661dfe04204b14dbdaa9ca3890, type: 2}
   event_stickman_won: {fileID: 11400000, guid: 905a5b8ffdbd84527a965fc9b8e04e7d, type: 2}
+  event_stickman_enemy_spawned: {fileID: 11400000, guid: f1f36494b9bbeb349895027bbada3e52, type: 2}
   event_particle_hit: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
   enemy_power: 0
   enemy_lost:
@@ -378,3 +379,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookAt_Reference: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
   lookAt_Axis: {x: 0, y: 1, z: 0}
+  can_override: 0
+  lookAt_Axis_override: {x: 0, y: 0, z: 0}

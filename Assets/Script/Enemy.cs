@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     [ SerializeField ] Currency notif_currency;
     [ SerializeField ] GameEvent event_stickman_lost;
     [ SerializeField ] IntGameEvent event_stickman_won;
+    [ SerializeField ] GameEvent event_stickman_enemy_spawned;
     [ SerializeField ] ParticleSpawnEvent event_particle_hit;
 
   [ Title( "Setup" ) ]
@@ -50,6 +51,11 @@ public class Enemy : MonoBehaviour
 		enemy_ragdoll.ToggleCollider( false );
 
 		enemy_cell_position = transform.localPosition;
+	}
+
+	private void Start()
+	{
+		event_stickman_enemy_spawned.Raise();
 	}
 #endregion
 
