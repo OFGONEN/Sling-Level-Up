@@ -169,38 +169,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245dc21cc9428744fa28ad2d6ce7d327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableAfterStart: 0
   eventPairs:
-  - eventListener:
-      gameEvents:
-      - {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
-      - {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5545418623886406342}
-          m_TargetAssemblyTypeName: FFStudio.UI_LookAt, Assembly-CSharp
-          m_MethodName: ManualDisable
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 6316872551600914418}
-          m_TargetAssemblyTypeName: FFStudio.UIPopUpText, Assembly-CSharp
-          m_MethodName: CompleteTweens
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  - rid: 2955885672608038912
+  references:
+    version: 2
+    RefIds:
+    - rid: 2955885672608038912
+      type: {class: EventAndBasicResponseData, ns: FFStudio, asm: Assembly-CSharp}
+      data:
+        eventListener:
+          gameEvents:
+          - {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
+          - {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
+        unityEvent:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 6316872551600914418}
+              m_TargetAssemblyTypeName: FFStudio.UIPopUpText, Assembly-CSharp
+              m_MethodName: CompleteTweens
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+            - m_Target: {fileID: 5545418623886406342}
+              m_TargetAssemblyTypeName: FFStudio.UI_LookAt, Assembly-CSharp
+              m_MethodName: ManualDisable
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
 --- !u!1 &7993411041295938755
 GameObject:
   m_ObjectHideFlags: 0

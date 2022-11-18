@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 using System.IO;
 using System.Collections;
+using DG.Tweening;
 
 namespace FFStudio
 {
@@ -14,6 +15,12 @@ namespace FFStudio
 	[ Title( "Setup" ) ]
 		[ ValueDropdown( "SceneList" ), LabelText( "Scene Index" ) ] public int scene_index;
         [ LabelText( "Override As Active Scene" ) ] public bool scene_overrideAsActiveScene;
+        [ LabelText( "Sequence" ) ] public bool scene_sequence;
+        [ LabelText( "Stickman Start Power" ), Min( 1 ) ] public int stickman_power_start = 1;
+
+	[ Title( "Sequence" ) ]
+		[ LabelText( "Sequence Duration" ), ShowIf( "scene_sequence" ) ] public float scene_sequence_duration;
+		[ LabelText( "Sequence Ease" ), ShowIf( "scene_sequence" ) ] public Ease scene_sequence_ease;
 
 #if UNITY_EDITOR
 		static IEnumerable SceneList()

@@ -10,12 +10,44 @@ namespace FFStudio
     {
 #region Fields (Settings)
     // Info: You can use Title() attribute ONCE for every game-specific group of settings.
+    [ Title( "Stickman" ) ]
+		[ LabelText( "Stickman Rise Height" ) ] public float stickman_rise_height;
+		[ LabelText( "Stickman Rise Duration" ) ] public float stickman_rise_duration;
+		[ LabelText( "Stickman Rise Ease" ) ] public Ease stickman_rise_ease;
+		[ LabelText( "Stickman Launch Rotation Axis" ) ] public Vector3 stickman_launch_rotation_axis;
+		[ LabelText( "Stickman Launch Rotation Speed" ) ] public float stickman_launch_rotation_speed;
+		[ LabelText( "Stickman Launch Power" ) ] public Vector2 stickman_launch_power;
+		[ LabelText( "Stickman Cell Offset Height" ) ] public float stickman_cell_offset;
+		[ LabelText( "Stickman Cell Enemy Attack Offset" ) ] public float stickman_cell_enemy_attack_offset;
+		[ LabelText( "Stickman Cell Enemy Attack Duration" ) ] public float stickman_cell_enemy_attack_duration;
+		[ LabelText( "Stickman Cell Enemy Attack Ease" ) ] public Ease stickman_cell_enemy_attack_ease;
+		[ LabelText( "Stickman Cell Enemy Pushed Power" ) ] public Vector2 stickman_cell_enemy_pushed_force;
+		[ LabelText( "Stickman Spawn Delay Cell" ) ] public float stickman_spawn_delay_cell;
+		[ LabelText( "Stickman Spawn Delay Ground" ) ] public float stickman_spawn_delay_ground;
+		[ LabelText( "Stickman Spawn Delay FinishLine" ) ] public float stickman_spawn_delay_finishLine;
+
+    [ Title( "Enemy" ) ]
+		[ LabelText( "Force to give Enemy when its defated" ) ] public Vector2 enemy_defeat_force;
+		[ LabelText( "Enemy defeated ragdoll duration" ) ] public Vector2 enemy_defeat_duration;
+        [ LabelText( "Enemy Flip Value" ), Range( 0 , 1 ) ] public float enemy_flip_value;
+		[ LabelText( "Enemy Flip Duration" ) ] public float enemy_flip_duration;
+		[ LabelText( "Enemy Flip Ease" ) ] public Ease enemy_flip_ease;
+		[ LabelText( "Enemy Power To Currency Convert Ratio" ) ] public Vector2 enemy_power_conversion_rate;
     
     [ Title( "Camera" ) ]
-        [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;
+        [ LabelText( "Follow Speed" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed;
+        [ LabelText( "Follow Offset" ) ] public Vector3 camera_follow_offset;
+        [ LabelText( "Follow Zoom Value" ) ] public float camera_zoom_value;
+        [ LabelText( "Max Zoom Out Range" ) ] public Vector2 camera_zoomOut_value_range;
+        [ LabelText( "Max Zoom Out Speed" ), Min( 0 ) ] public float camera_zoomOut_value_speed;
+        [ LabelText( "Max Zoom In Duration" ) ] public float camera_zoomIn_duration;
+        [ LabelText( "Max Zoom In Ease" ) ] public Ease camera_zoomIn_ease;
+
     
     [ Title( "Project Setup", "These settings should not be edited by Level Designer(s).", TitleAlignments.Centered ) ]
         public int maxLevelCount;
+        [ LabelText( "Lateral Screen Percentage for Max Input Delta" ), SuffixLabel( "%" ), Range( 0, 1 ) ] public float game_input_maxDelta_percentage;
+        [ LabelText( "Game's Forward" ) ] public Vector3 game_forward = Vector3.right;
         
         // Info: 3 groups below (coming from template project) are foldout by design: They should remain hidden.
 		[ FoldoutGroup( "Remote Config" ) ] public bool useRemoteConfig_GameSettings;

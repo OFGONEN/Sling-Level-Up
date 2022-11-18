@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - DebugOnly
+  - Camera_Sequence_Start
   layers:
   - Default
   - TransparentFX
@@ -35,9 +36,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Interaction
+  - Player
   m_SortingLayers:
   - name: Default
     uniqueID: 0

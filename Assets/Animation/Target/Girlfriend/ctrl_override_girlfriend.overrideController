@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ctrl_override_girlfriend
+  m_Controller: {fileID: 9100000, guid: 5f9af232cd604694f8f3c6941a8c9c7f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 95515b3f3883aa54a98697628453df9e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1fc474ce5820eff44855f1019eba6ef6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 11038d3bfd18b9b42a23dfb7f9015e3d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 853411d21634b204caaa4d1660f27705, type: 2}

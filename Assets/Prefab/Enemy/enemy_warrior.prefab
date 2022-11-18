@@ -1,0 +1,1200 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &662150476957975582
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4787096851815772755}
+    m_Modifications:
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561031875577500481, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684700959909676866, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+      propertyPath: m_Name
+      value: gfx_stickman_enemy_warrior_ragdoll
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+--- !u!1 &126546005799967299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 644571865269673565, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7577013771633724118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126546005799967299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1859749147364630569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126546005799967299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2411417600292405905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126546005799967299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!95 &396817604099707737 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 914698959846610759, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1672084687856386944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2162887203014002590, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3083609021811736309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672084687856386944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3089990896281431984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672084687856386944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1411054080613550644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672084687856386944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &3008566458642481871 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2373675286171862737, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &977352044704060895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008566458642481871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2637851614049133763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008566458642481871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &5198509265575025277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008566458642481871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &3365361525106957131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2847475784642977621, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6259542557899120754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365361525106957131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &973270899936368789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365361525106957131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &7138961834777021963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365361525106957131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &3394691751294718263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2750626733420008745, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1506282111979531775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394691751294718263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2883051329796699318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394691751294718263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1333280141310204776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394691751294718263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &3723363876586384812 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4223362624778955186, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &48563756232638445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723363876586384812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8170807670382436032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723363876586384812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &3093585097934031041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723363876586384812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &6265756472486259854 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6900673556419078288, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5889680561025108662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6265756472486259854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1688234640514567375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6265756472486259854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &4556882204806502774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6265756472486259854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &6624323049708613826 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5971277152358757596, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8746082387472032520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624323049708613826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8429326157687389332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624323049708613826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &7065720622086015234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624323049708613826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &7072410590922865539 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7716444826547617693, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3683851290719336490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7072410590922865539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7839994103879372991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7072410590922865539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &7835118999942069807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7072410590922865539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8988457263194058505 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8470430991211146007, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8a486ce8902e940907ecf5391f3ee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &9130726171140697288 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8612770670228252886, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7572235514572900445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9130726171140697288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7955631575296048193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9130726171140697288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &8314703533859064696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9130726171140697288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &9182371062232163557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8529320221310394619, guid: 299058caeea3be141a409e5e8ed6bec7, type: 3}
+  m_PrefabInstance: {fileID: 662150476957975582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8312356656324475194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9182371062232163557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5cf41ea274c404ea73899fb5b80769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2883051329796699318}
+        m_TargetAssemblyTypeName: FFStudio.ColliderInterface, Assembly-CSharp
+        m_MethodName: OnTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7197985492810995512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9182371062232163557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857f2e2f305a45e385df2f38c4e044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_respond_data_array: []
+  trigger_respond_data_array:
+  - collision_layer: 31
+    trigger_event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1333280141310204776}
+          m_TargetAssemblyTypeName: ColliderTransmiter, Assembly-CSharp
+          m_MethodName: Transmit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &6489091842358354008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9182371062232163557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66fe589ef405464eb01117dfa62522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider_cache: 1
+  _collider: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7293719333175318851}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnPlayerTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1001 &7305886701270750613
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 25832106155183318, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: enemy_ragdoll
+      value: 
+      objectReference: {fileID: 8988457263194058505}
+    - target: {fileID: 25832106155183318, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: enemy_animator
+      value: 
+      objectReference: {fileID: 396817604099707737}
+    - target: {fileID: 1673588113593045338, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: eaab63313648775408046762c4917ab6, type: 2}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.09411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.53333336
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.99607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 154b7545e84e6b243946d43e6cd21ec9, type: 2}
+    - target: {fileID: 2956666119576066062, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4279798014
+      objectReference: {fileID: 0}
+    - target: {fileID: 3820213725720788279, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+      propertyPath: m_Name
+      value: enemy_warrior
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+--- !u!4 &4787096851815772755 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2813788820311435206, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+  m_PrefabInstance: {fileID: 7305886701270750613}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7293719333175318851 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 25832106155183318, guid: 1204ee3f37c0c437eab0674dc8da30d1, type: 3}
+  m_PrefabInstance: {fileID: 7305886701270750613}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c212f5ff7a33eb49bb975435e5e3670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

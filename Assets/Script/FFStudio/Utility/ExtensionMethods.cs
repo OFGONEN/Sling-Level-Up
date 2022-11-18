@@ -12,6 +12,7 @@ namespace FFStudio
 	public static class ExtensionMethods
 	{
 		public static readonly string SAVE_PATH = Application.persistentDataPath + "/Saves/";
+		public static readonly string Key_Currency = "currency";
 
 		static List< Transform > baseModelBones   = new List< Transform >( 96 );
 		static List< Transform > targetModelBones = new List< Transform >( 96 );
@@ -155,6 +156,11 @@ namespace FFStudio
 		{
 			/* Intentionally empty, by definition. */
 		}
+
+		public static void EmptyMethod( Collider _base, Collider other )
+		{
+			/* Intentionally empty, by definition. */
+		}
 		
 		public static void EmptyMethod( Vector2 vector2 )
 		{
@@ -229,6 +235,12 @@ namespace FFStudio
 			value.y = Mathf.Clamp( value.y, min.x, max.x );
 			value.z = Mathf.Clamp( value.z, min.y, max.y );
 			return value;
+		}
+
+		public static Vector3 MultiplyX( this Vector3 theVector, float cofactor )
+		{
+			theVector.x *= cofactor;
+			return theVector;
 		}
 
 		public static Vector3 SetX( this Vector3 theVector, float newX )
@@ -323,6 +335,13 @@ namespace FFStudio
 			transform.position    = data.position;
 			transform.eulerAngles = data.rotation;
 			transform.localScale  = data.scale;
+		}
+
+		public static void SetTransformDataLocal( this Transform transform, TransformData data )
+		{
+			transform.localPosition    = data.position;
+			transform.localEulerAngles = data.rotation;
+			transform.localScale       = data.scale;
 		}
 
 		// Takes root bones as parameters that are children of a humanoid model.
@@ -476,7 +495,7 @@ namespace FFStudio
 			for( var i = 0; i < childCount; i++ )
 				GameObject.DestroyImmediate( childs[ i ].gameObject );
 		}
-
+		
 		public static void ToggleKinematic( this Rigidbody rigidbody, bool value )
 		{
 			rigidbody.isKinematic = value;

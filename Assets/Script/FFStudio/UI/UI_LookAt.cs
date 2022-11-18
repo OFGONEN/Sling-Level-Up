@@ -11,6 +11,8 @@ namespace FFStudio
 	[ Title( "Setup" ) ]
         public SharedReferenceNotifier lookAt_Reference;
         public Vector3 lookAt_Axis;
+        public bool can_override;
+		public Vector3 lookAt_Axis_override;
 
 		Transform lookAt_Transform;
 		UnityMessage updateMethod;
@@ -29,6 +31,11 @@ namespace FFStudio
 		{
 			lookAt_Transform = lookAt_Reference.SharedValue as Transform;
 			updateMethod = LookAtTarget;
+		}
+
+		private void Start()
+		{
+			OnEnable();
 		}
 
 		void OnDisable()
@@ -53,6 +60,8 @@ namespace FFStudio
         void LookAtTarget()
         {
 			transform.LookAtAxis( lookAt_Transform.position, lookAt_Axis, -1f );
+
+			transform.eulerAngles = Vector3.Scale( transform.eulerAngles, lookAt_Axis_override );
 		}
 #endregion
 
