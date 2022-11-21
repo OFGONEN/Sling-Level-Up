@@ -29,6 +29,7 @@ namespace FFStudio
     [ Title( "Enemy" ) ]
 		[ LabelText( "Force to give Enemy when its defated" ) ] public Vector2 enemy_defeat_force;
 		[ LabelText( "Enemy defeated ragdoll duration" ) ] public Vector2 enemy_defeat_duration;
+        [ LabelText( "Enemy Flip Value" ), Range( 0 , 1 ) ] public float enemy_flip_value;
 		[ LabelText( "Enemy Flip Duration" ) ] public float enemy_flip_duration;
 		[ LabelText( "Enemy Flip Ease" ) ] public Ease enemy_flip_ease;
 		[ LabelText( "Enemy Power To Currency Convert Ratio" ) ] public Vector2 enemy_power_conversion_rate;

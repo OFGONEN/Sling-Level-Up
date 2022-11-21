@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     [ SerializeField ] Currency notif_currency;
     [ SerializeField ] GameEvent event_stickman_lost;
     [ SerializeField ] IntGameEvent event_stickman_won;
+    [ SerializeField ] GameEvent event_stickman_enemy_spawned;
     [ SerializeField ] ParticleSpawnEvent event_particle_hit;
 
   [ Title( "Setup" ) ]
@@ -51,12 +52,22 @@ public class Enemy : MonoBehaviour
 
 		enemy_cell_position = transform.localPosition;
 	}
+
+	private void Start()
+	{
+		event_stickman_enemy_spawned.Raise();
+	}
 #endregion
 
 #region API
 	public void OnPlayerTrigger( Collider enemy, Collider player ) // Info: Called from Enemy's own ragdoll collider 
 	{
 		onPlayerCollided( enemy, player );
+	}
+
+	public void OnPlayerSpawned()
+	{
+		OnStickmanLaunchFlipped( false );
 	}
 
 	public void EnableTriggerOnRagdoll() // Info: Called from Cell prefab

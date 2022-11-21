@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
@@ -11,6 +12,7 @@ namespace FFStudio
         [ Header( "Fired Events" ) ]
         public GameEvent levelFailedEvent;
         public GameEvent levelCompleted;
+        public GameEvent event_stickman_enemy_cleared;
 
         [ Header( "Level Releated" ) ]
         public SharedProgressNotifier notifier_progress;
@@ -21,18 +23,14 @@ namespace FFStudio
         UnityMessage onUpdate;
 
         Transform stickman_transform;
-        float stickman_finishLine_distance;
+        [ ShowInInspector, ReadOnly ] float stickman_enemy_count_spawned;
+        [ ShowInInspector, ReadOnly ] float stickman_enemy_count_lost;
 #endregion
 
 #region UnityAPI
         private void Awake()
         {
 			onUpdate = ExtensionMethods.EmptyMethod;
-		}
-
-        private void Update()
-        {
-			onUpdate();
 		}
 #endregion
 
@@ -53,35 +51,37 @@ namespace FFStudio
         // Info: Called from Editor.
         public void LevelRevealedResponse()
         {
-
-        }
+			// stickman_enemy_count_spawned = 0;
+			// stickman_enemy_count_lost = 0;
+		}
 
         // Info: Called from Editor.
         public void LevelStartedResponse()
         {
-			stickman_transform           = notif_stickman_follow_reference.sharedValue as Transform;
-			stickman_finishLine_distance = notif_finishLine_position.sharedValue.x - stickman_transform.position.x;
-
-			onUpdate = OnLevelProgressUpdate;
 		}
 
-        public void OnStickmanReachedFinishLine()
-        {
-			onUpdate = ExtensionMethods.EmptyMethod;
-			notifier_progress.SharedValue = 1f;
+		public void OnStickmanEnemySpawned()
+		{
+			stickman_enemy_count_spawned += 1;
 		}
 
-        public void OnLevelFailed()
+        public void OnStickmanEnemyLost()
         {
-			onUpdate = ExtensionMethods.EmptyMethod;
+			stickman_enemy_count_lost += 1;
+			notifier_progress.SharedValue = stickman_enemy_count_lost / ( float )stickman_enemy_count_spawned;
+
+            if( stickman_enemy_count_lost >= stickman_enemy_count_spawned )
+				event_stickman_enemy_cleared.Raise();
+		}
+
+        public void OnLevelFinished()
+        {
+			stickman_enemy_count_lost    = 0;
+			stickman_enemy_count_spawned = 0;
 		}
 #endregion
 
 #region Implementation
-        void OnLevelProgressUpdate()
-        {
-			notifier_progress.SharedValue = 1f - ( notif_finishLine_position.sharedValue.x - stickman_transform.position.x ) / stickman_finishLine_distance;
-		}
 #endregion
     }
 }

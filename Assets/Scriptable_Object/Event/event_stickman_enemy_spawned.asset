@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f00e84b9378a6418f01836d9495f1a, type: 3}
-  m_Name: notif_string_build
+  m_Script: {fileID: 11500000, guid: 531a668c6d72c1246979a97d639a327b, type: 3}
+  m_Name: event_stickman_enemy_spawned
   m_EditorClassIdentifier: 
-  sharedValue: IOS_18/11/22_Build-2
+  canRaiseOtherEvents: 0
+  eventsThatWillAlsoBeRaised: []
+  eventValue: 0
